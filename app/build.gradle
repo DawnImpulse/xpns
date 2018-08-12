@@ -1,0 +1,62 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.dawnimpulse.xpns"
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode version_code
+        versionName version_name
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+    repositories {
+        google()
+        maven { url "https://jitpack.io" }
+    }
+    defaultConfig {
+
+        // ... (applicationId, miSdkVersion, etc)
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+    }
+}
+
+dependencies {
+    def ktx_version = '0.3'
+    def support_version = '27.1.1'
+    def lifecycle_version = '1.1.1'
+    def room_version = '1.1.1'
+
+    // ----- ANDROID -----
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "androidx.core:core-ktx:$ktx_version"
+    implementation "android.arch.lifecycle:runtime:$lifecycle_version"
+    implementation "android.arch.persistence.room:runtime:$room_version"
+
+    // ----- 3RD PARTY -----
+
+    // ----- ANNOTATIONS -----
+    kapt "android.arch.persistence.room:compiler:$room_version"
+}
