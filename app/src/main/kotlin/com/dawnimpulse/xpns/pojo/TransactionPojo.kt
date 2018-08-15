@@ -2,6 +2,7 @@ package com.dawnimpulse.xpns.pojo
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
+import java.util.*
 
 /**
  * @info -
@@ -13,6 +14,12 @@ import android.arch.persistence.room.PrimaryKey
  * @note Updates :
  */
 @Entity(tableName = "transactions")
-data class Transactions(
-        @PrimaryKey var id: Int
+data class TransactionPojo(
+        @PrimaryKey
+        var _id: String,
+        var amount: Double,
+        var cid: String,
+        var syncState: Boolean,
+        var date: Date,
+        var note: String
 )

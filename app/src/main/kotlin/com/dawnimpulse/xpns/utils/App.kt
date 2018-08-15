@@ -1,6 +1,7 @@
 package com.dawnimpulse.xpns.utils
 
 import android.app.Application
+import com.amitshekhar.DebugDB
 
 
 /**
@@ -16,6 +17,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
+        DebugDB.getAddressLog();
+        Config.DbName = P(this).getActiveDb()
     }
 }

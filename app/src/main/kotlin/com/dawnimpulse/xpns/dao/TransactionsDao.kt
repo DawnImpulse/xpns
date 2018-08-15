@@ -1,10 +1,7 @@
 package com.dawnimpulse.xpns.dao
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.OnConflictStrategy
-import android.arch.persistence.room.Query
-import com.dawnimpulse.xpns.pojo.Transactions
+import android.arch.persistence.room.*
+import com.dawnimpulse.xpns.pojo.TransactionPojo
 
 /**
  * @info -
@@ -16,10 +13,19 @@ import com.dawnimpulse.xpns.pojo.Transactions
  * @note Updates :
  */
 @Dao
-public interface TransactionsDao{
+public interface TransactionsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(transaction:Transactions)
+    fun insert(transaction: TransactionPojo)
+
+    @Query("Select * from TRANSACTIONS where _id=:_id")
+    fun getItem(_id: String): List<TransactionPojo>
+
+    @Query("Select * from TRANSACTIONS order by DATE desc limit :limit offset :page")
+    fun getItems(page: Int,limit:Int): List<TransactionPojo>
 
     @Query("Select * from TRANSACTIONS")
-    fun fetchAll() : List<Transactions>
+    fun getAll(): List<TransactionPojo>?
+
+    @Delete
+    fun deleteItem(transaction: TransactionPojo)
 }
