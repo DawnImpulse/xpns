@@ -50,17 +50,22 @@ dependencies {
     def support_version = '27.1.1'
     def lifecycle_version = '1.1.1'
     def room_version = '1.1.1'
+    def paging_version = '1.0.1'
 
     // ----- ANDROID -----
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "com.android.support:recyclerview-v7:$support_version"
     implementation "androidx.core:core-ktx:$ktx_version"
     implementation "android.arch.lifecycle:runtime:$lifecycle_version"
     implementation "android.arch.persistence.room:runtime:$room_version"
+    implementation "android.arch.paging:runtime:$paging_version"
 
     // ----- 3RD PARTY -----
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.24.0"
+    implementation "com.fasterxml.uuid:java-uuid-generator:3.1.5"
     debugImplementation "com.amitshekhar.android:debug-db:1.0.4"
     // ----- ANNOTATIONS -----
+    kapt "android.arch.lifecycle:compiler:$lifecycle_version"
     kapt "android.arch.persistence.room:compiler:$room_version"
 }

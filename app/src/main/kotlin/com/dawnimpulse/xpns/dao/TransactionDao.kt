@@ -1,5 +1,6 @@
 package com.dawnimpulse.xpns.dao
 
+import android.arch.paging.DataSource
 import android.arch.persistence.room.*
 import com.dawnimpulse.xpns.pojo.TransactionPojo
 
@@ -13,19 +14,19 @@ import com.dawnimpulse.xpns.pojo.TransactionPojo
  * @note Updates :
  */
 @Dao
-public interface TransactionsDao {
+interface TransactionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(transaction: TransactionPojo)
 
-    @Query("Select * from TRANSACTIONS where _id=:_id")
+    @Query("SELECT * FROM transactions WHERE _id=:_id")
     fun getItem(_id: String): List<TransactionPojo>
 
-    @Query("Select * from TRANSACTIONS order by DATE desc limit :limit offset :page")
-    fun getItems(page: Int,limit:Int): List<TransactionPojo>
-
-    @Query("Select * from TRANSACTIONS")
-    fun getAll(): List<TransactionPojo>?
+    @Query("SELECT * FROM transactions ORDER BY date ,_id DESC")
+    fun getItems(): DataSource.Factory<Int, TransactionPojo>
 
     @Delete
     fun deleteItem(transaction: TransactionPojo)
+
+    @Query("DELETE FROM transactions WHERE _id=:_id")
+    fun deleteItem(_id: String)
 }

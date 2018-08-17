@@ -4,7 +4,8 @@ import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
-import com.dawnimpulse.xpns.dao.TransactionsDao
+import com.dawnimpulse.xpns.dao.CategoryDao
+import com.dawnimpulse.xpns.dao.TransactionDao
 import com.dawnimpulse.xpns.pojo.TransactionPojo
 
 
@@ -19,7 +20,8 @@ import com.dawnimpulse.xpns.pojo.TransactionPojo
  */
 @Database(entities = [TransactionPojo::class], version = 1)
 abstract class XpnsRoom : RoomDatabase() {
-    abstract fun transactionsDao(): TransactionsDao
+    abstract fun transactionsDao(): TransactionDao
+    abstract fun categoryDao(): CategoryDao
 
     // singleton pattern for using DAO
     companion object : SingletonHolder<XpnsRoom, Context, String>({ context, name ->

@@ -1,16 +1,19 @@
 package com.dawnimpulse.xpns.models
 
+import android.arch.lifecycle.LiveData
+import android.arch.paging.LivePagedListBuilder
+import android.arch.paging.PagedList
 import android.content.Context
-import com.dawnimpulse.xpns.dao.TransactionsDao
+import com.dawnimpulse.xpns.dao.TransactionDao
 import com.dawnimpulse.xpns.pojo.TransactionPojo
 import com.dawnimpulse.xpns.utils.Config
 import com.dawnimpulse.xpns.utils.F
 import com.dawnimpulse.xpns.utils.XpnsRoom
+import com.fasterxml.uuid.Generators
 import kotlinx.coroutines.experimental.launch
-import java.util.*
 
 /**
- * @info - creating direct functions to be used by other classes
+ * @info - creating direct functions to be frequency by other classes
  *
  * @author - Saksham
  * @note Last Branch Update - master
@@ -18,10 +21,10 @@ import java.util.*
  * @note Created on 2018-08-13 by Saksham
  * @note Updates :
  */
-class TransactionsModel(private val context: Context) {
+class TransactionModel(private val context: Context) {
 
     // dao instance
-    private fun dao(): TransactionsDao {
+    private fun dao(): TransactionDao {
         return XpnsRoom
                 .getInstance(context, Config.DbName)
                 .transactionsDao()
@@ -32,7 +35,7 @@ class TransactionsModel(private val context: Context) {
         launch {
             dao().insert(
                     TransactionPojo(
-                            UUID.randomUUID().toString(),
+                            Generators.timeBasedGenerator().generate().toString(),
                             amount.toDouble(),
                             cid,
                             false,
@@ -51,20 +54,15 @@ class TransactionsModel(private val context: Context) {
         }
     }
 
-    // get items after given _id in sorted manner
-    fun getItems(page: Int, limit: Int, callback: (List<TransactionPojo>?) -> Unit) {
-        launch {
-            var items = dao().getItems(page, limit)
-            callback(items)
-        }
-    }
-
-    //get all transactions
-    fun getAll(callback: (List<TransactionPojo>?) -> Unit) {
-        launch {
-            var items = dao().getAll()
-            callback(items)
-        }
+    // get all items paginated
+    fun getItems(): LiveData<PagedList<TransactionPojo>> {
+        return LivePagedListBuilder(
+                dao().getItems(),
+                PagedList.Config.Builder()
+                        .setPageSize(30)
+                        .setEnablePlaceholders(true)
+                        .build()
+        ).build()
     }
 
     //update an item
@@ -75,5 +73,10 @@ class TransactionsModel(private val context: Context) {
     //delete an item
     fun deleteItem(transactionPojo: TransactionPojo) {
         launch { dao().deleteItem(transactionPojo) }
+    }
+
+    //delete an item
+    fun deleteItem(_id: String) {
+        launch { dao().deleteItem(_id) }
     }
 }
