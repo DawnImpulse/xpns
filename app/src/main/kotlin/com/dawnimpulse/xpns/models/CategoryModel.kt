@@ -47,9 +47,9 @@ class CategoryModel(private val context: Context) {
     }
 
     // fetching a single item
-    fun getItem(_id: String, callback: (CategoryPojo?) -> Unit) {
+    fun getItem(id: String, callback: (CategoryPojo?) -> Unit) {
         launch {
-            callback(dao().getItem(_id))
+            callback(dao().getItem(id))
         }
     }
 
@@ -86,7 +86,7 @@ class CategoryModel(private val context: Context) {
     }
 
     //delete an item
-    fun deleteItem(_id: String) {
-        launch { dao().deleteItem(_id) }
+    fun deleteItem(id: String) {
+        launch { dao().deleteItem(id) }
     }
 }

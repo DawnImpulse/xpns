@@ -18,8 +18,8 @@ interface CategoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(categoryPojo: CategoryPojo)
 
-    @Query("SELECT * FROM category WHERE _id=:_id LIMIT 1")
-    fun getItem(_id: String): CategoryPojo
+    @Query("SELECT * FROM category WHERE id=:id LIMIT 1")
+    fun getItem(id: String): CategoryPojo
 
     @Query("SELECT * FROM category WHERE type=:type ORDER BY name")
     fun getItems(type: String): DataSource.Factory<Int, CategoryPojo>
@@ -30,6 +30,6 @@ interface CategoryDao {
     @Delete
     fun deleteItem(categoryPojo: CategoryPojo)
 
-    @Query("DELETE FROM category WHERE _id=:_id")
-    fun deleteItem(_id: String)
+    @Query("DELETE FROM category WHERE id=:id")
+    fun deleteItem(id: String)
 }

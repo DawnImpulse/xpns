@@ -13,10 +13,10 @@ import android.arch.persistence.room.Entity
  */
 @Entity(
         tableName = "category",
-        primaryKeys = ["_id"]
+        primaryKeys = ["id"]
 )
 data class CategoryPojo(
-        var _id: String, //unique id time based
+        var id: String, //unique id time based
         var name: String, //name of the category
         var parent: String?, //parent category _id if exists
         var url: String, //url to download icon from

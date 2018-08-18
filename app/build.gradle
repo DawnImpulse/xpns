@@ -55,6 +55,7 @@ dependencies {
     // ----- ANDROID -----
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "com.android.support:design:$support_version"
     implementation "com.android.support:recyclerview-v7:$support_version"
     implementation "androidx.core:core-ktx:$ktx_version"
     implementation "android.arch.lifecycle:runtime:$lifecycle_version"
@@ -64,6 +65,7 @@ dependencies {
     // ----- 3RD PARTY -----
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.24.0"
     implementation "com.fasterxml.uuid:java-uuid-generator:3.1.5"
+    implementation "it.sephiroth.android.library.bottomnavigation:bottom-navigation:2.0.1-rc1"
     debugImplementation "com.amitshekhar.android:debug-db:1.0.4"
     // ----- ANNOTATIONS -----
     kapt "android.arch.lifecycle:compiler:$lifecycle_version"

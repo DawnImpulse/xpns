@@ -1,7 +1,7 @@
 package com.dawnimpulse.xpns.utils
 
+import java.sql.Date
 import java.text.SimpleDateFormat
-import java.util.*
 
 /**
  * @info - creating simple as well as member functions
@@ -16,6 +16,6 @@ object F {
     // convert date & time strings to java.util.Date object
     fun toDate(date: String, time: String): Date {
         var sdf = SimpleDateFormat("yyyy-MM-dd'T'hh:mm")
-        return sdf.parse("${date}T$time")
+        return sdf.parse("${date}T$time") as Date
     }
 }

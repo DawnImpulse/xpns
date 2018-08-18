@@ -46,11 +46,9 @@ class TransactionModel(private val context: Context) {
     }
 
     // fetching a single item
-    fun getItem(_id: String, callback: (TransactionPojo?) -> Unit) {
+    fun getItem(id: String, callback: (TransactionPojo?) -> Unit) {
         launch {
-            var items = dao().getItem(_id)
-            var item = if (items != null) items[0] else null
-            callback(item)
+            callback(dao().getItem(id))
         }
     }
 
@@ -76,7 +74,7 @@ class TransactionModel(private val context: Context) {
     }
 
     //delete an item
-    fun deleteItem(_id: String) {
-        launch { dao().deleteItem(_id) }
+    fun deleteItem(id: String) {
+        launch { dao().deleteItem(id) }
     }
 }

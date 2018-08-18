@@ -18,15 +18,15 @@ interface TransactionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(transaction: TransactionPojo)
 
-    @Query("SELECT * FROM transactions WHERE _id=:_id")
-    fun getItem(_id: String): List<TransactionPojo>
+    @Query("SELECT * FROM transactions WHERE id=:id LIMIT 1")
+    fun getItem(id: String): TransactionPojo
 
-    @Query("SELECT * FROM transactions ORDER BY date ,_id DESC")
+    @Query("SELECT * FROM transactions ORDER BY date ,id DESC")
     fun getItems(): DataSource.Factory<Int, TransactionPojo>
 
     @Delete
     fun deleteItem(transaction: TransactionPojo)
 
-    @Query("DELETE FROM transactions WHERE _id=:_id")
-    fun deleteItem(_id: String)
+    @Query("DELETE FROM transactions WHERE id=:id")
+    fun deleteItem(id: String)
 }

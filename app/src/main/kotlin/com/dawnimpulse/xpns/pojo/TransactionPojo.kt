@@ -2,7 +2,8 @@ package com.dawnimpulse.xpns.pojo
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.ForeignKey
-import java.util.*
+import android.arch.persistence.room.Index
+import java.sql.Date
 
 
 /**
@@ -16,18 +17,19 @@ import java.util.*
  */
 @Entity(
         tableName = "transactions",
-        primaryKeys = ["_id"],
+        primaryKeys = ["id"],
         foreignKeys = [
             ForeignKey(
                     entity = CategoryPojo::class,
-                    parentColumns = arrayOf("_id"),
+                    parentColumns = arrayOf("id"),
                     childColumns = arrayOf("cid")
             )
-        ]
+        ],
+        indices = [Index("cid")]
 
 )
 data class TransactionPojo(
-        var _id: String, //unique id time based
+        var id: String, //unique id time based
         var amount: Double, //amount for the transaction
         var cid: String, //category foreign key reference
         var syncState: Boolean, //if transaction is synced
