@@ -61,12 +61,16 @@ dependencies {
     implementation "android.arch.lifecycle:runtime:$lifecycle_version"
     implementation "android.arch.persistence.room:runtime:$room_version"
     implementation "android.arch.paging:runtime:$paging_version"
+    implementation "com.android.support.constraint:constraint-layout:1.1.0"
 
     // ----- 3RD PARTY -----
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.24.0"
     implementation "com.fasterxml.uuid:java-uuid-generator:3.1.5"
     implementation "it.sephiroth.android.library.bottomnavigation:bottom-navigation:2.0.1-rc1"
+    implementation "com.android.support:support-v4:27.1.1"
+    implementation "uk.co.chrisjenx:calligraphy:2.3.0"
     debugImplementation "com.amitshekhar.android:debug-db:1.0.4"
+
     // ----- ANNOTATIONS -----
     kapt "android.arch.lifecycle:compiler:$lifecycle_version"
     kapt "android.arch.persistence.room:compiler:$room_version"

@@ -2,6 +2,8 @@ package com.dawnimpulse.xpns.utils
 
 import android.app.Application
 import com.amitshekhar.DebugDB
+import com.dawnimpulse.xpns.R
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 
 
 /**
@@ -19,5 +21,16 @@ class App : Application() {
         super.onCreate()
         DebugDB.getAddressLog();
         Config.DbName = P(this).getActiveDb()
+        setFonts()
+    }
+
+    /**
+     * Set fonts
+     */
+    private fun setFonts() {
+        CalligraphyConfig.initDefault(CalligraphyConfig.Builder()
+                .setDefaultFontPath("font/product_sans.xml")
+                .setFontAttrId(R.attr.fontPath)
+                .build())
     }
 }

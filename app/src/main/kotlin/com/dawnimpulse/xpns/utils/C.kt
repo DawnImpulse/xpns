@@ -13,4 +13,5 @@ object C {
     const val ACTIVE_DB = "activeDb"
     const val MAIN_DB = "mainDb"
     const val DEFAULT = "default"
+    const val TRANSACTIONS = "transactions"
 }
