@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.AddTransaction">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <!--Category-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginTop="32dp">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/addTCatIcon"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginLeft="24dp"
+                app:srcCompat="@drawable/vector_drawable_wallet" />
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/addTCatName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="24dp"
+                android:layout_toRightOf="@id/addTCatIcon"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="Category"
+                android:textSize="24sp" />
+
+            <!--<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="8dp"
+                android:text="Select ..."
+                android:textSize="12sp" />-->
+        </RelativeLayout>
+
+        <!--Amount-->
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/addTAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="48dp"
+            android:maxLines="1"
+            android:text="$ 0.00"
+            android:textSize="54sp" />
+
+        <!--Date & Time-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="54dp">
+
+            <!--Date-->
+            <LinearLayout
+                android:id="@+id/addTDateL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="48dp"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/vector_drawable_calendar_grey" />
+
+                <TextView
+                    android:id="@+id/addTDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="4dp"
+                    android:text="13 Aug '18" />
+
+            </LinearLayout>
+
+            <!--Time-->
+            <LinearLayout
+                android:id="@+id/addTTimeL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="48dp"
+                android:layout_marginRight="48dp"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/vector_drawable_clock_outline" />
+
+                <TextView
+                    android:id="@+id/addTTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="4dp"
+                    android:text="00:00" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <!--Buttons-->
+    <RelativeLayout
+        android:id="@+id/addTButtons"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true">
+
+        <!--Close-->
+        <LinearLayout
+            android:id="@+id/addTClose"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="24dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/vector_drawable_close" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="8dp"
+                android:letterSpacing="0.2"
+                android:text="CLOSE"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <!--Done-->
+        <LinearLayout
+            android:id="@+id/addTDone"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="24dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/vector_drawable_check" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="8dp"
+                android:letterSpacing="0.2"
+                android:text="DONE"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!--Wallet-->
+    <LinearLayout
+        android:id="@+id/addTWallet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/addTButtons"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="32dp">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/addTWalletIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/vector_drawable_wallet_grey" />
+
+        <TextView
+            android:id="@+id/addTWalletName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:letterSpacing="0.2"
+            android:text="MAIN WALLET"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!--Note-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/addTWallet"
+        android:layout_marginBottom="32dp"
+        android:orientation="vertical">
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/addTNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/addTWallet"
+            android:layout_gravity="center"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:gravity="center"
+            android:letterSpacing="0.2"
+            android:maxLines="2"
+            android:text="NOTE ..." />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/grey500" />
+    </LinearLayout>
+</RelativeLayout>
