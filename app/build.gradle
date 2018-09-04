@@ -6,7 +6,7 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.dawnimpulse.xpns"
+        applicationId "org.sourcei.xpns"
         minSdkVersion 19
         targetSdkVersion 27
         versionCode version_code
@@ -55,25 +55,36 @@ dependencies {
 
     // ----- ANDROID -----
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "com.android.support:support-v4:$support_version"
     implementation "com.android.support:appcompat-v7:$support_version"
     implementation "com.android.support:design:$support_version"
     implementation "com.android.support:recyclerview-v7:$support_version"
+    implementation "com.android.support.constraint:constraint-layout:1.1.0"
+
     implementation "androidx.core:core-ktx:$ktx_version"
+
     implementation "android.arch.lifecycle:runtime:$lifecycle_version"
     implementation "android.arch.persistence.room:runtime:$room_version"
     implementation "android.arch.paging:runtime:$paging_version"
-    implementation "com.android.support.constraint:constraint-layout:1.1.0"
+
+
+    // ----- Firebase -----
+    implementation "com.google.firebase:firebase-core:16.0.1"
+    implementation "com.google.firebase:firebase-database:16.0.1"
 
     // ----- 3RD PARTY -----
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.24.0"
-    implementation "com.fasterxml.uuid:java-uuid-generator:3.1.5"
-    implementation "it.sephiroth.android.library.bottomnavigation:bottom-navigation:2.0.1-rc1"
-    implementation "com.android.support:support-v4:27.1.1"
-    implementation "uk.co.chrisjenx:calligraphy:2.3.0"
-    implementation "me.grantland:autofittextview:0.2.1"
-    debugImplementation "com.amitshekhar.android:debug-db:1.0.4"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.24.0'
+    implementation 'com.fasterxml.uuid:java-uuid-generator:3.1.5'
+    implementation 'it.sephiroth.android.library.bottomnavigation:bottom-navigation:2.0.1-rc1'
+    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+    implementation 'me.grantland:autofittextview:0.2.1'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
 
     // ----- ANNOTATIONS -----
     kapt "android.arch.lifecycle:compiler:$lifecycle_version"
     kapt "android.arch.persistence.room:compiler:$room_version"
 }
+
+apply plugin: 'com.google.gms.google-services'
