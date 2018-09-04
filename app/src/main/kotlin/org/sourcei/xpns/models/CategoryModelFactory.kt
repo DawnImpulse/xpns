@@ -1,6 +1,6 @@
 package org.sourcei.xpns.models
 
-import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.*
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
 import android.content.Context
@@ -8,6 +8,7 @@ import com.fasterxml.uuid.Generators
 import kotlinx.coroutines.experimental.launch
 import org.sourcei.xpns.dao.CategoryDao
 import org.sourcei.xpns.pojo.CategoryPojo
+import org.sourcei.xpns.pojo.IconPojo
 import org.sourcei.xpns.source.RoomSource
 import org.sourcei.xpns.utils.Config
 
@@ -19,8 +20,19 @@ import org.sourcei.xpns.utils.Config
  *
  * @note Created on 2018-08-17 by Saksham
  * @note Updates :
+ *  Saksham - 2018 08 17 - master - adding lifecycle
  */
-class CategoryModel(private val context: Context) {
+class CategoryModelFactory(private val lifecycle: Lifecycle, private val context: Context)
+    : ViewModelProvider.NewInstanceFactory() {
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return CategoryModel(lifecycle, context) as T
+    }
+
+}
+
+
+class CategoryModel(private val lifecycle: Lifecycle, private val context: Context) : ViewModel() {
 
     // dao instance
     private fun dao(): CategoryDao {
@@ -30,17 +42,19 @@ class CategoryModel(private val context: Context) {
     }
 
     // insert a new category
-    fun insert(name: String, parent: String?, url: String, file: String?, type: String) {
+    fun insert(name: String, parent: String?, icon: IconPojo,
+               file: String?, type: String, color: String) {
         launch {
             dao().insert(
                     CategoryPojo(
                             Generators.timeBasedGenerator().generate().toString(),
                             name,
                             parent,
-                            url,
+                            icon,
                             file,
                             0,
-                            type
+                            type,
+                            color
                     )
             )
         }
@@ -49,7 +63,12 @@ class CategoryModel(private val context: Context) {
     // fetching a single item
     fun getItem(id: String, callback: (CategoryPojo?) -> Unit) {
         launch {
-            callback(dao().getItem(id))
+            lifecycle.addObserver(object : LifecycleObserver {
+                @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+                fun onResume() {
+                    callback(dao().getItem(id))
+                }
+            })
         }
     }
 

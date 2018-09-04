@@ -1,4 +1,4 @@
-package org.sourcei.xpns.holders
+package org.sourcei.xpns.viewholders
 
 import android.support.v7.widget.RecyclerView
 import android.view.View

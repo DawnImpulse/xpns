@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "68a236af64829a4ad8d1d448d44691ec",
+    "identityHash": "947d3bc22ba3b480e846d79812732800",
     "entities": [
       {
         "tableName": "category",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `parent` TEXT, `url` TEXT NOT NULL, `file` TEXT, `frequency` INTEGER NOT NULL, `type` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `parent` TEXT, `icon` TEXT NOT NULL, `file` TEXT, `frequency` INTEGER NOT NULL, `type` TEXT NOT NULL, `color` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -27,8 +27,8 @@
             "notNull": false
           },
           {
-            "fieldPath": "url",
-            "columnName": "url",
+            "fieldPath": "icon",
+            "columnName": "icon",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -47,6 +47,12 @@
           {
             "fieldPath": "type",
             "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "color",
+            "columnName": "color",
             "affinity": "TEXT",
             "notNull": true
           }
@@ -134,7 +140,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"68a236af64829a4ad8d1d448d44691ec\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"947d3bc22ba3b480e846d79812732800\")"
     ]
   }
 }

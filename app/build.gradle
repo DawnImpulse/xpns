@@ -63,10 +63,9 @@ dependencies {
 
     implementation "androidx.core:core-ktx:$ktx_version"
 
-    implementation "android.arch.lifecycle:runtime:$lifecycle_version"
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
     implementation "android.arch.persistence.room:runtime:$room_version"
     implementation "android.arch.paging:runtime:$paging_version"
-
 
     // ----- Firebase -----
     implementation "com.google.firebase:firebase-core:16.0.1"
@@ -79,7 +78,8 @@ dependencies {
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
     implementation 'me.grantland:autofittextview:0.2.1'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
-    
+
+    implementation 'com.android.support:support-v4:27.1.1'
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
 
     // ----- ANNOTATIONS -----

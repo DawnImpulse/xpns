@@ -10,10 +10,10 @@ import androidx.core.os.bundleOf
 import com.google.gson.Gson
 import org.sourcei.xpns.R
 import org.sourcei.xpns.handlers.ImageHandler
-import org.sourcei.xpns.holders.IconsViewHolder
 import org.sourcei.xpns.pojo.IconPojo
 import org.sourcei.xpns.utils.C
 import org.sourcei.xpns.utils.sheets.ModalSheetIcon
+import org.sourcei.xpns.viewholders.IconsViewHolder
 
 /**
  * @info -
@@ -43,7 +43,7 @@ class IconsAdapter(private val lifecycle: Lifecycle, private val icons: List<Ico
 
     // bind view
     override fun onBindViewHolder(holder: IconsViewHolder, position: Int) {
-        ImageHandler.setImageInView(lifecycle, holder.icon, icons[position].url64)
+        ImageHandler.setImageInView(lifecycle, holder.icon, icons[position].urls!!.url64)
         holder.icon.setOnClickListener {
             sheet.arguments = bundleOf(Pair(C.ICON, Gson().toJson(icons[position])))
             sheet.show((context as AppCompatActivity).supportFragmentManager, sheet.tag)

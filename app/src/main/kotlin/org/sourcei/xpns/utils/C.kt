@@ -18,6 +18,10 @@ object C {
     const val ICONS = "icons"
     const val LATEST = "latest"
     const val ICON = "icon"
+    const val TYPE = "type"
+    const val SELECT = "select"
+    const val CATEGORY = "category"
+    const val EXPENSE = "expense"
 
     const val DP48 = "48dp"
 

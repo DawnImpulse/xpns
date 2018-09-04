@@ -6,6 +6,7 @@ import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import android.content.Context
 import org.sourcei.xpns.convertors.DateConvertor
+import org.sourcei.xpns.convertors.IconConvertor
 import org.sourcei.xpns.dao.CategoryDao
 import org.sourcei.xpns.dao.TransactionDao
 import org.sourcei.xpns.pojo.CategoryPojo
@@ -23,7 +24,7 @@ import org.sourcei.xpns.utils.SingletonHolder
  * @note Updates :
  */
 @Database(entities = [CategoryPojo::class, TransactionPojo::class], version = 1)
-@TypeConverters(DateConvertor::class)
+@TypeConverters(DateConvertor::class, IconConvertor::class)
 abstract class RoomSource : RoomDatabase() {
     abstract fun categoryDao(): CategoryDao
     abstract fun transactionsDao(): TransactionDao

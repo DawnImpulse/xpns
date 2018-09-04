@@ -41,7 +41,7 @@ class ModalSheetIcon : RoundedBottomSheet(), View.OnClickListener {
     override fun onResume() {
         super.onResume()
 
-        ImageHandler.setImageInView(lifecycle, sheetIconI, icon.url64)
+        ImageHandler.setImageInView(lifecycle, sheetIconI, icon.urls!!.url64)
     }
 
     // on click
@@ -50,7 +50,7 @@ class ModalSheetIcon : RoundedBottomSheet(), View.OnClickListener {
             sheetIconSelect.id -> {
                 var intent = Intent()
                 intent.putExtra(C.ICON, Gson().toJson(icon))
-                activity!!.setResult(RESULT_OK,intent)
+                activity!!.setResult(RESULT_OK, intent)
                 activity!!.finish()
             }
         }

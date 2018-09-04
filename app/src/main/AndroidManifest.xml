@@ -26,10 +26,12 @@
             android:name=".activities.AddTransaction"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <!--Icons List-->
+        <!-- Icons List -->
         <activity
             android:name=".activities.IconsActivity"
             android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".activities.CategoryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
