@@ -1,5 +1,6 @@
 package org.sourcei.xpns.activities
 
+import android.app.Activity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -38,5 +39,11 @@ class IconsActivity : AppCompatActivity() {
                 iconsRecycler.adapter = adapter
             }
         }
+    }
+
+    // if back pressed
+    override fun onBackPressed() {
+        setResult(Activity.RESULT_CANCELED)
+        finish()
     }
 }

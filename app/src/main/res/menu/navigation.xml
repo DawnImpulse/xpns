@@ -19,22 +19,22 @@
     app:bbn_rippleColor="#33ffffff">
     <item
         android:id="@+id/home"
-        android:icon="@drawable/vector_drawable_home"
+        android:icon="@drawable/vd_home"
         android:title="Home" />
     <item
         android:id="@+id/stats"
-        android:icon="@drawable/vector_drawable_poll"
+        android:icon="@drawable/vd_poll"
         android:title="Statistics" />
     <item
         android:id="@+id/addT"
-        android:icon="@drawable/vector_drawable_plus_circle"
+        android:icon="@drawable/vd_plus_circle"
         android:title="New" />
     <item
         android:id="@+id/history"
-        android:icon="@drawable/vector_drawable_calendar"
+        android:icon="@drawable/vd_calendar"
         android:title="History" />
     <item
         android:id="@+id/navigation"
-        android:icon="@drawable/vector_drawable_chevron_up"
+        android:icon="@drawable/vd_chevron_up"
         android:title="Navigation" />
 </menu>

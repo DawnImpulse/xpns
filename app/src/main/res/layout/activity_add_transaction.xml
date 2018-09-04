@@ -23,7 +23,7 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_marginLeft="24dp"
-                app:srcCompat="@drawable/vector_drawable_wallet" />
+                app:srcCompat="@drawable/vd_wallet" />
 
             <me.grantland.widget.AutofitTextView
                 android:id="@+id/addTCatName"
@@ -76,7 +76,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center"
-                    app:srcCompat="@drawable/vector_drawable_calendar_grey" />
+                    app:srcCompat="@drawable/vd_calendar_grey" />
 
                 <TextView
                     android:id="@+id/addTDate"
@@ -102,7 +102,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center"
-                    app:srcCompat="@drawable/vector_drawable_clock_outline" />
+                    app:srcCompat="@drawable/vd_clock_outline" />
 
                 <TextView
                     android:id="@+id/addTTime"
@@ -138,7 +138,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/vector_drawable_close" />
+                app:srcCompat="@drawable/vd_close" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -166,7 +166,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/vector_drawable_check" />
+                app:srcCompat="@drawable/vd_check_grey" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -194,7 +194,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="center"
-            app:srcCompat="@drawable/vector_drawable_wallet_grey" />
+            app:srcCompat="@drawable/vd_wallet_grey" />
 
         <TextView
             android:id="@+id/addTWalletName"

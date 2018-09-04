@@ -10,6 +10,7 @@ package org.sourcei.xpns.pojo
  * @note Updates :
  */
 data class IconPojo(
+        val id: String = "",
         val name: String = "",
         val url64: String = "",
         val tags: List<String>? = null,

@@ -17,6 +17,9 @@ object C {
     const val TRANSACTIONS = "transactions"
     const val ICONS = "icons"
     const val LATEST = "latest"
+    const val ICON = "icon"
 
     const val DP48 = "48dp"
+
+    const val ICON_REQUEST_CODE = 1023
 }
