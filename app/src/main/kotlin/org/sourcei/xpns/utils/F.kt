@@ -25,4 +25,9 @@ object F {
         return sDate;
     }
 
+    // round off a number to two decimals
+    fun roundOff2Decimal(number: Double): Double {
+        return Math.round(number * 100.0) / 100.0
+    }
+
 }

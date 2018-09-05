@@ -23,6 +23,7 @@ object C {
     const val CATEGORY = "category"
     const val EXPENSE = "expense"
     const val NAME = "name"
+    const val AMOUNT = "amount"
 
     const val DP48 = "48dp"
 
