@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "947d3bc22ba3b480e846d79812732800",
+    "identityHash": "c75234977685d0a73a1b892dc142ffe8",
     "entities": [
       {
         "tableName": "category",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `parent` TEXT, `icon` TEXT NOT NULL, `file` TEXT, `frequency` INTEGER NOT NULL, `type` TEXT NOT NULL, `color` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `parent` TEXT, `icon` TEXT NOT NULL, `frequency` INTEGER NOT NULL, `type` TEXT NOT NULL, `color` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -31,12 +31,6 @@
             "columnName": "icon",
             "affinity": "TEXT",
             "notNull": true
-          },
-          {
-            "fieldPath": "file",
-            "columnName": "file",
-            "affinity": "TEXT",
-            "notNull": false
           },
           {
             "fieldPath": "frequency",
@@ -140,7 +134,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"947d3bc22ba3b480e846d79812732800\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"c75234977685d0a73a1b892dc142ffe8\")"
     ]
   }
 }

@@ -11,8 +11,8 @@ import com.google.gson.Gson
 import org.sourcei.xpns.R
 import org.sourcei.xpns.handlers.ImageHandler
 import org.sourcei.xpns.pojo.IconPojo
+import org.sourcei.xpns.sheets.ModalSheetIcon
 import org.sourcei.xpns.utils.C
-import org.sourcei.xpns.utils.sheets.ModalSheetIcon
 import org.sourcei.xpns.viewholders.IconsViewHolder
 
 /**

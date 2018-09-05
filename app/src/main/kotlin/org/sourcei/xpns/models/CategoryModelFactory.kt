@@ -42,8 +42,7 @@ class CategoryModel(private val lifecycle: Lifecycle, private val context: Conte
     }
 
     // insert a new category
-    fun insert(name: String, parent: String?, icon: IconPojo,
-               file: String?, type: String, color: String) {
+    fun insert(name: String, parent: String?, icon: IconPojo, type: String, color: String) {
         launch {
             dao().insert(
                     CategoryPojo(
@@ -51,7 +50,6 @@ class CategoryModel(private val lifecycle: Lifecycle, private val context: Conte
                             name,
                             parent,
                             icon,
-                            file,
                             0,
                             type,
                             color

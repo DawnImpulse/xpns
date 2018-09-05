@@ -20,7 +20,6 @@ data class CategoryPojo(
         var name: String, //name of the category
         var parent: String?, //parent category _id if exists
         var icon: IconPojo, //icon pojo
-        var file: String?, //path to the icon in storage if exists
         var frequency: Int, //number of times category is frequency
         var type: String, //saving , expense, bill etc
         var color: String //additional color input

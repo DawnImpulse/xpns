@@ -38,9 +38,9 @@ class CategoryViewHolder(private val parent: ViewGroup,
 
     // binding data to layout
     fun bindTo(category: CategoryPojo?) {
-        category.let {
+        category?.let {
             val category = it!!
-            val colorL = image.background.current as GradientDrawable
+            val colorL = color.background.current as GradientDrawable
 
             ImageHandler.setImageInView(lifecycle, image, category.icon.urls!!.url64)
             colorL.setColor(Color.parseColor(category.color))

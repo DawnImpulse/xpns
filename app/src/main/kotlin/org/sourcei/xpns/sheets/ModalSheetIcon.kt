@@ -1,4 +1,4 @@
-package org.sourcei.xpns.utils.sheets
+package org.sourcei.xpns.sheets
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
@@ -35,6 +35,7 @@ class ModalSheetIcon : RoundedBottomSheet(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         icon = Gson().fromJson(arguments!!.getString(C.ICON), IconPojo::class.java)
+        sheetIconSelect.setOnClickListener(this)
     }
 
     // on resume

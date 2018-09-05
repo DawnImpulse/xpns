@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import androidx.core.widget.toast
 import com.dawnimpulse.wallup.utils.L
 import com.google.gson.Gson
@@ -34,6 +35,8 @@ class IconsActivity : AppCompatActivity() {
                 L.d(NAME, error.toString())
             } else {
                 L.d(NAME, Gson().toJson(details))
+                iconsProgress.visibility = View.GONE
+                iconsRecycler.visibility = View.VISIBLE
                 var adapter = IconsAdapter(lifecycle, details as List<IconPojo>)
                 iconsRecycler.layoutManager = LinearLayoutManager(this)
                 iconsRecycler.adapter = adapter

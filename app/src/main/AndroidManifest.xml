@@ -13,7 +13,7 @@
         <!-- Main Activity -->
         <activity
             android:name=".activities.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,19 +24,28 @@
         <!-- Add Transaction -->
         <activity
             android:name=".activities.AddTransaction"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.Fullscreen" />
 
         <!-- Icons List -->
         <activity
             android:name=".activities.IconsActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name=".activities.CategoryActivity">
+            android:theme="@style/AppTheme.Fullscreen"></activity>
+
+        <!--Category list-->
+        <activity android:name=".activities.CategoryActivity"
+            android:theme="@style/AppTheme.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <!--Add category-->
+        <activity
+            android:name=".activities.AddCategoryActivity"
+            android:theme="@style/AppTheme.Fullscreen">
+
         </activity>
     </application>
 
