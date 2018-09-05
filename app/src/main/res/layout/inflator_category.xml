@@ -40,12 +40,13 @@
         android:layout_toRightOf="@id/categoryImage"
         android:maxLines="1"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginLeft="16dp"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="4dp"
         android:layout_toRightOf="@id/categoryImage"

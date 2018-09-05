@@ -1,11 +1,12 @@
 package org.sourcei.xpns.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import org.sourcei.xpns.R
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation
 import kotlinx.android.synthetic.main.activity_main.*
+import org.sourcei.xpns.R
 import org.sourcei.xpns.fragments.TransactionsFragment
 import org.sourcei.xpns.utils.C
 import org.sourcei.xpns.utils.ViewPagerAdapter
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity(), BottomNavigation.OnMenuItemSelectionLi
      */
     override fun onMenuItemSelect(p0: Int, position: Int, p2: Boolean) {
         if (position == 2) {
-            //
+            startActivity(Intent(this,AddTransaction::class.java))
         } else if (position == 4) {
             //
         } else {

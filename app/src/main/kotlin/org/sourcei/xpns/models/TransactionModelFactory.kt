@@ -1,12 +1,16 @@
 package org.sourcei.xpns.models
 
+import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
 import android.content.Context
 import com.fasterxml.uuid.Generators
 import kotlinx.coroutines.experimental.launch
 import org.sourcei.xpns.dao.TransactionDao
+import org.sourcei.xpns.pojo.TransactionCPojo
 import org.sourcei.xpns.pojo.TransactionPojo
 import org.sourcei.xpns.source.RoomSource
 import org.sourcei.xpns.utils.Config
@@ -20,8 +24,18 @@ import org.sourcei.xpns.utils.F
  *
  * @note Created on 2018-08-13 by Saksham
  * @note Updates :
+ * Saksham - 2018 09 05 - master - transaction factory model
  */
-class TransactionModel(private val context: Context) {
+class TransactionModelFactory(private val lifecycle: Lifecycle, private val context: Context)
+    : ViewModelProvider.NewInstanceFactory() {
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return TransactionModel(lifecycle, context) as T
+    }
+
+}
+
+class TransactionModel(private val lifecycle: Lifecycle,private val context: Context) : ViewModel(){
 
     // dao instance
     private fun dao(): TransactionDao {
@@ -46,14 +60,14 @@ class TransactionModel(private val context: Context) {
     }
 
     // fetching a single item
-    fun getItem(id: String, callback: (TransactionPojo?) -> Unit) {
+    fun getItem(id: String, callback: (TransactionCPojo?) -> Unit) {
         launch {
             callback(dao().getItem(id))
         }
     }
 
     // get all items paginated
-    fun getItems(): LiveData<PagedList<TransactionPojo>> {
+    fun getItems(): LiveData<PagedList<TransactionCPojo>> {
         return LivePagedListBuilder(
                 dao().getItems(),
                 PagedList.Config.Builder()

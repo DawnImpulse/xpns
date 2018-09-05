@@ -14,6 +14,7 @@
 
         <!--CategoryAdapter-->
         <RelativeLayout
+            android:id="@+id/addTCatL"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:layout_marginTop="32dp">

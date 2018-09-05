@@ -16,6 +16,13 @@ object F {
     // convert date & time strings to java.util.Date object
     fun toDate(date: String, time: String): Date {
         var sdf = SimpleDateFormat("yyyy-MM-dd'T'hh:mm")
-        return sdf.parse("${date}T$time") as Date
+        return convertUtilToSql(sdf.parse("${date}T$time"))
     }
+
+    // convert util date to sql date
+    fun convertUtilToSql(date: java.util.Date): Date {
+        var sDate = Date(date.time);
+        return sDate;
+    }
+
 }

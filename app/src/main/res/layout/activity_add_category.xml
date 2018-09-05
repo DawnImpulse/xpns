@@ -125,7 +125,8 @@
 
         <me.grantland.widget.AutofitTextView
             android:id="@+id/addCName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="center"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:letterSpacing="0.1"

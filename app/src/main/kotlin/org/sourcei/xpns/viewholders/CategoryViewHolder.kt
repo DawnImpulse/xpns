@@ -52,7 +52,6 @@ class CategoryViewHolder(private val parent: ViewGroup,
                     (context as AppCompatActivity).setResult(Activity.RESULT_OK, intent)
                     context.finish()
                 }
-
             }
         }
     }

@@ -60,7 +60,7 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
             }
             addCDone.id -> {
                 model.insert(
-                        addCName.text.toString(),
+                        addCName.text.toString().trim(),
                         null,
                         icon,
                         C.EXPENSE,
