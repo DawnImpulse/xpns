@@ -4,22 +4,22 @@ import android.arch.lifecycle.*
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
 import android.content.Context
-import com.fasterxml.uuid.Generators
 import kotlinx.coroutines.experimental.launch
 import org.sourcei.xpns.dao.CategoryDao
 import org.sourcei.xpns.pojo.CategoryPojo
 import org.sourcei.xpns.pojo.IconPojo
 import org.sourcei.xpns.source.RoomSource
 import org.sourcei.xpns.utils.Config
+import java.util.*
 
 /**
  * @info -
  *
  * @author - Saksham
- * @note Last Branch Update - master
+ * @tnote Last Branch Update - master
  *
- * @note Created on 2018-08-17 by Saksham
- * @note Updates :
+ * @tnote Created on 2018-08-17 by Saksham
+ * @tnote Updates :
  *  Saksham - 2018 08 17 - master - adding lifecycle
  */
 class CategoryModelFactory(private val lifecycle: Lifecycle, private val context: Context)
@@ -46,13 +46,15 @@ class CategoryModel(private val lifecycle: Lifecycle, private val context: Conte
         launch {
             dao().insert(
                     CategoryPojo(
-                            Generators.timeBasedGenerator().generate().toString(),
+                            0,
+                            UUID.randomUUID().toString(),
                             name,
                             parent,
                             icon,
                             0,
                             type,
-                            color
+                            color,
+                            false
                     )
             )
         }

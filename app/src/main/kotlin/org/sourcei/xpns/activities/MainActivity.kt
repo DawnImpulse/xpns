@@ -15,10 +15,10 @@ import org.sourcei.xpns.utils.ViewPagerAdapter
  * @info -
  *
  * @author - Saksham
- * @note Last Branch Update - master
+ * @tnote Last Branch Update - master
  *
- * @note Created on 2018-08-12 by Saksham
- * @note Updates :
+ * @tnote Created on 2018-08-12 by Saksham
+ * @tnote Updates :
  */
 class MainActivity : AppCompatActivity(), BottomNavigation.OnMenuItemSelectionListener, ViewPager.OnPageChangeListener {
     private var lastItemSelected = 0

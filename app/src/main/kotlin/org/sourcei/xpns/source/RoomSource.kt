@@ -18,10 +18,10 @@ import org.sourcei.xpns.utils.SingletonHolder
  * @info -
  *
  * @author - Saksham
- * @note Last Branch Update - master
+ * @tnote Last Branch Update - master
  *
- * @note Created on 2018-08-12 by Saksham
- * @note Updates :
+ * @tnote Created on 2018-08-12 by Saksham
+ * @tnote Updates :
  */
 @Database(entities = [CategoryPojo::class, TransactionPojo::class], version = 1)
 @TypeConverters(DateConvertor::class, IconConvertor::class)

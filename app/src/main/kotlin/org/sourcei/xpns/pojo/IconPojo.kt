@@ -4,19 +4,19 @@ package org.sourcei.xpns.pojo
  * @info -
  *
  * @author - Saksham
- * @note Last Branch Update - master
+ * @tnote Last Branch Update - master
  *
- * @note Created on 2018-09-03 by Saksham
- * @note Updates :
+ * @tnote Created on 2018-09-03 by Saksham
+ * @tnote Updates :
  */
 data class IconPojo(
-        val id: String = "",
-        val name: String = "",
-        val urls: IconUrls? = null,
-        val tags: List<String>? = null,
-        val author: String? = null,
-        val authorLink: String? = null,
-        val authorDp: String? = null
+        val iid: String = "",
+        val iname: String = "",
+        val iurls: IconUrls? = null,
+        val itags: List<String>? = null,
+        val iauthor: String? = null,
+        val iauthorLink: String? = null,
+        val iauthorDp: String? = null
 )
 
 data class IconUrls(

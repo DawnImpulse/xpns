@@ -1,26 +1,31 @@
 package org.sourcei.xpns.pojo
 
 import android.arch.persistence.room.Entity
+import android.arch.persistence.room.Index
+import android.arch.persistence.room.PrimaryKey
 
 /**
  * @info -
  *
  * @author - Saksham
- * @note Last Branch Update - master
+ * @tnote Last Branch Update - master
  *
- * @note Created on 2018-08-17 by Saksham
- * @note Updates :
+ * @tnote Created on 2018-08-17 by Saksham
+ * @tnote Updates :
  */
 @Entity(
         tableName = "category",
-        primaryKeys = ["id"]
+        indices = [Index(value = "cid", unique = true)]
 )
 data class CategoryPojo(
-        var id: String, //unique id time based
-        var name: String, //name of the category
-        var parent: String?, //parent category _id if exists
-        var icon: IconPojo, //icon pojo
-        var frequency: Int, //number of times category is frequency
-        var type: String, //saving , expense, bill etc
-        var color: String //additional color input
+        @PrimaryKey(autoGenerate = true)
+        var caid: Int, //auto increment tcid
+        var cid: String, // uuid
+        var cname: String, //cname of the category
+        var cparent: String?, //cparent category _id if exists
+        var cicon: IconPojo, //cicon pojo
+        var cfrequency: Int, //number of times category is cfrequency
+        var ctype: String, //saving , expense, bill etc
+        var ccolor: String, //additional ccolor input
+        var csyncState: Boolean //if transaction is synced
 )

@@ -2,78 +2,16 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "c75234977685d0a73a1b892dc142ffe8",
+    "identityHash": "8ecae7e3f2d76b3c3841d6dc692b78e3",
     "entities": [
       {
         "tableName": "category",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `parent` TEXT, `icon` TEXT NOT NULL, `frequency` INTEGER NOT NULL, `type` TEXT NOT NULL, `color` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`caid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cid` TEXT NOT NULL, `cname` TEXT NOT NULL, `cparent` TEXT, `cicon` TEXT NOT NULL, `cfrequency` INTEGER NOT NULL, `ctype` TEXT NOT NULL, `ccolor` TEXT NOT NULL, `csyncState` INTEGER NOT NULL)",
         "fields": [
           {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "name",
-            "columnName": "name",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "parent",
-            "columnName": "parent",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "icon",
-            "columnName": "icon",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "frequency",
-            "columnName": "frequency",
+            "fieldPath": "caid",
+            "columnName": "caid",
             "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "type",
-            "columnName": "type",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "color",
-            "columnName": "color",
-            "affinity": "TEXT",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "id"
-          ],
-          "autoGenerate": false
-        },
-        "indices": [],
-        "foreignKeys": []
-      },
-      {
-        "tableName": "transactions",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `amount` REAL NOT NULL, `cid` TEXT NOT NULL, `syncState` INTEGER NOT NULL, `date` INTEGER NOT NULL, `note` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`cid`) REFERENCES `category`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
-        "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "amount",
-            "columnName": "amount",
-            "affinity": "REAL",
             "notNull": true
           },
           {
@@ -83,38 +21,135 @@
             "notNull": true
           },
           {
-            "fieldPath": "syncState",
-            "columnName": "syncState",
+            "fieldPath": "cname",
+            "columnName": "cname",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cparent",
+            "columnName": "cparent",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "cicon",
+            "columnName": "cicon",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cfrequency",
+            "columnName": "cfrequency",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "date",
-            "columnName": "date",
+            "fieldPath": "ctype",
+            "columnName": "ctype",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ccolor",
+            "columnName": "ccolor",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "csyncState",
+            "columnName": "csyncState",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "caid"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_category_cid",
+            "unique": true,
+            "columnNames": [
+              "cid"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_category_cid` ON `${TABLE_NAME}` (`cid`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "transactions",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`taid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `tid` TEXT NOT NULL, `tamount` REAL NOT NULL, `tcid` TEXT NOT NULL, `tsyncState` INTEGER NOT NULL, `tdate` INTEGER NOT NULL, `tnote` TEXT, FOREIGN KEY(`tcid`) REFERENCES `category`(`cid`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "taid",
+            "columnName": "taid",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "note",
-            "columnName": "note",
+            "fieldPath": "tid",
+            "columnName": "tid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tamount",
+            "columnName": "tamount",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tcid",
+            "columnName": "tcid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tsyncState",
+            "columnName": "tsyncState",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tdate",
+            "columnName": "tdate",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tnote",
+            "columnName": "tnote",
             "affinity": "TEXT",
             "notNull": false
           }
         ],
         "primaryKey": {
           "columnNames": [
-            "id"
+            "taid"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
         "indices": [
           {
-            "name": "index_transactions_cid",
+            "name": "index_transactions_tcid",
             "unique": false,
             "columnNames": [
-              "cid"
+              "tcid"
             ],
-            "createSql": "CREATE  INDEX `index_transactions_cid` ON `${TABLE_NAME}` (`cid`)"
+            "createSql": "CREATE  INDEX `index_transactions_tcid` ON `${TABLE_NAME}` (`tcid`)"
+          },
+          {
+            "name": "index_transactions_tid",
+            "unique": true,
+            "columnNames": [
+              "tid"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_transactions_tid` ON `${TABLE_NAME}` (`tid`)"
           }
         ],
         "foreignKeys": [
@@ -123,10 +158,10 @@
             "onDelete": "NO ACTION",
             "onUpdate": "NO ACTION",
             "columns": [
-              "cid"
+              "tcid"
             ],
             "referencedColumns": [
-              "id"
+              "cid"
             ]
           }
         ]
@@ -134,7 +169,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"c75234977685d0a73a1b892dc142ffe8\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"8ecae7e3f2d76b3c3841d6dc692b78e3\")"
     ]
   }
 }

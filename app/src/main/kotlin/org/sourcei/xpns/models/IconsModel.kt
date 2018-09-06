@@ -9,10 +9,10 @@ import org.sourcei.xpns.repository.RealtimeRepository
  * @info -
  *
  * @author - Saksham
- * @note Last Branch Update - master
+ * @tnote Last Branch Update - master
  *
- * @note Created on 2018-09-04 by Saksham
- * @note Updates :
+ * @tnote Created on 2018-09-04 by Saksham
+ * @tnote Updates :
  */
 class IconsModel(private val lifecycle: Lifecycle) {
 

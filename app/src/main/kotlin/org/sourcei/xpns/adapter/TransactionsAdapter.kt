@@ -11,10 +11,10 @@ import org.sourcei.xpns.viewholders.TransactionViewHolder
  * @info -
  *
  * @author - Saksham
- * @note Last Branch Update - master
+ * @tnote Last Branch Update - master
  *
- * @note Created on 2018-09-05 by Saksham
- * @note Updates :
+ * @tnote Created on 2018-09-05 by Saksham
+ * @tnote Updates :
  */
 class TransactionsAdapter(private val lifecycle: Lifecycle)
     : PagedListAdapter<TransactionCPojo, TransactionViewHolder>(diffCallback) {
@@ -34,7 +34,7 @@ class TransactionsAdapter(private val lifecycle: Lifecycle)
         private val diffCallback = object : DiffUtil.ItemCallback<TransactionCPojo>() {
 
             override fun areItemsTheSame(oldItem: TransactionCPojo, newItem: TransactionCPojo): Boolean =
-                    oldItem.id == newItem.id
+                    oldItem.obj.tid == newItem.obj.tid
 
             /**
              * Note that in kotlin, == checking on data classes compares all contents, but in Java,

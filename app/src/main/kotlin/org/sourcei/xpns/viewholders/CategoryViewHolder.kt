@@ -20,10 +20,10 @@ import org.sourcei.xpns.utils.C
  * @info -
  *
  * @author - Saksham
- * @note Last Branch Update - master
+ * @tnote Last Branch Update - master
  *
- * @note Created on 2018-09-04 by Saksham
- * @note Updates :
+ * @tnote Created on 2018-09-04 by Saksham
+ * @tnote Updates :
  */
 class CategoryViewHolder(private val parent: ViewGroup,
                          private val lifecycle: Lifecycle,
@@ -42,9 +42,9 @@ class CategoryViewHolder(private val parent: ViewGroup,
             val category = it!!
             val colorL = color.background.current as GradientDrawable
 
-            ImageHandler.setImageInView(lifecycle, image, category.icon.urls!!.url64)
-            colorL.setColor(Color.parseColor(category.color))
-            name.text = category.name
+            ImageHandler.setImageInView(lifecycle, image, category.cicon.iurls!!.url64)
+            colorL.setColor(Color.parseColor(category.ccolor))
+            name.text = category.cname
             layout.setOnClickListener {
                 if (select) {
                     val intent = Intent()

@@ -1,5 +1,6 @@
 package org.sourcei.xpns.activities
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.ViewPager
@@ -16,10 +17,10 @@ import org.sourcei.xpns.utils.ViewPagerAdapter
  * @info -
  *
  * @author - Saksham
- * @note Last Branch Update - master
+ * @tnote Last Branch Update - master
  *
- * @note Created on 2018-09-04 by Saksham
- * @note Updates :
+ * @tnote Created on 2018-09-04 by Saksham
+ * @tnote Updates :
  */
 class CategoryActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -32,7 +33,7 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
 
-        //select = intent.extras.getBoolean(C.SELECT)
+        select = intent.extras.getBoolean(C.SELECT)
         setupViewPager(categoryViewPager)
         categoryFab.setOnClickListener(this)
     }
@@ -57,5 +58,11 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
         categoryFragment.arguments = bundle
         pagerAdapter.addFragment(categoryFragment, C.CATEGORY)
         viewPager.adapter = pagerAdapter
+    }
+
+    // back pressed
+    override fun onBackPressed() {
+        setResult(Activity.RESULT_CANCELED)
+        finish()
     }
 }

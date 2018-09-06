@@ -4,10 +4,10 @@ package org.sourcei.xpns.utils
  * @info -
  *
  * @author - Saksham
- * @note Last Branch Update - master
+ * @tnote Last Branch Update - master
  *
- * @note Created on 2018-08-12 by Saksham
- * @note Updates :
+ * @tnote Created on 2018-08-12 by Saksham
+ * @tnote Updates :
  */
 open class SingletonHolder<out T, in A, B>(creator: (A, B) -> T) {
     private var creator: ((A, B) -> T)? = creator

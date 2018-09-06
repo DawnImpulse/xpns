@@ -18,10 +18,10 @@ import org.sourcei.xpns.utils.F
  * @info -
  *
  * @author - Saksham
- * @note Last Branch Update - master
+ * @tnote Last Branch Update - master
  *
- * @note Created on 2018-09-05 by Saksham
- * @note Updates :
+ * @tnote Created on 2018-09-05 by Saksham
+ * @tnote Updates :
  */
 class ModalSheetTAmount : RoundedBottomSheet(), View.OnClickListener {
 
@@ -101,7 +101,7 @@ class ModalSheetTAmount : RoundedBottomSheet(), View.OnClickListener {
         }
     }
 
-    // change amount on screen
+    // change tamount on screen
     private fun amountChange(num: Int, layout: AutofitTextView) {
         if (layout.text.toString().toDouble() == 0.0)
             layout.text = num.toString()

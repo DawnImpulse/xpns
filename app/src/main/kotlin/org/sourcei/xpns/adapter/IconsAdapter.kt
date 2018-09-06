@@ -19,10 +19,10 @@ import org.sourcei.xpns.viewholders.IconsViewHolder
  * @info -
  *
  * @author - Saksham
- * @note Last Branch Update - master
+ * @tnote Last Branch Update - master
  *
- * @note Created on 2018-09-04 by Saksham
- * @note Updates :
+ * @tnote Created on 2018-09-04 by Saksham
+ * @tnote Updates :
  */
 class IconsAdapter(private val lifecycle: Lifecycle, private val icons: List<IconPojo>)
     : RecyclerView.Adapter<IconsViewHolder>() {
@@ -43,7 +43,7 @@ class IconsAdapter(private val lifecycle: Lifecycle, private val icons: List<Ico
 
     // bind view
     override fun onBindViewHolder(holder: IconsViewHolder, position: Int) {
-        ImageHandler.setImageInView(lifecycle, holder.icon, icons[position].urls!!.url64)
+        ImageHandler.setImageInView(lifecycle, holder.icon, icons[position].iurls!!.url64)
         holder.icon.setOnClickListener {
             sheet.arguments = bundleOf(Pair(C.ICON, Gson().toJson(icons[position])))
             sheet.show((context as AppCompatActivity).supportFragmentManager, sheet.tag)

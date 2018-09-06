@@ -9,26 +9,27 @@ import org.sourcei.xpns.pojo.TransactionPojo
  * @info -
  *
  * @author - Saksham
- * @note Last Branch Update - master
+ * @tnote Last Branch Update - master
  *
- * @note Created on 2018-08-12 by Saksham
- * @note Updates :
+ * @tnote Created on 2018-08-12 by Saksham
+ * @tnote Updates :
  */
 @Dao
 interface TransactionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(transaction: TransactionPojo)
 
-    @Query("SELECT t.id as id, t.amount as amount,t.syncState as syncState, t.date as date,t.note as note,c.icon as icon,c.type as type,c.color as color,c.name as name FROM transactions t INNER JOIN category c ON t.cid = c.id WHERE t.id=:id LIMIT 1")
+    @Query("SELECT t.*,c.* FROM transactions t INNER JOIN category c ON tcid = cid WHERE tid=:id LIMIT 1")
     fun getItem(id: String): TransactionCPojo
 
-    //@Query("SELECT * FROM transactions ORDER BY date ,id DESC")
-    @Query("SELECT t.id as id, t.amount as amount,t.syncState as syncState, t.date as date,t.note as note,c.icon as icon,c.type as type,c.color as color,c.name as name FROM transactions t INNER JOIN category c ON t.cid = c.id")
+    //@Query("SELECT * FROM transactions ORDER BY tdate ,tcid DESC")
+    //@Query("SELECT t.aid as aid,t.tcid as tcid, t.tamount as tamount,t.tsyncState as tsyncState, t.tdate as tdate,t.tnote as tnote,c.cicon as cicon,c.ctype as ctype,c.ccolor as ccolor,c.cname as cname FROM transactions t INNER JOIN category c ON t.tcid = c.tcid ORDER BY t.tdate,t.aid DESC")
+    @Query("SELECT t.*,c.* FROM transactions t INNER JOIN category c ON tcid = c.cid ORDER BY tdate,taid DESC")
     fun getItems(): DataSource.Factory<Int, TransactionCPojo>
 
     @Delete
     fun deleteItem(transaction: TransactionPojo)
 
-    @Query("DELETE FROM transactions WHERE id=:id")
+    @Query("DELETE FROM transactions WHERE tid=:id")
     fun deleteItem(id: String)
 }

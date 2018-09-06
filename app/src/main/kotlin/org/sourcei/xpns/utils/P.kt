@@ -7,10 +7,10 @@ import android.content.SharedPreferences
  * @info - used to create shared preference methods
  *
  * @author - Saksham
- * @note Last Branch Update - master
+ * @tnote Last Branch Update - master
  *
- * @note Created on 2018-08-15 by Saksham
- * @note Updates :
+ * @tnote Created on 2018-08-15 by Saksham
+ * @tnote Updates :
  */
 class P(context: Context) {
     private var prefs: SharedPreferences = context.getSharedPreferences(C.DEFAULT, Context.MODE_PRIVATE)

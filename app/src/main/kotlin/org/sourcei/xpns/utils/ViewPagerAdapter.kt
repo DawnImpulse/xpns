@@ -8,10 +8,10 @@ import android.support.v4.app.FragmentPagerAdapter
  * @info -
  *
  * @author - Saksham
- * @note Last Branch Update - master
+ * @tnote Last Branch Update - master
  *
- * @note Created on 2018-08-19 by Saksham
- * @note Updates :
+ * @tnote Created on 2018-08-19 by Saksham
+ * @tnote Updates :
  */
 class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     private val mFragmentList = ArrayList<Fragment>()

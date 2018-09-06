@@ -3,6 +3,7 @@ package org.sourcei.xpns.pojo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.ForeignKey
 import android.arch.persistence.room.Index
+import android.arch.persistence.room.PrimaryKey
 import java.sql.Date
 
 
@@ -10,29 +11,31 @@ import java.sql.Date
  * @info -
  *
  * @author - Saksham
- * @note Last Branch Update - master
+ * @tnote Last Branch Update - master
  *
- * @note Created on 2018-08-12 by Saksham
- * @note Updates :
+ * @tnote Created on 2018-08-12 by Saksham
+ * @tnote Updates :
  */
 @Entity(
         tableName = "transactions",
-        primaryKeys = ["id"],
         foreignKeys = [
             ForeignKey(
                     entity = CategoryPojo::class,
-                    parentColumns = arrayOf("id"),
-                    childColumns = arrayOf("cid")
+                    parentColumns = arrayOf("cid"),
+                    childColumns = arrayOf("tcid")
             )
         ],
-        indices = [Index("cid")]
+
+        indices = [Index("tcid"), Index(value = "tid", unique = true)]
 
 )
 data class TransactionPojo(
-        var id: String, //unique id time based
-        var amount: Double, //amount for the transaction
-        var cid: String, //category foreign key reference
-        var syncState: Boolean, //if transaction is synced
-        var date: Date, //complete date object
-        var note: String? //additional note or remarks
+        @PrimaryKey(autoGenerate = true)
+        var taid: Int, //auto id
+        var tid: String, //uuid
+        var tamount: Double, //tamount for the transaction
+        var tcid: String, //category foreign key reference
+        var tsyncState: Boolean, //if transaction is synced
+        var tdate: Date, //complete tdate object
+        var tnote: String? //additional tnote or remarks
 )

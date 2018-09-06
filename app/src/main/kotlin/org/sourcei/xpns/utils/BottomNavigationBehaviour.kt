@@ -10,10 +10,10 @@ import android.view.View
  * @info -
  *
  * @author - Saksham
- * @note Last Branch Update - master
+ * @tnote Last Branch Update - master
  *
- * @note Created on 2018-08-18 by Saksham
- * @note Updates :
+ * @tnote Created on 2018-08-18 by Saksham
+ * @tnote Updates :
  */
 class BottomNavigationBehaviour<V : View>(context: Context, attrs: AttributeSet) :
         CoordinatorLayout.Behavior<V>(context, attrs) {

@@ -1,6 +1,7 @@
 package org.sourcei.xpns.viewholders
 
 import android.arch.lifecycle.Lifecycle
+import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,15 +9,17 @@ import kotlinx.android.synthetic.main.inflator_transactions.view.*
 import org.sourcei.xpns.R
 import org.sourcei.xpns.handlers.ImageHandler
 import org.sourcei.xpns.pojo.TransactionCPojo
+import org.sourcei.xpns.utils.C
+import org.sourcei.xpns.utils.Colors
 
 /**
  * @info -
  *
  * @author - Saksham
- * @note Last Branch Update - master
+ * @tnote Last Branch Update - master
  *
- * @note Created on 2018-09-05 by Saksham
- * @note Updates :
+ * @tnote Created on 2018-09-05 by Saksham
+ * @tnote Updates :
  */
 class TransactionViewHolder(private val parent: ViewGroup,
                             private val lifecycle: Lifecycle) : RecyclerView.ViewHolder(
@@ -26,16 +29,22 @@ class TransactionViewHolder(private val parent: ViewGroup,
     private val name = itemView.transactionName
     private val amount = itemView.transactionAmount
     private val note = itemView.transactionNote
+    private val context = parent.context
 
     // binding data to layout
     fun bindTo(transaction: TransactionCPojo?) {
         transaction?.let {
-            ImageHandler.setImageInView(lifecycle, image, transaction.icon.urls!!.url64)
-            amount.text = transaction.amount.toString()
-            name.text = transaction.name
-            transaction.note?.let {
+            ImageHandler.setImageInView(lifecycle, image, transaction.cat.cicon.iurls!!.url64)
+            amount.text = transaction.obj.tamount.toString()
+            name.text = transaction.cat.cname
+            name.setTextColor(Color.parseColor(transaction.cat.ccolor))
+            transaction.obj.tnote?.let {
                 note.text = it
             }
+            if(transaction.cat.ctype == C.EXPENSE)
+                amount.setTextColor(Colors(context).EXPENSE())
+            else
+                amount.setTextColor(Colors(context).SAVING())
         }
     }
 }

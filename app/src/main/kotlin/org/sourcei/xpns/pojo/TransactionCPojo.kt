@@ -1,27 +1,21 @@
 package org.sourcei.xpns.pojo
 
-import java.sql.Date
+import android.arch.persistence.room.Embedded
 
 
 /**
  * @info -
  *
  * @author - Saksham
- * @note Last Branch Update - master
+ * @tnote Last Branch Update - master
  *
- * @note Created on 2018-09-05 by Saksham
- * @note Updates :
+ * @tnote Created on 2018-09-05 by Saksham
+ * @tnote Updates :
  */
 
 data class TransactionCPojo(
-        var id: String,
-        var amount: Double,
-        var syncState: Boolean,
-        var date: Date,
-        var note: String?,
-
-        var icon: IconPojo,
-        var type: String,
-        var color: String,
-        var name: String
+        @Embedded
+        var obj: TransactionPojo,
+        @Embedded
+        var cat: CategoryPojo
 )

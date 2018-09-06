@@ -20,10 +20,10 @@ import org.sourcei.xpns.models.TransactionModelFactory
  * @info -
  *
  * @author - Saksham
- * @note Last Branch Update - master
+ * @tnote Last Branch Update - master
  *
- * @note Created on 2018-08-19 by Saksham
- * @note Updates :
+ * @tnote Created on 2018-08-19 by Saksham
+ * @tnote Updates :
  */
 class TransactionsFragment : Fragment() {
     private lateinit var model:TransactionModel

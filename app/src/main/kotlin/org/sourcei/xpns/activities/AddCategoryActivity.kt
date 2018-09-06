@@ -25,10 +25,10 @@ import org.sourcei.xpns.utils.C
  * @info -
  *
  * @author - Saksham
- * @note Last Branch Update - master
+ * @tnote Last Branch Update - master
  *
- * @note Created on 2018-09-04 by Saksham
- * @note Updates :
+ * @tnote Created on 2018-09-04 by Saksham
+ * @tnote Updates :
  */
 class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback {
     private lateinit var icon: IconPojo
@@ -78,7 +78,7 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
         if (requestCode == C.ICON_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 icon = Gson().fromJson(data!!.getStringExtra(C.ICON), IconPojo::class.java)
-                ImageHandler.getImageAsBitmap(lifecycle, this, icon.urls!!.url64) {
+                ImageHandler.getImageAsBitmap(lifecycle, this, icon.iurls!!.url64) {
                     addCImage.setImageBitmap(it)
                     color = ColorHandler.getNonDarkColor(Palette.from(it).generate(), this)
                     setColor()
@@ -87,7 +87,7 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
         }
     }
 
-    // custom callback for name sheet
+    // custom callback for cname sheet
     override fun call(any: Any) {
         any as JSONObject
         when (any.get(C.TYPE)) {
@@ -97,13 +97,13 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
         }
     }
 
-    // set color
+    // set ccolor
     private fun setColor() {
         var circle = addCCircle.background.current as GradientDrawable
         //var done = addCDone.background.current as GradientDrawable
 
         circle.setColor(color)
-        //done.setColor(color)
+        //done.setCcolor(ccolor)
         addCName.setTextColor(color)
     }
 }
