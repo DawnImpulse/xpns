@@ -22,6 +22,7 @@ object C {
     const val SELECT = "select"
     const val CATEGORY = "category"
     const val EXPENSE = "expense"
+    const val SAVING = "saving"
     const val NAME = "cname"
     const val AMOUNT = "tamount"
 

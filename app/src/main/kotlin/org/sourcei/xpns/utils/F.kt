@@ -24,4 +24,14 @@ object F {
             string
     }
 
+    // cap first letter
+    fun capWord(string: String): String {
+        val result = StringBuilder(string.length)
+        val words = string.split("\\ ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        for (i in words.indices) {
+            result.append(Character.toUpperCase(words[i][0])).append(words[i].substring(1)).append(" ")
+        }
+        return result.toString()
+    }
+
 }

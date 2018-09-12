@@ -39,3 +39,7 @@ data class TransactionPojo(
         var tdate: Date, //complete tdate object
         var tnote: String? //additional tnote or remarks
 )
+
+data class TransactionTotal(
+        var total: Double
+)

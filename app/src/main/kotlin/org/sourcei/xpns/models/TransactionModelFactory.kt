@@ -13,7 +13,9 @@ import org.sourcei.xpns.handlers.DateHandler
 import org.sourcei.xpns.pojo.TransactionCPojo
 import org.sourcei.xpns.pojo.TransactionPojo
 import org.sourcei.xpns.source.RoomSource
+import org.sourcei.xpns.utils.C
 import org.sourcei.xpns.utils.Config
+import org.sourcei.xpns.utils.F
 import java.util.*
 
 /**
@@ -25,6 +27,7 @@ import java.util.*
  * @tnote Created on 2018-08-13 by Saksham
  * @tnote Updates :
  * Saksham - 2018 09 05 - master - transaction factory model
+ * Saksham - 2018 09 12 - master - get balance, expense & saving
  */
 class TransactionModelFactory(private val lifecycle: Lifecycle, private val context: Context)
     : ViewModelProvider.NewInstanceFactory() {
@@ -35,7 +38,7 @@ class TransactionModelFactory(private val lifecycle: Lifecycle, private val cont
 
 }
 
-class TransactionModel(private val lifecycle: Lifecycle,private val context: Context) : ViewModel(){
+class TransactionModel(private val lifecycle: Lifecycle, private val context: Context) : ViewModel() {
 
     // dao instance
     private fun dao(): TransactionDao {
@@ -91,5 +94,15 @@ class TransactionModel(private val lifecycle: Lifecycle,private val context: Con
     //delete an item
     fun deleteItem(id: String) {
         launch { dao().deleteItem(id) }
+    }
+
+    // get balance
+    fun getBalance(callback: (Double) -> Unit) {
+        launch {
+            var saving = dao().getTotal(C.SAVING)
+            var expense = dao().getTotal(C.EXPENSE)
+
+            callback(F.roundOff2Decimal( saving.total - expense.total))
+        }
     }
 }

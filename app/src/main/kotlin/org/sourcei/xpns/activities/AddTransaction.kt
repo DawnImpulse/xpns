@@ -47,7 +47,7 @@ class AddTransaction : AppCompatActivity(), View.OnClickListener, Callback,
 
         calendar = Calendar.getInstance()
         addTDate.text = DateHandler.convertAddTLayout(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
-        addTTime.text = "${F.addZero(calendar.get(Calendar.HOUR).toString())}:${F.addZero(calendar.get(Calendar.MINUTE).toString())}"
+        addTTime.text = "${F.addZero(calendar.get(Calendar.HOUR_OF_DAY).toString())}:${F.addZero(calendar.get(Calendar.MINUTE).toString())}"
 
         addTCatL.setOnClickListener(this)
         addTAmount.setOnClickListener(this)
@@ -84,7 +84,7 @@ class AddTransaction : AppCompatActivity(), View.OnClickListener, Callback,
             addTTimeL.id -> {
                 var time = TimePickerDialog.newInstance(
                         this,
-                        true
+                        false
                 )
                 time.version = TimePickerDialog.Version.VERSION_2
                 time.show(fragmentManager, time.tag)

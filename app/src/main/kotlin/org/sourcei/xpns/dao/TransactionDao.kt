@@ -4,6 +4,7 @@ import android.arch.paging.DataSource
 import android.arch.persistence.room.*
 import org.sourcei.xpns.pojo.TransactionCPojo
 import org.sourcei.xpns.pojo.TransactionPojo
+import org.sourcei.xpns.pojo.TransactionTotal
 
 /**
  * @info -
@@ -13,6 +14,7 @@ import org.sourcei.xpns.pojo.TransactionPojo
  *
  * @tnote Created on 2018-08-12 by Saksham
  * @tnote Updates :
+ * Saksham - 2018 09 12 - master - get balance / saving
  */
 @Dao
 interface TransactionDao {
@@ -22,9 +24,7 @@ interface TransactionDao {
     @Query("SELECT t.*,c.* FROM transactions t INNER JOIN category c ON tcid = cid WHERE tid=:id LIMIT 1")
     fun getItem(id: String): TransactionCPojo
 
-    //@Query("SELECT * FROM transactions ORDER BY tdate ,tcid DESC")
-    //@Query("SELECT t.aid as aid,t.tcid as tcid, t.tamount as tamount,t.tsyncState as tsyncState, t.tdate as tdate,t.tnote as tnote,c.cicon as cicon,c.ctype as ctype,c.ccolor as ccolor,c.cname as cname FROM transactions t INNER JOIN category c ON t.tcid = c.tcid ORDER BY t.tdate,t.aid DESC")
-    @Query("SELECT t.*,c.* FROM transactions t INNER JOIN category c ON tcid = c.cid ORDER BY tdate,taid DESC")
+    @Query("SELECT t.*,c.* FROM transactions t INNER JOIN category c ON tcid = c.cid ORDER BY tdate DESC")
     fun getItems(): DataSource.Factory<Int, TransactionCPojo>
 
     @Delete
@@ -32,4 +32,8 @@ interface TransactionDao {
 
     @Query("DELETE FROM transactions WHERE tid=:id")
     fun deleteItem(id: String)
+
+    // get total savings
+    @Query("Select SUM(tamount) AS total FROM transactions INNER JOIN category ON tcid = cid WHERE ctype=:type")
+    fun getTotal(type:String) : TransactionTotal
 }

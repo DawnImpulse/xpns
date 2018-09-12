@@ -11,8 +11,17 @@ import java.text.SimpleDateFormat
  *
  * @note Created on 2018-09-06 by Saksham
  * @note Updates :
+ * Saksham - 2018 09 12 - master - convert MM -> MMMM
  */
 object DateHandler {
+
+    // convert number month to String
+    fun convertMMtoMMMM(month: String): String {
+        var sdf = SimpleDateFormat("MM")
+        var sdfN = SimpleDateFormat("MMMM")
+        return sdfN.format(sdf.parse(month))
+    }
+
     // convert for add transaction layout
     fun convertAddTLayout(y: Int, m: Int, d: Int): String {
         var sdf = SimpleDateFormat("yyyy-MM-dd")
@@ -21,7 +30,7 @@ object DateHandler {
     }
 
     // convert for transaction saving
-    fun convertAddTLayout(date:String): String {
+    fun convertAddTLayout(date: String): String {
         var sdf = SimpleDateFormat("yyyy-MM-dd")
         var sdfN = SimpleDateFormat("dd MMM '`'yy")
         return sdf.format(sdfN.parse(date))
