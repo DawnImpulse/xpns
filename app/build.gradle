@@ -74,7 +74,6 @@ dependencies {
 
     // ----- 3RD PARTY -----
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.24.0'
-    implementation 'it.sephiroth.android.library.bottomnavigation:bottom-navigation:2.0.1-rc1'
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
     implementation 'me.grantland:autofittextview:0.2.1'
     implementation 'com.github.bumptech.glide:glide:3.7.0'

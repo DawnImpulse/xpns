@@ -12,11 +12,7 @@
 -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@android:color/white"
-    app:bbn_alwaysShowLabels="false"
-    app:bbn_itemColorActive="@color/black"
-    app:bbn_itemColorInactive="@color/grey400"
-    app:bbn_rippleColor="#33ffffff">
+    android:background="@android:color/white">
     <item
         android:id="@+id/home"
         android:icon="@drawable/vd_home"

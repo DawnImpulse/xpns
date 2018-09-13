@@ -66,9 +66,9 @@ class TransactionsFragment : Fragment() {
             activity!!.runOnUiThread {
                 balance.text = "$ $it"
                 if (it < 0)
-                    balance.setTextColor(Colors(context!!).EXPENSE())
+                    balance.setTextColor(Colors(context!!).EXPENSE)
                 else
-                    balance.setTextColor(Colors(context!!).SAVING())
+                    balance.setTextColor(Colors(context!!).SAVING)
             }
         }
     }

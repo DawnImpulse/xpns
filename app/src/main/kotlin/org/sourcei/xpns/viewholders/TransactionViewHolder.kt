@@ -42,9 +42,9 @@ class TransactionViewHolder(private val parent: ViewGroup,
                 note.text = it
             }
             if(transaction.cat.ctype == C.EXPENSE)
-                amount.setTextColor(Colors(context).EXPENSE())
+                amount.setTextColor(Colors(context).EXPENSE)
             else
-                amount.setTextColor(Colors(context).SAVING())
+                amount.setTextColor(Colors(context).SAVING)
         }
     }
 }

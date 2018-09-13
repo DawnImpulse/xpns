@@ -15,12 +15,13 @@ import org.sourcei.xpns.R
  */
 // returning colors
 class Colors(private val context: Context) {
+    val EXPENSE = ContextCompat.getColor(context, R.color.expense)
+    val SAVING = ContextCompat.getColor(context, R.color.saving)
+    val BLACK = ContextCompat.getColor(context, R.color.black)
+    val WHITE = ContextCompat.getColor(context, R.color.white)
+    val GREY_300 = ContextCompat.getColor(context, R.color.grey300)
+    val GREY_400 = ContextCompat.getColor(context, R.color.grey400)
+    val GREY_500 = ContextCompat.getColor(context, R.color.grey500)
 
-    fun EXPENSE():Int{
-        return ContextCompat.getColor(context, R.color.expense)
-    }
 
-    fun SAVING():Int{
-        return ContextCompat.getColor(context, R.color.saving)
-    }
 }
