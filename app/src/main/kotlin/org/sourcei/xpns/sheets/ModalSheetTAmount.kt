@@ -53,6 +53,11 @@ class ModalSheetTAmount : RoundedBottomSheet(), View.OnClickListener {
         sheetT9.setOnClickListener(this)
         sheetTD.setOnClickListener(this)
         sheetTB.setOnClickListener(this)
+
+        sheetTB.setOnLongClickListener {
+            sheetTA.text = "0"
+            true
+        }
     }
 
     // on attached fragment
@@ -65,16 +70,16 @@ class ModalSheetTAmount : RoundedBottomSheet(), View.OnClickListener {
     // on click
     override fun onClick(v: View) {
         when (v.id) {
-            sheetT0.id -> amountChange(0,sheetTA)
-            sheetT1.id -> amountChange(1,sheetTA)
-            sheetT2.id -> amountChange(2,sheetTA)
-            sheetT3.id -> amountChange(3,sheetTA)
-            sheetT4.id -> amountChange(4,sheetTA)
-            sheetT5.id -> amountChange(5,sheetTA)
-            sheetT6.id -> amountChange(6,sheetTA)
-            sheetT7.id -> amountChange(7,sheetTA)
-            sheetT8.id -> amountChange(8,sheetTA)
-            sheetT9.id -> amountChange(9,sheetTA)
+            sheetT0.id -> amountChange(0, sheetTA)
+            sheetT1.id -> amountChange(1, sheetTA)
+            sheetT2.id -> amountChange(2, sheetTA)
+            sheetT3.id -> amountChange(3, sheetTA)
+            sheetT4.id -> amountChange(4, sheetTA)
+            sheetT5.id -> amountChange(5, sheetTA)
+            sheetT6.id -> amountChange(6, sheetTA)
+            sheetT7.id -> amountChange(7, sheetTA)
+            sheetT8.id -> amountChange(8, sheetTA)
+            sheetT9.id -> amountChange(9, sheetTA)
             sheetT00.id -> {
                 if (sheetTA.text.contains("."))
                     context!!.toast("can't add 2 decimals")
@@ -83,7 +88,7 @@ class ModalSheetTAmount : RoundedBottomSheet(), View.OnClickListener {
             }
             sheetTB.id -> {
                 if (sheetTA.text.toString().length == 1)
-                    sheetTA.text = "0.00"
+                    sheetTA.text = "0"
                 else
                     sheetTA.text = sheetTA.text.dropLast(1)
             }
@@ -103,7 +108,7 @@ class ModalSheetTAmount : RoundedBottomSheet(), View.OnClickListener {
 
     // change tamount on screen
     private fun amountChange(num: Int, layout: AutofitTextView) {
-        if (layout.text.toString().toDouble() == 0.0)
+        if (layout.text.toString() == "0")
             layout.text = num.toString()
         else
             layout.text = "${layout.text}$num"

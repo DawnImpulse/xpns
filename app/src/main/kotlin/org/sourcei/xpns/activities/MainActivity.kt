@@ -9,6 +9,7 @@ import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import org.sourcei.xpns.R
 import org.sourcei.xpns.fragments.TransactionsFragment
+import org.sourcei.xpns.sheets.ModalSheetNav
 import org.sourcei.xpns.utils.C
 import org.sourcei.xpns.utils.Colors
 import org.sourcei.xpns.utils.ViewPagerAdapter
@@ -27,18 +28,21 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
     private var lastItemSelected = 0
     private lateinit var pagerAdapter: ViewPagerAdapter
     private lateinit var transactionsFragment: TransactionsFragment
+    private lateinit var nav: ModalSheetNav
 
     // On create
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        nav = ModalSheetNav()
         setupViewPager(mainViewPager)
         mainViewPager.addOnPageChangeListener(this)
         mainViewPager.offscreenPageLimit = 2
         changeNavColor(0)
 
         mainNavAdd.setOnClickListener(this)
+        mainNavUp.setOnClickListener(this)
     }
 
     // On page selected (viewpager)
@@ -60,6 +64,7 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
     override fun onClick(v: View) {
         when (v.id) {
             mainNavAdd.id -> startActivity(Intent(this, AddTransaction::class.java))
+            mainNavUp.id -> nav.show(supportFragmentManager,nav.tag)
         }
     }
 
