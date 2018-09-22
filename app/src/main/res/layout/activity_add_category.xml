@@ -141,7 +141,7 @@
             android:layout_height="1dp"
             android:layout_below="@id/addCName"
             android:layout_marginTop="4dp"
-            android:background="@color/grey300" />
+            android:background="@color/grey400" />
     </RelativeLayout>
 
 </RelativeLayout>

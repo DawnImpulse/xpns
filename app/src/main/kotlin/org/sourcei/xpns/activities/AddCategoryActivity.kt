@@ -19,7 +19,9 @@ import org.sourcei.xpns.interfaces.Callback
 import org.sourcei.xpns.models.CategoryModel
 import org.sourcei.xpns.pojo.IconPojo
 import org.sourcei.xpns.sheets.ModalSheetCatName
+import org.sourcei.xpns.sheets.ModalSheetType
 import org.sourcei.xpns.utils.C
+import org.sourcei.xpns.utils.Colors
 
 /**
  * @info -
@@ -31,10 +33,12 @@ import org.sourcei.xpns.utils.C
  * @tnote Updates :
  */
 class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback {
-    private lateinit var icon: IconPojo
     private lateinit var nameSheet: ModalSheetCatName
+    private lateinit var typeSheet: ModalSheetType
     private lateinit var model: CategoryModel
     private var color = 0
+    private var type: String? = null
+    private var icon: IconPojo? = null
 
     // on create
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,10 +46,12 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
         setContentView(R.layout.activity_add_category)
 
         nameSheet = ModalSheetCatName()
+        typeSheet = ModalSheetType()
         model = CategoryModel(lifecycle, this)
         addCImage.setOnClickListener(this)
         addCName.setOnClickListener(this)
         addCDone.setOnClickListener(this)
+        addCType.setOnClickListener(this)
     }
 
     // on click
@@ -59,14 +65,28 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
                 nameSheet.show(supportFragmentManager, nameSheet.tag)
             }
             addCDone.id -> {
-                model.insert(
-                        addCName.text.toString().trim(),
-                        null,
-                        icon,
-                        C.EXPENSE,
-                        ColorHandler.intColorToString(color)
-                )
-                toast("done")
+                if (icon != null) {
+                    if (addCName.text.toString() != "NAME") {
+                        if (type != null) {
+                            model.insert(
+                                    addCName.text.toString().trim(),
+                                    null,
+                                    icon!!,
+                                    type!!,
+                                    ColorHandler.intColorToString(color)
+                            )
+                            toast("category inserted")
+                            finish()
+                        } else
+                            toast("kindly select category type")
+                    } else
+                        toast("kindly provide a name")
+                } else
+                    toast("kindly select an icon")
+            }
+            addCType.id -> {
+                typeSheet.arguments = bundleOf(Pair(C.NAME, addCName.text.toString()))
+                typeSheet.show(supportFragmentManager, typeSheet.tag)
             }
         }
     }
@@ -78,7 +98,7 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
         if (requestCode == C.ICON_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 icon = Gson().fromJson(data!!.getStringExtra(C.ICON), IconPojo::class.java)
-                ImageHandler.getImageAsBitmap(lifecycle, this, icon.iurls!!.url64) {
+                ImageHandler.getImageAsBitmap(lifecycle, this, icon!!.iurls!!.url64) {
                     addCImage.setImageBitmap(it)
                     color = ColorHandler.getNonDarkColor(Palette.from(it).generate(), this)
                     setColor()
@@ -92,7 +112,18 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
         any as JSONObject
         when (any.get(C.TYPE)) {
             C.NAME -> {
-                addCName.text = any.getString(C.NAME)
+                if (any.getString(C.NAME).isEmpty())
+                    addCName.text = "NAME"
+                else
+                    addCName.text = any.getString(C.NAME)
+            }
+            C.TYPE -> {
+                type = any.getString(C.NAME)
+                addCType.text = type!!.toUpperCase()
+                if (type == C.EXPENSE)
+                    addCType.setTextColor(Colors(this).EXPENSE)
+                else
+                    addCType.setTextColor(Colors(this).SAVING)
             }
         }
     }
