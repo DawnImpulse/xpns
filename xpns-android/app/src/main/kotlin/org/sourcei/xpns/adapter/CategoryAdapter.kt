@@ -1,9 +1,9 @@
 package org.sourcei.xpns.adapter
 
+import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import android.view.ViewGroup
 import org.sourcei.xpns.pojo.CategoryPojo
 import org.sourcei.xpns.viewholders.CategoryViewHolder
 
@@ -18,6 +18,7 @@ import org.sourcei.xpns.viewholders.CategoryViewHolder
  */
 class CategoryAdapter(private val lifecycle: Lifecycle,
                       private val select: Boolean) : PagedListAdapter<CategoryPojo, CategoryViewHolder>(diffCallback) {
+
 
     // on create view
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)

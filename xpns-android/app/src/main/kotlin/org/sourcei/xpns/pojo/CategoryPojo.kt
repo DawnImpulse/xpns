@@ -22,10 +22,11 @@ data class CategoryPojo(
         var caid: Int, //auto increment tcid
         var cid: String, // uuid
         var cname: String, //cname of the category
-        var cparent: String?, //cparent category _id if exists
+        var cisParent: Boolean, //is given category is a parent
+        var cchilden: List<String>?, //list of ids of children if it is parent
         var cicon: IconPojo, //cicon pojo
         var cfrequency: Int, //number of times category is cfrequency
         var ctype: String, //saving , expense, bill etc
         var ccolor: String, //additional ccolor input
-        var csyncState: Boolean //if transaction is synced
+        var csyncState: Boolean //if category is synced
 )

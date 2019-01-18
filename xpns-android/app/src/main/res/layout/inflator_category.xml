@@ -10,46 +10,57 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/categoryL"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:layout_marginTop="32dp"
     android:background="@color/white">
 
-    <View
-        android:id="@+id/categoryColor"
-        android:layout_width="4dp"
-        android:layout_height="match_parent"
-        android:background="@drawable/bg_round_corners_right" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/categoryImage"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="48dp" />
-
-    <me.grantland.widget.AutofitTextView
-        android:id="@+id/categoryName"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="4dp"
-        android:layout_toRightOf="@id/categoryImage"
-        android:maxLines="1"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:layout_height="48dp">
 
-    <View
+        <View
+            android:id="@+id/categoryColor"
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_round_corners_right" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/categoryImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="48dp" />
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/categoryName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_toRightOf="@id/categoryImage"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="16dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="4dp"
+            android:layout_toRightOf="@id/categoryImage"
+            android:background="@color/grey300" />
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:visibility="gone"
+        android:id="@+id/categoryRecycler"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="16dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="4dp"
-        android:layout_toRightOf="@id/categoryImage"
-        android:background="@color/grey300" />
-
-</RelativeLayout>
+        android:layout_height="wrap_content"/>
+</LinearLayout>

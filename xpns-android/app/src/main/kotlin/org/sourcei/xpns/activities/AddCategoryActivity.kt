@@ -69,7 +69,6 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
                         if (type != null) {
                             model.insert(
                                     addCName.text.toString().trim(),
-                                    null,
                                     icon!!,
                                     type!!,
                                     ColorHandler.intColorToString(color)
@@ -129,7 +128,7 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
 
     // set ccolor
     private fun setColor() {
-        var circle = addCCircle.background.current as GradientDrawable
+        val circle = addCCircle.background.current as GradientDrawable
         //var done = addCDone.background.current as GradientDrawable
 
         circle.setColor(color)

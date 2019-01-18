@@ -8,16 +8,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.inflator_category.view.*
 import org.sourcei.xpns.R
-import org.sourcei.xpns.adapter.ChildCategoryAdapter
 import org.sourcei.xpns.handlers.ImageHandler
 import org.sourcei.xpns.pojo.CategoryPojo
 import org.sourcei.xpns.utils.C
-import org.sourcei.xpns.utils.show
 
 /**
  * @info -
@@ -28,17 +25,16 @@ import org.sourcei.xpns.utils.show
  * @tnote Created on 2018-09-04 by Saksham
  * @tnote Updates :
  */
-class CategoryViewHolder(private val parent: ViewGroup,
-                         private val lifecycle: Lifecycle,
-                         private val select: Boolean) : RecyclerView.ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.inflator_category, parent, false)) {
+class ChildCategoryViewHolder(parent: ViewGroup,
+                              private val lifecycle: Lifecycle,
+                              private val select: Boolean) : RecyclerView.ViewHolder(
+        LayoutInflater.from(parent.context).inflate(R.layout.inflator_child_category, parent, false)) {
 
     private val image = itemView.categoryImage
     private val name = itemView.categoryName
     private val color = itemView.categoryColor
     private val layout = itemView.categoryL
     private val context = parent.context
-    private val recycler = parent.categoryRecycler
 
     // binding data to layout
     fun bindTo(category: CategoryPojo?) {
@@ -48,13 +44,6 @@ class CategoryViewHolder(private val parent: ViewGroup,
             ImageHandler.setImageInView(lifecycle, image, category.cicon.iurls!!.url64)
             colorL.setColor(Color.parseColor(category.ccolor))
             name.text = category.cname
-
-            if (category.cisParent){
-                recycler.show()
-                recycler.layoutManager = LinearLayoutManager(context)
-                recycler.adapter = ChildCategoryAdapter(lifecycle, category.cchilden!!,select)
-            }
-
             layout.setOnClickListener {
                 if (select) {
                     val intent = Intent()

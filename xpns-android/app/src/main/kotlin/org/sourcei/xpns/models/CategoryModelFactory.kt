@@ -1,9 +1,9 @@
 package org.sourcei.xpns.models
 
+import android.content.Context
 import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import android.content.Context
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.sourcei.xpns.dao.CategoryDao
@@ -43,14 +43,15 @@ class CategoryModel(private val lifecycle: Lifecycle, private val context: Conte
     }
 
     // insert a new category
-    fun insert(name: String, parent: String?, icon: IconPojo, type: String, color: String) {
+    fun insert(name: String, icon: IconPojo, type: String, color: String) {
         GlobalScope.launch {
             dao().insert(
                     CategoryPojo(
                             0,
                             UUID.randomUUID().toString(),
                             name,
-                            parent,
+                            false,
+                            null,
                             icon,
                             0,
                             type,
