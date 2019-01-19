@@ -23,7 +23,8 @@ data class CategoryPojo(
         var cid: String, // uuid
         var cname: String, //cname of the category
         var cisParent: Boolean, //is given category is a parent
-        var cchilden: List<String>?, //list of ids of children if it is parent
+        var cisChild:Boolean, //is given category a child
+        var cchilden: ArrayList<String>?, //list of ids of children if it is parent
         var cicon: IconPojo, //cicon pojo
         var cfrequency: Int, //number of times category is cfrequency
         var ctype: String, //saving , expense, bill etc

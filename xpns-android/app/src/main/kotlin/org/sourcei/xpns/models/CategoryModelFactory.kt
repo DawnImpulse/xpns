@@ -43,14 +43,15 @@ class CategoryModel(private val lifecycle: Lifecycle, private val context: Conte
     }
 
     // insert a new category
-    fun insert(name: String, icon: IconPojo, type: String, color: String) {
+    fun insert(name: String, icon: IconPojo, type: String, color: String, isParent: Boolean = true, isChild: Boolean = false) {
         GlobalScope.launch {
             dao().insert(
                     CategoryPojo(
                             0,
                             UUID.randomUUID().toString(),
                             name,
-                            false,
+                            isParent,
+                            isChild,
                             null,
                             icon,
                             0,

@@ -17,16 +17,17 @@ import org.sourcei.xpns.viewholders.CategoryViewHolder
  * @tnote Updates :
  */
 class CategoryAdapter(private val lifecycle: Lifecycle,
-                      private val select: Boolean) : PagedListAdapter<CategoryPojo, CategoryViewHolder>(diffCallback) {
+                      private val select: Boolean,
+                      private val showChild: Boolean = true) : PagedListAdapter<CategoryPojo, CategoryViewHolder>(diffCallback) {
 
 
     // on create view
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
-            : CategoryViewHolder = CategoryViewHolder(parent,lifecycle,select)
+            : CategoryViewHolder = CategoryViewHolder(parent, lifecycle, select)
 
     // bind view
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        holder.bindTo(getItem(position))
+        holder.bindTo(getItem(position), showChild)
     }
 
     // used for diff util

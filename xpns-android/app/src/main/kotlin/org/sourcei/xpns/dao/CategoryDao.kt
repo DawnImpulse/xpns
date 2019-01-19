@@ -18,18 +18,23 @@ interface CategoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(categoryPojo: CategoryPojo)
 
+    // getting a single category
     @Query("SELECT * FROM category WHERE cid=:id LIMIT 1")
     fun getItem(id: String): CategoryPojo
 
+    // list of all categories ordered by name , filtered by type
     @Query("SELECT * FROM category WHERE ctype=:type ORDER BY cname")
     fun getItems(type: String): DataSource.Factory<Int, CategoryPojo>
 
+    // list of all categories order by frequency, filtered by type
     @Query("SELECT * FROM category WHERE ctype=:type ORDER BY cfrequency DESC")
     fun getFrequentItems(type: String): DataSource.Factory<Int, CategoryPojo>
 
+    // delete an item
     @Delete
     fun deleteItem(categoryPojo: CategoryPojo)
 
+    // delete an item by cid
     @Query("DELETE FROM category WHERE cid=:id")
     fun deleteItem(id: String)
 }

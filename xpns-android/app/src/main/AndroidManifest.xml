@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="org.sourcei.xpns">
 
     <application
@@ -8,7 +9,9 @@
         android:icon="@drawable/vd_wallet"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning"
+        android:fullBackupContent="false">
 
         <!-- Main Activity -->
         <activity
@@ -34,19 +37,16 @@
         <!-- Category list -->
         <activity
             android:name=".activities.CategoryActivity"
-            android:theme="@style/AppTheme.Fullscreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme.Fullscreen"/>
 
         <!-- Add category -->
         <activity
             android:name=".activities.AddCategoryActivity"
-            android:theme="@style/AppTheme.Fullscreen"></activity>
-        <activity android:name=".activities.EditCategoryActivity"></activity>
+            android:theme="@style/AppTheme.Fullscreen" />
+
+        <!--Edit Category-->
+        <activity android:name=".activities.EditCategoryActivity"
+            android:theme="@style/AppTheme.Fullscreen"/>
     </application>
 
 </manifest>

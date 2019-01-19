@@ -20,7 +20,7 @@
     <View
         android:id="@+id/categoryColor"
         android:layout_width="4dp"
-        android:layout_height="24"
+        android:layout_height="24dp"
         android:layout_centerVertical="true"
         android:background="@drawable/bg_round_corners_right" />
 

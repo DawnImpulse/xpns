@@ -2,7 +2,6 @@ package org.sourcei.xpns.activities
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -15,11 +14,13 @@ import org.sourcei.xpns.handlers.ColorHandler
 import org.sourcei.xpns.handlers.ImageHandler
 import org.sourcei.xpns.interfaces.Callback
 import org.sourcei.xpns.models.CategoryModel
+import org.sourcei.xpns.pojo.CategoryPojo
 import org.sourcei.xpns.pojo.IconPojo
 import org.sourcei.xpns.sheets.ModalSheetCatName
 import org.sourcei.xpns.sheets.ModalSheetType
 import org.sourcei.xpns.utils.C
 import org.sourcei.xpns.utils.Colors
+import org.sourcei.xpns.utils.openActivityForResult
 import org.sourcei.xpns.utils.toast
 
 /**
@@ -38,6 +39,7 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
     private var color = 0
     private var type: String? = null
     private var icon: IconPojo? = null
+    private val SELECT_PARENT = 1
 
     // on create
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +53,7 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
         addCName.setOnClickListener(this)
         addCDone.setOnClickListener(this)
         addCType.setOnClickListener(this)
+        addCParentL.setOnClickListener(this)
     }
 
     // on click
@@ -86,6 +89,12 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
                 typeSheet.arguments = bundleOf(Pair(C.NAME, addCName.text.toString()))
                 typeSheet.show(supportFragmentManager, typeSheet.tag)
             }
+            addCParentL.id -> {
+                openActivityForResult(CategoryActivity::class.java, SELECT_PARENT) {
+                    putBoolean(C.SELECT, true)
+                    putBoolean(C.SHOW_CHILD, false)
+                }
+            }
         }
     }
 
@@ -101,6 +110,13 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
                     color = ColorHandler.getNonDarkColor(androidx.palette.graphics.Palette.from(it).generate(), this)
                     setColor()
                 }
+            }
+        }
+        if (requestCode == SELECT_PARENT) {
+            if (resultCode == Activity.RESULT_OK) {
+                val parent = Gson().fromJson(data!!.getStringExtra(C.CATEGORY), CategoryPojo::class.java)
+                addCParentT.text = parent.cname
+                ImageHandler.setImageInView(lifecycle, addCParentI, parent.cicon.iurls!!.url64)
             }
         }
     }
@@ -128,11 +144,12 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
 
     // set ccolor
     private fun setColor() {
-        val circle = addCCircle.background.current as GradientDrawable
+        //val circle = addCCircle.background.current as GradientDrawable
         //var done = addCDone.background.current as GradientDrawable
 
-        circle.setColor(color)
+        //circle.setColor(color)
         //done.setCcolor(ccolor)
+        addCCView.setBackgroundColor(color)
         addCName.setTextColor(color)
     }
 }

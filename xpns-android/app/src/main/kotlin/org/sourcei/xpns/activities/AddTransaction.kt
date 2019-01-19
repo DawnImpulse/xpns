@@ -67,8 +67,9 @@ class AddTransaction : AppCompatActivity(), View.OnClickListener, Callback,
                 amountSheet.show(supportFragmentManager, amountSheet.tag)
             }
             addTCatL.id -> {
-                var intent = Intent(this, CategoryActivity::class.java)
+                val intent = Intent(this, CategoryActivity::class.java)
                 intent.putExtra(C.SELECT, true)
+                intent.putExtra(C.SHOW_CHILD, true)
                 startActivityForResult(intent, C.CATEGORY_SELECT_CODE)
             }
             addTNoteL.id -> {

@@ -1,5 +1,6 @@
 package org.sourcei.xpns.utils
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Point
@@ -36,7 +37,7 @@ fun String.toFileUri(): Uri {
 
 // file path string to content uri
 fun String.toContentUri(context: Context): Uri {
-    return FileProvider.getUriForFile(context,"com.chillkr.android",toFile())
+    return FileProvider.getUriForFile(context, "com.chillkr.android", toFile())
     //return this.toFileUri().toContentUri(context)
 }
 
@@ -85,9 +86,21 @@ fun View.show() {
     visibility = View.VISIBLE
 }
 
+// open activity for result
+fun <T> Activity.openActivityForResult(it: Class<T>, code: Int, bundle: Bundle.() -> Unit = {}) {
+    val intent = Intent(this, it)
+    intent.putExtras(Bundle().apply(bundle))
+    startActivityForResult(intent,code)
+}
+
+// open activity for result
+fun <T> Activity.openActivityForResult(it: Class<T>, code: Int) {
+    startActivityForResult(Intent(this, it), code)
+}
+
 // toast
 fun Context.toast(message: String, length: Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(this,message,length).show()
+    Toast.makeText(this, message, length).show()
 }
 
 // open activity

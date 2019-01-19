@@ -41,7 +41,7 @@ class CategoryViewHolder(private val parent: ViewGroup,
     private val recycler = parent.categoryRecycler
 
     // binding data to layout
-    fun bindTo(category: CategoryPojo?) {
+    fun bindTo(category: CategoryPojo?, showChild: Boolean = true) {
         category?.let {
             val colorL = color.background.current as GradientDrawable
 
@@ -49,10 +49,10 @@ class CategoryViewHolder(private val parent: ViewGroup,
             colorL.setColor(Color.parseColor(category.ccolor))
             name.text = category.cname
 
-            if (category.cisParent){
+            if (showChild && category.cisParent && category.cchilden != null) {
                 recycler.show()
                 recycler.layoutManager = LinearLayoutManager(context)
-                recycler.adapter = ChildCategoryAdapter(lifecycle, category.cchilden!!,select)
+                recycler.adapter = ChildCategoryAdapter(lifecycle, category.cchilden!!, select)
             }
 
             layout.setOnClickListener {
