@@ -23,11 +23,11 @@ interface CategoryDao {
     fun getItem(id: String): CategoryPojo
 
     // list of all categories ordered by name , filtered by type
-    @Query("SELECT * FROM category WHERE ctype=:type ORDER BY cname")
+    @Query("SELECT * FROM category WHERE ctype=:type AND cisParent=1 ORDER BY cname")
     fun getItems(type: String): DataSource.Factory<Int, CategoryPojo>
 
     // list of all categories order by frequency, filtered by type
-    @Query("SELECT * FROM category WHERE ctype=:type ORDER BY cfrequency DESC")
+    @Query("SELECT * FROM category WHERE ctype=:type AND cisParent=1 ORDER BY cfrequency DESC")
     fun getFrequentItems(type: String): DataSource.Factory<Int, CategoryPojo>
 
     // delete an item

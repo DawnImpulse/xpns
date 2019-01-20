@@ -17,7 +17,7 @@ import com.google.gson.reflect.TypeToken
 class ListConvertor {
     @TypeConverter
     fun fromString(value: String): ArrayList<String>? {
-        return if (value.isEmpty()) {
+        return if (value.isNotEmpty()) {
             val listType = object : TypeToken<ArrayList<String>>() {}.type
             Gson().fromJson(value, listType)
         } else

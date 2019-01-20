@@ -46,7 +46,7 @@ class CategoryFragment : androidx.fragment.app.Fragment() {
         type = arguments!!.getString(C.TYPE)!!
 
         model = ViewModelProviders.of(this, CategoryModelFactory(lifecycle, context!!)).get(CategoryModel::class.java)
-        adapter = CategoryAdapter(lifecycle, select)
+        adapter = CategoryAdapter(lifecycle, select,showChild)
 
         model.getItems(type).observe(this, Observer {
             adapter.submitList(it)

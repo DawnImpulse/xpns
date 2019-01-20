@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.inflator_category.view.*
+import kotlinx.android.synthetic.main.inflator_child_category.view.*
 import org.sourcei.xpns.R
 import org.sourcei.xpns.handlers.ImageHandler
 import org.sourcei.xpns.pojo.CategoryPojo
@@ -30,10 +30,10 @@ class ChildCategoryViewHolder(parent: ViewGroup,
                               private val select: Boolean) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.inflator_child_category, parent, false)) {
 
-    private val image = itemView.categoryImage
-    private val name = itemView.categoryName
-    private val color = itemView.categoryColor
-    private val layout = itemView.categoryL
+    private val image = itemView.childCategoryImage
+    private val name = itemView.childCategoryName
+    private val color = itemView.childCategoryColor
+    private val layout = itemView.childCategoryL
     private val context = parent.context
 
     // binding data to layout

@@ -22,6 +22,7 @@ import org.sourcei.xpns.utils.C
 import org.sourcei.xpns.utils.Colors
 import org.sourcei.xpns.utils.openActivityForResult
 import org.sourcei.xpns.utils.toast
+import java.util.*
 
 /**
  * @info -
@@ -40,6 +41,7 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
     private var type: String? = null
     private var icon: IconPojo? = null
     private val SELECT_PARENT = 1
+    private var parent: CategoryPojo? = null
 
     // on create
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,12 +72,31 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
                 if (icon != null) {
                     if (addCName.text.toString() != "NAME") {
                         if (type != null) {
-                            model.insert(
-                                    addCName.text.toString().trim(),
-                                    icon!!,
-                                    type!!,
-                                    ColorHandler.intColorToString(color)
-                            )
+                            if (parent != null) { // a child category , also update parent one
+                                val uuid = UUID.randomUUID().toString()
+                                if (parent!!.cchilden != null)
+                                    parent!!.cchilden!!.add(uuid)
+                                else
+                                    parent!!.cchilden = arrayListOf(uuid)
+                                model.editItem(parent!!)
+                                model.insert(
+                                        addCName.text.toString().trim(),
+                                        icon!!,
+                                        type!!,
+                                        ColorHandler.intColorToString(color),
+                                        false,
+                                        true,
+                                        uuid
+                                )
+                            } else { // a parent category
+                                model.insert(
+                                        addCName.text.toString().trim(),
+                                        icon!!,
+                                        type!!,
+                                        ColorHandler.intColorToString(color)
+                                )
+                            }
+
                             toast("category inserted")
                             finish()
                         } else
@@ -114,9 +135,9 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
         }
         if (requestCode == SELECT_PARENT) {
             if (resultCode == Activity.RESULT_OK) {
-                val parent = Gson().fromJson(data!!.getStringExtra(C.CATEGORY), CategoryPojo::class.java)
-                addCParentT.text = parent.cname
-                ImageHandler.setImageInView(lifecycle, addCParentI, parent.cicon.iurls!!.url64)
+                parent = Gson().fromJson(data!!.getStringExtra(C.CATEGORY), CategoryPojo::class.java)
+                addCParentT.text = parent!!.cname
+                ImageHandler.setImageInView(lifecycle, addCParentI, parent!!.cicon.iurls!!.url64)
             }
         }
     }

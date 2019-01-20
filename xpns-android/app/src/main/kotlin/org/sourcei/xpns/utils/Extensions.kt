@@ -90,7 +90,7 @@ fun View.show() {
 fun <T> Activity.openActivityForResult(it: Class<T>, code: Int, bundle: Bundle.() -> Unit = {}) {
     val intent = Intent(this, it)
     intent.putExtras(Bundle().apply(bundle))
-    startActivityForResult(intent,code)
+    startActivityForResult(intent, code)
 }
 
 // open activity for result
@@ -154,4 +154,11 @@ fun jsonOf(vararg pairs: Pair<String, Any>) = JSONObject().apply {
     pairs.forEach {
         put(it.first, it.second)
     }
+}
+
+// array list
+fun <T> arrayListOf(item: T): ArrayList<T> {
+    val list = ArrayList<T>()
+    list.add(item)
+    return list
 }

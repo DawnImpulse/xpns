@@ -1,9 +1,11 @@
 package org.sourcei.xpns.adapter
 
+import android.app.Activity
+import android.content.Context
+import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import android.view.ViewGroup
 import org.sourcei.xpns.pojo.TransactionCPojo
 import org.sourcei.xpns.viewholders.TransactionViewHolder
 
@@ -18,14 +20,22 @@ import org.sourcei.xpns.viewholders.TransactionViewHolder
  */
 class TransactionsAdapter(private val lifecycle: Lifecycle)
     : PagedListAdapter<TransactionCPojo, TransactionViewHolder>(diffCallback) {
+    private val NAME = "TransactionAdapter"
+    private lateinit var context: Context
+    private lateinit var activity: Activity
 
     // on create view
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
-            : TransactionViewHolder = TransactionViewHolder(parent, lifecycle)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
+        context = parent.context
+        activity = context as Activity
+        return TransactionViewHolder(parent, lifecycle)
+    }
 
     // bind view
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
-        holder.bindTo(getItem(position))
+        activity.runOnUiThread {
+            holder.bindTo(getItem(position))
+        }
     }
 
     // used for diff util
