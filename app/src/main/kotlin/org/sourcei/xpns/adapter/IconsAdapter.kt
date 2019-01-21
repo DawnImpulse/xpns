@@ -1,12 +1,11 @@
 package org.sourcei.xpns.adapter
 
-import android.arch.lifecycle.Lifecycle
 import android.content.Context
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
+import androidx.lifecycle.Lifecycle
 import com.google.gson.Gson
 import org.sourcei.xpns.R
 import org.sourcei.xpns.handlers.ImageHandler
@@ -25,7 +24,7 @@ import org.sourcei.xpns.viewholders.IconsViewHolder
  * @tnote Updates :
  */
 class IconsAdapter(private val lifecycle: Lifecycle, private val icons: List<IconPojo>)
-    : RecyclerView.Adapter<IconsViewHolder>() {
+    : androidx.recyclerview.widget.RecyclerView.Adapter<IconsViewHolder>() {
 
     private lateinit var context: Context
     private var sheet = ModalSheetIcon()

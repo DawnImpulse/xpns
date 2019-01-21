@@ -5,10 +5,9 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
-import androidx.core.widget.toast
 import com.google.gson.Gson
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
@@ -24,6 +23,7 @@ import org.sourcei.xpns.sheets.ModalSheetCatName
 import org.sourcei.xpns.sheets.ModalSheetTAmount
 import org.sourcei.xpns.utils.C
 import org.sourcei.xpns.utils.F
+import org.sourcei.xpns.utils.toast
 import java.util.*
 
 
@@ -67,8 +67,9 @@ class AddTransaction : AppCompatActivity(), View.OnClickListener, Callback,
                 amountSheet.show(supportFragmentManager, amountSheet.tag)
             }
             addTCatL.id -> {
-                var intent = Intent(this, CategoryActivity::class.java)
+                val intent = Intent(this, CategoryActivity::class.java)
                 intent.putExtra(C.SELECT, true)
+                intent.putExtra(C.SHOW_CHILD, true)
                 startActivityForResult(intent, C.CATEGORY_SELECT_CODE)
             }
             addTNoteL.id -> {
@@ -77,7 +78,7 @@ class AddTransaction : AppCompatActivity(), View.OnClickListener, Callback,
                 noteSheet.show(supportFragmentManager, noteSheet.tag)
             }
             addTDateL.id -> {
-                var date = DatePickerDialog.newInstance(this)
+                val date = DatePickerDialog.newInstance(this)
                 date.version = DatePickerDialog.Version.VERSION_2
                 date.show(fragmentManager, date.tag)
             }
@@ -158,5 +159,6 @@ class AddTransaction : AppCompatActivity(), View.OnClickListener, Callback,
         addTCatName.setTextColor(color)
 
         addTDoneI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+        addTCView.background.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
     }
 }

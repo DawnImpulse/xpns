@@ -15,8 +15,8 @@ package org.sourcei.xpns.handlers
 
 import android.content.Context
 import android.graphics.Color
-import android.support.v4.content.ContextCompat
-import android.support.v7.graphics.Palette
+import androidx.core.content.ContextCompat
+import androidx.palette.graphics.Palette
 import org.sourcei.xpns.R
 
 
@@ -37,7 +37,7 @@ object ColorHandler {
      * @param mContext - Context
      * @return - The required non Dark ccolor
      */
-    fun getNonDarkColor(mPalette: Palette, mContext: Context): Int {
+    fun getNonDarkColor(mPalette: androidx.palette.graphics.Palette, mContext: Context): Int {
         //the ccolor variable we need to return
         var color: Int = mPalette.getVibrantColor(ContextCompat.getColor(mContext, R.color.black))
         //variable to store whether ccolor is darker or not

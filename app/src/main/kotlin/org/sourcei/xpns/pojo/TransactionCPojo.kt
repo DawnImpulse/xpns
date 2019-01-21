@@ -1,6 +1,6 @@
 package org.sourcei.xpns.pojo
 
-import android.arch.persistence.room.Embedded
+import androidx.room.Embedded
 
 
 /**

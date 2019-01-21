@@ -1,8 +1,8 @@
 package org.sourcei.xpns.pojo
 
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.Index
-import android.arch.persistence.room.PrimaryKey
+import androidx.room.Entity
+import androidx.room.Index
+import androidx.room.PrimaryKey
 
 /**
  * @info -
@@ -15,17 +15,19 @@ import android.arch.persistence.room.PrimaryKey
  */
 @Entity(
         tableName = "category",
-        indices = [Index(value = "cid", unique = true)]
+        indices = [Index(value = ["cid"], unique = true)]
 )
 data class CategoryPojo(
         @PrimaryKey(autoGenerate = true)
         var caid: Int, //auto increment tcid
         var cid: String, // uuid
         var cname: String, //cname of the category
-        var cparent: String?, //cparent category _id if exists
+        var cisParent: Boolean, //is given category is a parent
+        var cisChild:Boolean, //is given category a child
+        var cchilden: ArrayList<String>?, //list of ids of children if it is parent
         var cicon: IconPojo, //cicon pojo
         var cfrequency: Int, //number of times category is cfrequency
         var ctype: String, //saving , expense, bill etc
         var ccolor: String, //additional ccolor input
-        var csyncState: Boolean //if transaction is synced
+        var csyncState: Boolean //if category is synced
 )

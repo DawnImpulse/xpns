@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "8ecae7e3f2d76b3c3841d6dc692b78e3",
+    "identityHash": "e79ae7fc5f9a3cec4e9092260e80caea",
     "entities": [
       {
         "tableName": "category",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`caid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cid` TEXT NOT NULL, `cname` TEXT NOT NULL, `cparent` TEXT, `cicon` TEXT NOT NULL, `cfrequency` INTEGER NOT NULL, `ctype` TEXT NOT NULL, `ccolor` TEXT NOT NULL, `csyncState` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`caid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cid` TEXT NOT NULL, `cname` TEXT NOT NULL, `cisParent` INTEGER NOT NULL, `cisChild` INTEGER NOT NULL, `cchilden` TEXT, `cicon` TEXT NOT NULL, `cfrequency` INTEGER NOT NULL, `ctype` TEXT NOT NULL, `ccolor` TEXT NOT NULL, `csyncState` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "caid",
@@ -27,8 +27,20 @@
             "notNull": true
           },
           {
-            "fieldPath": "cparent",
-            "columnName": "cparent",
+            "fieldPath": "cisParent",
+            "columnName": "cisParent",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cisChild",
+            "columnName": "cisChild",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cchilden",
+            "columnName": "cchilden",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -169,7 +181,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"8ecae7e3f2d76b3c3841d6dc692b78e3\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"e79ae7fc5f9a3cec4e9092260e80caea\")"
     ]
   }
 }

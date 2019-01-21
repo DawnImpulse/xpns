@@ -1,7 +1,7 @@
 package org.sourcei.xpns.dao
 
-import android.arch.paging.DataSource
-import android.arch.persistence.room.*
+import androidx.paging.DataSource
+import androidx.room.*
 import org.sourcei.xpns.pojo.CategoryPojo
 
 /**
@@ -18,18 +18,23 @@ interface CategoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(categoryPojo: CategoryPojo)
 
+    // getting a single category
     @Query("SELECT * FROM category WHERE cid=:id LIMIT 1")
     fun getItem(id: String): CategoryPojo
 
-    @Query("SELECT * FROM category WHERE ctype=:type ORDER BY cname")
+    // list of all categories ordered by name , filtered by type
+    @Query("SELECT * FROM category WHERE ctype=:type AND cisParent=1 ORDER BY cname")
     fun getItems(type: String): DataSource.Factory<Int, CategoryPojo>
 
-    @Query("SELECT * FROM category WHERE ctype=:type ORDER BY cfrequency DESC")
+    // list of all categories order by frequency, filtered by type
+    @Query("SELECT * FROM category WHERE ctype=:type AND cisParent=1 ORDER BY cfrequency DESC")
     fun getFrequentItems(type: String): DataSource.Factory<Int, CategoryPojo>
 
+    // delete an item
     @Delete
     fun deleteItem(categoryPojo: CategoryPojo)
 
+    // delete an item by cid
     @Query("DELETE FROM category WHERE cid=:id")
     fun deleteItem(id: String)
 }

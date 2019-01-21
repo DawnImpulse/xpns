@@ -1,13 +1,14 @@
 package org.sourcei.xpns.models
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.paging.LivePagedListBuilder
-import android.arch.paging.PagedList
 import android.content.Context
-import kotlinx.coroutines.experimental.launch
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.sourcei.xpns.dao.TransactionDao
 import org.sourcei.xpns.handlers.DateHandler
 import org.sourcei.xpns.pojo.TransactionCPojo
@@ -49,7 +50,7 @@ class TransactionModel(private val lifecycle: Lifecycle, private val context: Co
 
     // insert a new transaction
     fun insert(amount: String, cid: String, date: String, time: String, note: String?) {
-        launch {
+        GlobalScope.launch {
             dao().insert(
                     TransactionPojo(
                             0,
@@ -65,7 +66,7 @@ class TransactionModel(private val lifecycle: Lifecycle, private val context: Co
 
     // fetching a single item
     fun getItem(id: String, callback: (TransactionCPojo?) -> Unit) {
-        launch {
+        GlobalScope.launch {
             callback(dao().getItem(id))
         }
     }
@@ -83,22 +84,22 @@ class TransactionModel(private val lifecycle: Lifecycle, private val context: Co
 
     //update an item
     fun editItem(transactionPojo: TransactionPojo) {
-        launch { dao().insert(transactionPojo) }
+        GlobalScope.launch { dao().insert(transactionPojo) }
     }
 
     //delete an item
     fun deleteItem(transactionPojo: TransactionPojo) {
-        launch { dao().deleteItem(transactionPojo) }
+        GlobalScope.launch { dao().deleteItem(transactionPojo) }
     }
 
     //delete an item
     fun deleteItem(id: String) {
-        launch { dao().deleteItem(id) }
+        GlobalScope.launch { dao().deleteItem(id) }
     }
 
     // get balance
     fun getBalance(callback: (Double) -> Unit) {
-        launch {
+        GlobalScope.launch {
             var saving = dao().getTotal(C.SAVING)
             var expense = dao().getTotal(C.EXPENSE)
 

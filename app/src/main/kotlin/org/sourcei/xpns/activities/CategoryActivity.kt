@@ -3,9 +3,8 @@ package org.sourcei.xpns.activities
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.view.ViewPager
-import android.support.v7.app.AppCompatActivity
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import kotlinx.android.synthetic.main.activity_category.*
 import org.sourcei.xpns.R
@@ -17,14 +16,15 @@ import org.sourcei.xpns.utils.ViewPagerAdapter
  * @info -
  *
  * @author - Saksham
- * @tnote Last Branch Update - master
+ * @note Last Branch Update - master
  *
- * @tnote Created on 2018-09-04 by Saksham
- * @tnote Updates :
+ * @note Created on 2018-09-04 by Saksham
+ * @note Updates :
  */
 class CategoryActivity : AppCompatActivity(), View.OnClickListener {
 
     private var select = false // whether to select or edit
+    private var showChild = false // if we need to show only parents
     private lateinit var categoryFragment: CategoryFragment
     private lateinit var pagerAdapter: ViewPagerAdapter
 
@@ -34,6 +34,7 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_category)
 
         select = intent.extras.getBoolean(C.SELECT)
+        showChild = intent.extras.getBoolean(C.SHOW_CHILD)
         setupViewPager(categoryViewPager)
         categoryFab.setOnClickListener(this)
     }
@@ -46,13 +47,14 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     // Setup our viewpager
-    private fun setupViewPager(viewPager: ViewPager) {
+    private fun setupViewPager(viewPager: androidx.viewpager.widget.ViewPager) {
         pagerAdapter = ViewPagerAdapter(supportFragmentManager)
         categoryFragment = CategoryFragment()
 
-        var bundle = bundleOf(
+        val bundle = bundleOf(
                 Pair(C.SELECT, true),
-                Pair(C.TYPE, C.EXPENSE)
+                Pair(C.TYPE, C.EXPENSE),
+                Pair(C.SHOW_CHILD, showChild)
         )
 
         categoryFragment.arguments = bundle

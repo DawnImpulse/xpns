@@ -1,7 +1,7 @@
 package org.sourcei.xpns.dao
 
-import android.arch.paging.DataSource
-import android.arch.persistence.room.*
+import androidx.paging.DataSource
+import androidx.room.*
 import org.sourcei.xpns.pojo.TransactionCPojo
 import org.sourcei.xpns.pojo.TransactionPojo
 import org.sourcei.xpns.pojo.TransactionTotal

@@ -1,6 +1,6 @@
 package org.sourcei.xpns.viewholders
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import kotlinx.android.synthetic.main.inflator_icons.view.*
 
@@ -13,6 +13,6 @@ import kotlinx.android.synthetic.main.inflator_icons.view.*
  * @tnote Created on 2018-09-04 by Saksham
  * @tnote Updates :
  */
-class IconsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+class IconsViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView){
     val icon = itemView.iconsI
 }

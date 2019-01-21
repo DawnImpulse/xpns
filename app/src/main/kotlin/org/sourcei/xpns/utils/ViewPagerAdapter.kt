@@ -1,8 +1,8 @@
 package org.sourcei.xpns.utils
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 
 /**
  * @info -
@@ -13,14 +13,14 @@ import android.support.v4.app.FragmentPagerAdapter
  * @tnote Created on 2018-08-19 by Saksham
  * @tnote Updates :
  */
-class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
-    private val mFragmentList = ArrayList<Fragment>()
+class ViewPagerAdapter(fm: androidx.fragment.app.FragmentManager) : androidx.fragment.app.FragmentPagerAdapter(fm) {
+    private val mFragmentList = ArrayList<androidx.fragment.app.Fragment>()
     private val mFragmentTitleList = ArrayList<String>()
 
     /**
      * Get item at position
      */
-    override fun getItem(position: Int): Fragment {
+    override fun getItem(position: Int): androidx.fragment.app.Fragment {
         return mFragmentList[position]
     }
 
@@ -41,7 +41,7 @@ class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     /**
      * Add fragment to the list
      */
-    internal fun addFragment(fragment: Fragment, title: String) {
+    internal fun addFragment(fragment: androidx.fragment.app.Fragment, title: String) {
         mFragmentList.add(fragment)
         mFragmentTitleList.add(title)
     }

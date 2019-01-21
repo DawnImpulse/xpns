@@ -1,10 +1,9 @@
 package org.sourcei.xpns.viewholders
 
-import android.arch.lifecycle.Lifecycle
 import android.graphics.Color
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.Lifecycle
 import kotlinx.android.synthetic.main.inflator_transactions.view.*
 import org.sourcei.xpns.R
 import org.sourcei.xpns.handlers.ImageHandler
@@ -22,7 +21,7 @@ import org.sourcei.xpns.utils.Colors
  * @tnote Updates :
  */
 class TransactionViewHolder(private val parent: ViewGroup,
-                            private val lifecycle: Lifecycle) : RecyclerView.ViewHolder(
+                            private val lifecycle: Lifecycle) : androidx.recyclerview.widget.RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.inflator_transactions, parent, false)) {
 
     private val image = itemView.transactionImage

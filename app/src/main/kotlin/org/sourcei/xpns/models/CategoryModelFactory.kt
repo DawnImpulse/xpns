@@ -1,10 +1,11 @@
 package org.sourcei.xpns.models
 
-import android.arch.lifecycle.*
-import android.arch.paging.LivePagedListBuilder
-import android.arch.paging.PagedList
 import android.content.Context
-import kotlinx.coroutines.experimental.launch
+import androidx.lifecycle.*
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.sourcei.xpns.dao.CategoryDao
 import org.sourcei.xpns.pojo.CategoryPojo
 import org.sourcei.xpns.pojo.IconPojo
@@ -42,14 +43,17 @@ class CategoryModel(private val lifecycle: Lifecycle, private val context: Conte
     }
 
     // insert a new category
-    fun insert(name: String, parent: String?, icon: IconPojo, type: String, color: String) {
-        launch {
+    fun insert(name: String, icon: IconPojo, type: String, color: String,
+               isParent: Boolean = true, isChild: Boolean = false, uuid: String = UUID.randomUUID().toString()) {
+        GlobalScope.launch {
             dao().insert(
                     CategoryPojo(
                             0,
-                            UUID.randomUUID().toString(),
+                            uuid,
                             name,
-                            parent,
+                            isParent,
+                            isChild,
+                            null,
                             icon,
                             0,
                             type,
@@ -62,7 +66,7 @@ class CategoryModel(private val lifecycle: Lifecycle, private val context: Conte
 
     // fetching a single item
     fun getItem(id: String, callback: (CategoryPojo?) -> Unit) {
-        launch {
+        GlobalScope.launch {
             lifecycle.addObserver(object : LifecycleObserver {
                 @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
                 fun onResume() {
@@ -96,16 +100,16 @@ class CategoryModel(private val lifecycle: Lifecycle, private val context: Conte
 
     //update an item
     fun editItem(categoryPojo: CategoryPojo) {
-        launch { dao().insert(categoryPojo) }
+        GlobalScope.launch { dao().insert(categoryPojo) }
     }
 
     //delete an item
     fun deleteItem(categoryPojo: CategoryPojo) {
-        launch { dao().deleteItem(categoryPojo) }
+        GlobalScope.launch { dao().deleteItem(categoryPojo) }
     }
 
     //delete an item
     fun deleteItem(id: String) {
-        launch { dao().deleteItem(id) }
+        GlobalScope.launch { dao().deleteItem(id) }
     }
 }

@@ -2,10 +2,8 @@ package org.sourcei.xpns.activities
 
 import android.app.Activity
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import androidx.core.widget.toast
+import androidx.appcompat.app.AppCompatActivity
 import com.dawnimpulse.wallup.utils.L
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_icons.*
@@ -13,6 +11,7 @@ import org.sourcei.xpns.R
 import org.sourcei.xpns.adapter.IconsAdapter
 import org.sourcei.xpns.models.IconsModel
 import org.sourcei.xpns.pojo.IconPojo
+import org.sourcei.xpns.utils.toast
 
 class IconsActivity : AppCompatActivity() {
     private val NAME = "IconsActivity"
@@ -38,7 +37,7 @@ class IconsActivity : AppCompatActivity() {
                 iconsProgress.visibility = View.GONE
                 iconsRecycler.visibility = View.VISIBLE
                 var adapter = IconsAdapter(lifecycle, details as List<IconPojo>)
-                iconsRecycler.layoutManager = LinearLayoutManager(this)
+                iconsRecycler.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
                 iconsRecycler.adapter = adapter
             }
         }

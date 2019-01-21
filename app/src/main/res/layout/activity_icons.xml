@@ -14,7 +14,7 @@
         android:layout_centerVertical="true"
         android:indeterminate="true" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:visibility="gone"
         android:id="@+id/iconsRecycler"
         android:layout_width="match_parent"

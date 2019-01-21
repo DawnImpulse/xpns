@@ -12,7 +12,7 @@ INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
 WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
 OR PERFORMANCE OF THIS SOFTWARE.
 -->
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
@@ -24,7 +24,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_marginBottom="?attr/actionBarSize"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/mainViewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -55,7 +55,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:layout_centerVertical="true"
                 android:orientation="vertical">
 
-                <android.support.v7.widget.AppCompatImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/mainNavHomeI"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
@@ -78,7 +78,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:layout_centerVertical="true"
                 android:orientation="vertical">
 
-                <android.support.v7.widget.AppCompatImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/mainNavStatI"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
@@ -103,7 +103,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:layout_centerVertical="true"
                 android:orientation="vertical">
 
-                <android.support.v7.widget.AppCompatImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/mainNavCuratedI"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
@@ -127,7 +127,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:layout_centerVertical="true"
                 android:orientation="vertical">
 
-                <android.support.v7.widget.AppCompatImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/mainNavHistoryI"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
@@ -145,7 +145,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/mainNavUpI"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
@@ -155,4 +155,4 @@ OR PERFORMANCE OF THIS SOFTWARE.
         </RelativeLayout>
 
     </LinearLayout>
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

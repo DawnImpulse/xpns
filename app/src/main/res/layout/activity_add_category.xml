@@ -6,22 +6,146 @@
     android:layout_height="match_parent"
     tools:context=".activities.AddCategoryActivity">
 
-    <ImageView
-        android:id="@+id/addCCircle"
-        android:layout_width="360dp"
-        android:layout_height="360dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="-180dp"
-        android:layout_marginTop="-180dp"
-        android:background="@drawable/bg_circle" />
 
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/addCImage"
-        android:layout_width="96dp"
-        app:srcCompat="@drawable/vd_dots"
-        android:layout_height="96dp"
-        android:layout_below="@id/addCCircle"
-        android:layout_centerHorizontal="true" />
+    <!--Color-->
+    <FrameLayout
+        android:id="@+id/addCCView"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_round_color_view_top">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:letterSpacing="0.1"
+            android:text="Change Color"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/addCButtonL"
+        android:layout_below="@id/addCCView"
+        android:orientation="vertical">
+
+        <!--Category Image-->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/addCImage"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/vd_dots" />
+        </FrameLayout>
+
+        <!--Name-->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp">
+
+                <me.grantland.widget.AutofitTextView
+                    android:id="@+id/addCName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:letterSpacing="0.1"
+                    android:maxLines="1"
+                    android:text="NAME"
+                    android:textColor="@color/grey500"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/addCName"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/grey400" />
+            </RelativeLayout>
+        </FrameLayout>
+
+        <!--Type-->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/addCTypeL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/vd_info_grey" />
+
+                    <TextView
+                        android:id="@+id/addCType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="16dp"
+                        android:letterSpacing="0.2"
+                        android:text="Select Type"
+                        android:textColor="@color/grey500"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/addCParentL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="48dp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/addCParentI"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/vd_dots" />
+
+                    <TextView
+                        android:id="@+id/addCParentT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="16dp"
+                        android:letterSpacing="0.2"
+                        android:text="Select Parent"
+                        android:textColor="@color/grey500"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
 
     <!--Buttons-->
     <RelativeLayout
@@ -40,7 +164,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp">
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
@@ -68,7 +192,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp">
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
@@ -84,64 +208,6 @@
                 android:textSize="18sp" />
 
         </LinearLayout>
-    </RelativeLayout>
-
-    <!--Type-->
-    <LinearLayout
-        android:id="@+id/addCTypeL"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/addCButtonL"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="56dp">
-
-        <android.support.v7.widget.AppCompatImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/vd_info_grey" />
-
-        <TextView
-            android:id="@+id/addCType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
-            android:letterSpacing="0.2"
-            android:text="Select Type"
-            android:textColor="@color/grey500"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <!--Name-->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/addCTypeL"
-        android:layout_marginBottom="48dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp">
-
-        <me.grantland.widget.AutofitTextView
-            android:id="@+id/addCName"
-            android:layout_width="match_parent"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:letterSpacing="0.1"
-            android:maxLines="1"
-            android:text="NAME"
-            android:textColor="@color/grey500"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/addCName"
-            android:layout_marginTop="4dp"
-            android:background="@color/grey400" />
     </RelativeLayout>
 
 </RelativeLayout>

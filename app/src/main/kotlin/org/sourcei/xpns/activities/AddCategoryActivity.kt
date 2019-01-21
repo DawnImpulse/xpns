@@ -2,13 +2,11 @@ package org.sourcei.xpns.activities
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.drawable.GradientDrawable
+import android.graphics.PorterDuff
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.graphics.Palette
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
-import androidx.core.widget.toast
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_add_category.*
 import org.json.JSONObject
@@ -17,20 +15,24 @@ import org.sourcei.xpns.handlers.ColorHandler
 import org.sourcei.xpns.handlers.ImageHandler
 import org.sourcei.xpns.interfaces.Callback
 import org.sourcei.xpns.models.CategoryModel
+import org.sourcei.xpns.pojo.CategoryPojo
 import org.sourcei.xpns.pojo.IconPojo
 import org.sourcei.xpns.sheets.ModalSheetCatName
 import org.sourcei.xpns.sheets.ModalSheetType
 import org.sourcei.xpns.utils.C
 import org.sourcei.xpns.utils.Colors
+import org.sourcei.xpns.utils.openActivityForResult
+import org.sourcei.xpns.utils.toast
+import java.util.*
 
 /**
  * @info -
  *
  * @author - Saksham
- * @tnote Last Branch Update - master
+ * @note Last Branch Update - master
  *
- * @tnote Created on 2018-09-04 by Saksham
- * @tnote Updates :
+ * @note Created on 2018-09-04 by Saksham
+ * @note Updates :
  */
 class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback {
     private lateinit var nameSheet: ModalSheetCatName
@@ -39,6 +41,8 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
     private var color = 0
     private var type: String? = null
     private var icon: IconPojo? = null
+    private val SELECT_PARENT = 1
+    private var parent: CategoryPojo? = null
 
     // on create
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +56,7 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
         addCName.setOnClickListener(this)
         addCDone.setOnClickListener(this)
         addCType.setOnClickListener(this)
+        addCParentL.setOnClickListener(this)
     }
 
     // on click
@@ -68,13 +73,31 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
                 if (icon != null) {
                     if (addCName.text.toString() != "NAME") {
                         if (type != null) {
-                            model.insert(
-                                    addCName.text.toString().trim(),
-                                    null,
-                                    icon!!,
-                                    type!!,
-                                    ColorHandler.intColorToString(color)
-                            )
+                            if (parent != null) { // a child category , also update parent one
+                                val uuid = UUID.randomUUID().toString()
+                                if (parent!!.cchilden != null)
+                                    parent!!.cchilden!!.add(uuid)
+                                else
+                                    parent!!.cchilden = arrayListOf(uuid)
+                                model.editItem(parent!!)
+                                model.insert(
+                                        addCName.text.toString().trim(),
+                                        icon!!,
+                                        type!!,
+                                        ColorHandler.intColorToString(color),
+                                        false,
+                                        true,
+                                        uuid
+                                )
+                            } else { // a parent category
+                                model.insert(
+                                        addCName.text.toString().trim(),
+                                        icon!!,
+                                        type!!,
+                                        ColorHandler.intColorToString(color)
+                                )
+                            }
+
                             toast("category inserted")
                             finish()
                         } else
@@ -88,6 +111,12 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
                 typeSheet.arguments = bundleOf(Pair(C.NAME, addCName.text.toString()))
                 typeSheet.show(supportFragmentManager, typeSheet.tag)
             }
+            addCParentL.id -> {
+                openActivityForResult(CategoryActivity::class.java, SELECT_PARENT) {
+                    putBoolean(C.SELECT, true)
+                    putBoolean(C.SHOW_CHILD, false)
+                }
+            }
         }
     }
 
@@ -100,9 +129,16 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
                 icon = Gson().fromJson(data!!.getStringExtra(C.ICON), IconPojo::class.java)
                 ImageHandler.getImageAsBitmap(lifecycle, this, icon!!.iurls!!.url64) {
                     addCImage.setImageBitmap(it)
-                    color = ColorHandler.getNonDarkColor(Palette.from(it).generate(), this)
+                    color = ColorHandler.getNonDarkColor(androidx.palette.graphics.Palette.from(it).generate(), this)
                     setColor()
                 }
+            }
+        }
+        if (requestCode == SELECT_PARENT) {
+            if (resultCode == Activity.RESULT_OK) {
+                parent = Gson().fromJson(data!!.getStringExtra(C.CATEGORY), CategoryPojo::class.java)
+                addCParentT.text = parent!!.cname
+                ImageHandler.setImageInView(lifecycle, addCParentI, parent!!.cicon.iurls!!.url64)
             }
         }
     }
@@ -130,11 +166,12 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
 
     // set ccolor
     private fun setColor() {
-        var circle = addCCircle.background.current as GradientDrawable
+        //val circle = addCCircle.background.current as GradientDrawable
         //var done = addCDone.background.current as GradientDrawable
 
-        circle.setColor(color)
+        //circle.setColor(color)
         //done.setCcolor(ccolor)
+        addCCView.background.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         addCName.setTextColor(color)
     }
 }

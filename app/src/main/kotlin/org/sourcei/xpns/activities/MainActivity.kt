@@ -3,8 +3,8 @@ package org.sourcei.xpns.activities
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Bundle
-import android.support.v4.view.ViewPager
-import android.support.v7.app.AppCompatActivity
+import androidx.viewpager.widget.ViewPager
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import org.sourcei.xpns.R
@@ -24,7 +24,7 @@ import org.sourcei.xpns.utils.ViewPagerAdapter
  * @tnote Updates :
  * Saksham - 2018 09 13 - master - custom bottom nav
  */
-class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.OnClickListener {
+class MainActivity : AppCompatActivity(), androidx.viewpager.widget.ViewPager.OnPageChangeListener, View.OnClickListener {
     private var lastItemSelected = 0
     private lateinit var pagerAdapter: ViewPagerAdapter
     private lateinit var transactionsFragment: TransactionsFragment
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
     }
 
     // Setup our viewpager
-    private fun setupViewPager(viewPager: ViewPager) {
+    private fun setupViewPager(viewPager: androidx.viewpager.widget.ViewPager) {
         pagerAdapter = ViewPagerAdapter(supportFragmentManager)
         transactionsFragment = TransactionsFragment()
 

@@ -1,6 +1,6 @@
 package org.sourcei.xpns.convertors
 
-import android.arch.persistence.room.TypeConverter
+import androidx.room.TypeConverter
 import com.google.gson.Gson
 import org.sourcei.xpns.pojo.IconPojo
 

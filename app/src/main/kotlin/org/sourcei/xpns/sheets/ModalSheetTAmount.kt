@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.toast
 import kotlinx.android.synthetic.main.bottom_sheet_t_amount.*
 import me.grantland.widget.AutofitTextView
 import org.json.JSONObject
@@ -13,6 +12,7 @@ import org.sourcei.xpns.R
 import org.sourcei.xpns.interfaces.Callback
 import org.sourcei.xpns.utils.C
 import org.sourcei.xpns.utils.F
+import org.sourcei.xpns.utils.toast
 
 /**
  * @info -
@@ -37,7 +37,7 @@ class ModalSheetTAmount : RoundedBottomSheet(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
-            sheetTA.text = it!!.getDouble(C.AMOUNT).toString()
+            sheetTA.text = it.getDouble(C.AMOUNT).toString()
         }
 
         sheetT0.setOnClickListener(this)

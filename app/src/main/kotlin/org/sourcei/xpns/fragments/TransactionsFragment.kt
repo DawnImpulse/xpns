@@ -1,14 +1,13 @@
 package org.sourcei.xpns.fragments
 
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.fragment_transactions.*
 import org.sourcei.xpns.R
 import org.sourcei.xpns.adapter.TransactionsAdapter
@@ -55,7 +54,7 @@ class TransactionsFragment : Fragment() {
         model.getItems().observe(this, Observer {
             adapter.submitList(it)
         })
-        transactionsRecycler.layoutManager = LinearLayoutManager(context)
+        transactionsRecycler.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         transactionsRecycler.adapter = adapter
     }
 

@@ -7,7 +7,7 @@
     android:background="@color/white"
     tools:context=".activities.CategoryActivity">
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/categoryViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -19,12 +19,19 @@
         android:layout_alignParentBottom="true"
         android:elevation="8dp" />
 
-    <android.support.design.widget.FloatingActionButton
+    <FrameLayout
         android:id="@+id/categoryFab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:layout_margin="16dp"
-        app:srcCompat="@drawable/vd_plus" />
+        android:background="@drawable/bt_round_complete_corners_accent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/vd_plus_black" />
+    </FrameLayout>
 </RelativeLayout>
