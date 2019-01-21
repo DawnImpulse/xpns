@@ -15,6 +15,10 @@ import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import org.json.JSONObject
 import java.io.File
+import android.view.MotionEvent
+import android.os.SystemClock
+
+
 
 /**
  * @info -

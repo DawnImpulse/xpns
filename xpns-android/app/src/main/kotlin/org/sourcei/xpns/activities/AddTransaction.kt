@@ -159,5 +159,6 @@ class AddTransaction : AppCompatActivity(), View.OnClickListener, Callback,
         addTCatName.setTextColor(color)
 
         addTDoneI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+        addTCView.background.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
     }
 }
