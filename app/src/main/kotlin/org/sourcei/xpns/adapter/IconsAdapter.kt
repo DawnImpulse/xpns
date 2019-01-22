@@ -1,6 +1,9 @@
 package org.sourcei.xpns.adapter
 
+import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -23,10 +26,11 @@ import org.sourcei.xpns.viewholders.IconsViewHolder
  * @tnote Created on 2018-09-04 by Saksham
  * @tnote Updates :
  */
-class IconsAdapter(private val lifecycle: Lifecycle, private val icons: List<IconPojo>)
-    : androidx.recyclerview.widget.RecyclerView.Adapter<IconsViewHolder>() {
+class IconsAdapter(private val lifecycle: Lifecycle, private val icons: List<IconPojo>) :
+    androidx.recyclerview.widget.RecyclerView.Adapter<IconsViewHolder>() {
 
     private lateinit var context: Context
+    private lateinit var activity: Activity
     private var sheet = ModalSheetIcon()
 
     // item count
@@ -37,6 +41,7 @@ class IconsAdapter(private val lifecycle: Lifecycle, private val icons: List<Ico
     // on create
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IconsViewHolder {
         context = parent.context
+        activity = context as Activity
         return IconsViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_icons, parent, false))
     }
 
@@ -44,8 +49,15 @@ class IconsAdapter(private val lifecycle: Lifecycle, private val icons: List<Ico
     override fun onBindViewHolder(holder: IconsViewHolder, position: Int) {
         ImageHandler.setImageInView(lifecycle, holder.icon, icons[position].iurls!!.url64)
         holder.icon.setOnClickListener {
+            val intent = Intent()
+            intent.putExtra(C.ICON, Gson().toJson(icons[position]))
+            activity.setResult(RESULT_OK, intent)
+            activity.finish()
+        }
+        holder.icon.setOnLongClickListener {
             sheet.arguments = bundleOf(Pair(C.ICON, Gson().toJson(icons[position])))
             sheet.show((context as AppCompatActivity).supportFragmentManager, sheet.tag)
+            false
         }
     }
 

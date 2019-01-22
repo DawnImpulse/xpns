@@ -115,6 +115,7 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
                 openActivityForResult(CategoryActivity::class.java, SELECT_PARENT) {
                     putBoolean(C.SELECT, true)
                     putBoolean(C.SHOW_CHILD, false)
+                    putBoolean(C.FAB,false)
                 }
             }
         }

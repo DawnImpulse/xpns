@@ -27,6 +27,8 @@ object C {
     const val AMOUNT = "tamount"
     const val PARENT = "parent"
     const val SHOW_CHILD = "showChild"
+    const val NOTE = "note"
+    const val FAB = "fab"
 
     const val DP48 = "48dp"
 

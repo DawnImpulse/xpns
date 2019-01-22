@@ -11,6 +11,7 @@ import org.sourcei.xpns.R
 import org.sourcei.xpns.fragments.CategoryFragment
 import org.sourcei.xpns.utils.C
 import org.sourcei.xpns.utils.ViewPagerAdapter
+import org.sourcei.xpns.utils.gone
 
 /**
  * @info -
@@ -25,6 +26,7 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
 
     private var select = false // whether to select or edit
     private var showChild = false // if we need to show only parents
+    private var fab = false //to show fab or not
     private lateinit var categoryFragment: CategoryFragment
     private lateinit var pagerAdapter: ViewPagerAdapter
 
@@ -33,10 +35,14 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
 
-        select = intent.extras.getBoolean(C.SELECT)
-        showChild = intent.extras.getBoolean(C.SHOW_CHILD)
+        select = intent.extras!!.getBoolean(C.SELECT)
+        showChild = intent.extras!!.getBoolean(C.SHOW_CHILD)
+        fab = intent.extras!!.getBoolean(C.FAB)
         setupViewPager(categoryViewPager)
         categoryFab.setOnClickListener(this)
+
+        if (!fab)
+            categoryFab.gone()
     }
 
     // on click
@@ -52,9 +58,9 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
         categoryFragment = CategoryFragment()
 
         val bundle = bundleOf(
-                Pair(C.SELECT, true),
-                Pair(C.TYPE, C.EXPENSE),
-                Pair(C.SHOW_CHILD, showChild)
+            Pair(C.SELECT, true),
+            Pair(C.TYPE, C.EXPENSE),
+            Pair(C.SHOW_CHILD, showChild)
         )
 
         categoryFragment.arguments = bundle

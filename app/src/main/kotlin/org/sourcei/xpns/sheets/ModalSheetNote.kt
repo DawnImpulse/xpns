@@ -6,9 +6,9 @@ import android.os.Handler
 import android.os.SystemClock
 import android.view.*
 import android.view.inputmethod.EditorInfo
-import kotlinx.android.synthetic.main.bottom_sheet_cat_name.*
 import kotlinx.android.synthetic.main.bottom_sheet_note.*
 import org.json.JSONObject
+import org.sourcei.xpns.R
 import org.sourcei.xpns.interfaces.Callback
 import org.sourcei.xpns.utils.C
 import org.sourcei.xpns.utils.MyEditText
@@ -20,15 +20,15 @@ import org.sourcei.xpns.utils.MyEditText
  * @author - Saksham
  * @tnote Last Branch Update - master
  *
- * @tnote Created on 2018-09-04 by Saksham
+ * @tnote Created on 2019-01-22 by Saksham
  * @tnote Updates :
  */
-class ModalSheetCatName : RoundedBottomSheet(), View.OnClickListener {
+class ModalSheetNote : RoundedBottomSheet(), View.OnClickListener {
     private lateinit var callback: Callback
 
     // on create
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(org.sourcei.xpns.R.layout.bottom_sheet_cat_name, container, false)
+        return inflater.inflate(R.layout.bottom_sheet_note, container, false)
     }
 
     // on view created
@@ -36,24 +36,22 @@ class ModalSheetCatName : RoundedBottomSheet(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
-            val name = it.getString(C.NAME)
-            if (name != "NAME")
-                sheetCNE.setText(name)
+            val note = it.getString(C.NOTE)
+            if (note != "NOTE")
+                sheetNoteText.setText(note)
         }
 
-        sheetCND.setOnClickListener(this)
-        sheetCNE.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_GO){
+        sheetNoteText.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_GO) {
                 val obj = JSONObject()
-                obj.put(C.TYPE, C.NAME)
-                obj.put(C.NAME, sheetCNE.text.toString())
+                obj.put(C.TYPE, C.NOTE)
+                obj.put(C.NOTE, sheetNoteText.text.toString())
                 callback.call(obj)
                 dismiss()
             }
             false
         }
-
-        sheetCNE.setKeyImeChangeListener(object : MyEditText.KeyImeChange {
+        sheetNoteText.setKeyImeChangeListener(object : MyEditText.KeyImeChange {
             override fun onKeyIme(keyCode: Int, event: KeyEvent) {
                 if (KeyEvent.KEYCODE_BACK == event.keyCode) {
                     dismiss()
@@ -62,8 +60,26 @@ class ModalSheetCatName : RoundedBottomSheet(), View.OnClickListener {
         })
 
         Handler().postDelayed({
-            sheetCNE.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN, 0f, 0f, 0))
-            sheetCNE.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, 0f, 0f, 0))
+            sheetNoteText.dispatchTouchEvent(
+                MotionEvent.obtain(
+                    SystemClock.uptimeMillis(),
+                    SystemClock.uptimeMillis(),
+                    MotionEvent.ACTION_DOWN,
+                    0f,
+                    0f,
+                    0
+                )
+            )
+            sheetNoteText.dispatchTouchEvent(
+                MotionEvent.obtain(
+                    SystemClock.uptimeMillis(),
+                    SystemClock.uptimeMillis(),
+                    MotionEvent.ACTION_UP,
+                    0f,
+                    0f,
+                    0
+                )
+            )
         }, 100)
     }
 
@@ -76,14 +92,6 @@ class ModalSheetCatName : RoundedBottomSheet(), View.OnClickListener {
 
     // on click
     override fun onClick(v: View) {
-        when (v.id) {
-            sheetCND.id -> {
-                val obj = JSONObject()
-                obj.put(C.TYPE, C.NAME)
-                obj.put(C.NAME, sheetCNE.text.toString())
-                callback.call(obj)
-                dismiss()
-            }
-        }
+
     }
 }

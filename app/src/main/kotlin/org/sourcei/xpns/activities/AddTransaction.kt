@@ -19,20 +19,21 @@ import org.sourcei.xpns.handlers.ImageHandler
 import org.sourcei.xpns.interfaces.Callback
 import org.sourcei.xpns.models.TransactionModel
 import org.sourcei.xpns.pojo.CategoryPojo
-import org.sourcei.xpns.sheets.ModalSheetCatName
+import org.sourcei.xpns.sheets.ModalSheetNote
 import org.sourcei.xpns.sheets.ModalSheetTAmount
 import org.sourcei.xpns.utils.C
 import org.sourcei.xpns.utils.F
+import org.sourcei.xpns.utils.openActivityForResult
 import org.sourcei.xpns.utils.toast
 import java.util.*
 
 
 class AddTransaction : AppCompatActivity(), View.OnClickListener, Callback,
-        DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+    DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private lateinit var model: TransactionModel
     private lateinit var amountSheet: ModalSheetTAmount
-    private lateinit var noteSheet: ModalSheetCatName
+    private lateinit var noteSheet: ModalSheetNote
     private lateinit var category: CategoryPojo
     private lateinit var calendar: Calendar
 
@@ -43,11 +44,16 @@ class AddTransaction : AppCompatActivity(), View.OnClickListener, Callback,
 
         model = TransactionModel(lifecycle, this)
         amountSheet = ModalSheetTAmount()
-        noteSheet = ModalSheetCatName()
+        noteSheet = ModalSheetNote()
 
         calendar = Calendar.getInstance()
-        addTDate.text = DateHandler.convertAddTLayout(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
-        addTTime.text = "${F.addZero(calendar.get(Calendar.HOUR_OF_DAY).toString())}:${F.addZero(calendar.get(Calendar.MINUTE).toString())}"
+        addTDate.text = DateHandler.convertAddTLayout(
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+        addTTime.text =
+                "${F.addZero(calendar.get(Calendar.HOUR_OF_DAY).toString())}:${F.addZero(calendar.get(Calendar.MINUTE).toString())}"
 
         addTCatL.setOnClickListener(this)
         addTAmount.setOnClickListener(this)
@@ -62,15 +68,20 @@ class AddTransaction : AppCompatActivity(), View.OnClickListener, Callback,
         when (v.id) {
             addTAmount.id -> {
                 if (!addTAmount.text.toString().contentEquals("$ 0.00"))
-                    amountSheet.arguments = bundleOf(Pair(C.AMOUNT,
-                            addTAmount.text.toString().replace("$", "").trim().toDouble()))
+                    amountSheet.arguments = bundleOf(
+                        Pair(
+                            C.AMOUNT,
+                            addTAmount.text.toString().replace("$", "").trim().toDouble()
+                        )
+                    )
                 amountSheet.show(supportFragmentManager, amountSheet.tag)
             }
             addTCatL.id -> {
-                val intent = Intent(this, CategoryActivity::class.java)
-                intent.putExtra(C.SELECT, true)
-                intent.putExtra(C.SHOW_CHILD, true)
-                startActivityForResult(intent, C.CATEGORY_SELECT_CODE)
+                openActivityForResult(CategoryActivity::class.java, C.CATEGORY_SELECT_CODE) {
+                    putBoolean(C.SELECT, true)
+                    putBoolean(C.SHOW_CHILD, true)
+                    putBoolean(C.FAB, true)
+                }
             }
             addTNoteL.id -> {
                 if (addTNote.text.toString() != "NOTE")
@@ -83,20 +94,20 @@ class AddTransaction : AppCompatActivity(), View.OnClickListener, Callback,
                 date.show(fragmentManager, date.tag)
             }
             addTTimeL.id -> {
-                var time = TimePickerDialog.newInstance(
-                        this,
-                        false
+                val time = TimePickerDialog.newInstance(
+                    this,
+                    false
                 )
                 time.version = TimePickerDialog.Version.VERSION_2
                 time.show(fragmentManager, time.tag)
             }
             addTDoneL.id -> {
                 model.insert(
-                        addTAmount.text.toString().replace("$", "").trim(),
-                        category.cid,
-                        DateHandler.convertAddTLayout(addTDate.text.toString()),
-                        addTTime.text.toString(),
-                        if (addTNote.text.toString() == "NOTE") null else addTNote.text.toString()
+                    addTAmount.text.toString().replace("$", "").trim(),
+                    category.cid,
+                    DateHandler.convertAddTLayout(addTDate.text.toString()),
+                    addTTime.text.toString(),
+                    if (addTNote.text.toString() == "NOTE") null else addTNote.text.toString()
                 )
                 toast("Done")
                 finish()
@@ -115,8 +126,8 @@ class AddTransaction : AppCompatActivity(), View.OnClickListener, Callback,
                 else
                     addTAmount.text = "$ ${any.getDouble(C.AMOUNT)}"
             }
-            C.NAME -> {
-                var text = any.getString(C.NAME)
+            C.NOTE -> {
+                val text = any.getString(C.NOTE)
                 if (text.isNotEmpty())
                     addTNote.text = text
                 else
