@@ -22,6 +22,10 @@ import com.bumptech.glide.request.target.SimpleTarget
  */
 object ImageHandler{
 
+
+     // https://stackoverflow.com/questions/37964187/preload-multiple-images-with-glide
+
+
     /**
      * Use to set image on a view using glide
      * @param lifecycle

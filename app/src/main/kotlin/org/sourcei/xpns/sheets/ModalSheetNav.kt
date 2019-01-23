@@ -4,8 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.bottom_sheet_nav.*
 import org.sourcei.xpns.R
+import org.sourcei.xpns.activities.CategoryActivity
 import org.sourcei.xpns.interfaces.Callback
+import org.sourcei.xpns.utils.C
+import org.sourcei.xpns.utils.openActivityForResult
 
 /**
  * @info -
@@ -27,12 +31,18 @@ class ModalSheetNav : RoundedBottomSheet(), View.OnClickListener {
     // on view created
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        sheetNavCategory.setOnClickListener(this)
     }
 
     // on click
     override fun onClick(v: View) {
         when (v.id) {
-
+            sheetNavCategory.id -> activity!!.openActivityForResult(CategoryActivity::class.java, C.CATEGORY_SELECT_CODE) {
+                putBoolean(C.SELECT, false)
+                putBoolean(C.SHOW_CHILD, true)
+                putBoolean(C.FAB, true)
+            }
         }
     }
 }

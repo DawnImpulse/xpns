@@ -30,8 +30,8 @@ import java.util.*
  * Saksham - 2018 09 05 - master - transaction factory model
  * Saksham - 2018 09 12 - master - get balance, expense & saving
  */
-class TransactionModelFactory(private val lifecycle: Lifecycle, private val context: Context)
-    : ViewModelProvider.NewInstanceFactory() {
+class TransactionModelFactory(private val lifecycle: Lifecycle, private val context: Context) :
+    ViewModelProvider.NewInstanceFactory() {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return TransactionModel(lifecycle, context) as T
@@ -44,41 +44,43 @@ class TransactionModel(private val lifecycle: Lifecycle, private val context: Co
     // dao instance
     private fun dao(): TransactionDao {
         return RoomSource
-                .getInstance(context, Config.DbName)
-                .transactionsDao()
+            .getInstance(context, Config.DbName)
+            .transactionsDao()
     }
 
     // insert a new transaction
-    fun insert(amount: String, cid: String, date: String, time: String, note: String?) {
+    fun insert(amount: String, cid: String, date: String, time: String, wallet: String?, note: String?) {
         GlobalScope.launch {
             dao().insert(
-                    TransactionPojo(
-                            0,
-                            UUID.randomUUID().toString(),
-                            amount.toDouble(),
-                            cid,
-                            false,
-                            DateHandler.fullToDate(date, time),
-                            note
-                    ))
+                TransactionPojo(
+                    0,
+                    UUID.randomUUID().toString(),
+                    amount.toDouble(),
+                    cid,
+                    false,
+                    DateHandler.fullToDate(date, time),
+                    note,
+                    wallet
+                )
+            )
         }
     }
 
     // fetching a single item
-    fun getItem(id: String, callback: (TransactionCPojo?) -> Unit) {
+    fun getItem(id: String, wallet: String, callback: (TransactionCPojo?) -> Unit) {
         GlobalScope.launch {
-            callback(dao().getItem(id))
+            callback(dao().getItem(id, wallet))
         }
     }
 
     // get all items paginated
-    fun getItems(): LiveData<PagedList<TransactionCPojo>> {
+    fun getItems(wallet: String): LiveData<PagedList<TransactionCPojo>> {
         return LivePagedListBuilder(
-                dao().getItems(),
-                PagedList.Config.Builder()
-                        .setPageSize(30)
-                        .setEnablePlaceholders(true)
-                        .build()
+            dao().getItems(wallet),
+            PagedList.Config.Builder()
+                .setPageSize(30)
+                .setEnablePlaceholders(true)
+                .build()
         ).build()
     }
 
@@ -98,12 +100,12 @@ class TransactionModel(private val lifecycle: Lifecycle, private val context: Co
     }
 
     // get balance
-    fun getBalance(callback: (Double) -> Unit) {
+    fun getBalance(wallet: String, callback: (Double) -> Unit) {
         GlobalScope.launch {
-            var saving = dao().getTotal(C.SAVING)
-            var expense = dao().getTotal(C.EXPENSE)
+            val saving = dao().getTotal(C.SAVING, wallet)
+            val expense = dao().getTotal(C.EXPENSE, wallet)
 
-            callback(F.roundOff2Decimal( saving.total - expense.total))
+            callback(F.roundOff2Decimal(saving.total - expense.total))
         }
     }
 }

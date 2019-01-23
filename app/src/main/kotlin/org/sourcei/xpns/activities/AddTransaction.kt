@@ -21,10 +21,7 @@ import org.sourcei.xpns.models.TransactionModel
 import org.sourcei.xpns.pojo.CategoryPojo
 import org.sourcei.xpns.sheets.ModalSheetNote
 import org.sourcei.xpns.sheets.ModalSheetTAmount
-import org.sourcei.xpns.utils.C
-import org.sourcei.xpns.utils.F
-import org.sourcei.xpns.utils.openActivityForResult
-import org.sourcei.xpns.utils.toast
+import org.sourcei.xpns.utils.*
 import java.util.*
 
 
@@ -107,7 +104,8 @@ class AddTransaction : AppCompatActivity(), View.OnClickListener, Callback,
                     category.cid,
                     DateHandler.convertAddTLayout(addTDate.text.toString()),
                     addTTime.text.toString(),
-                    if (addTNote.text.toString() == "NOTE") null else addTNote.text.toString()
+                    if (addTNote.text.toString() == "NOTE") null else addTNote.text.toString(),
+                    Config.WALLET
                 )
                 toast("Done")
                 finish()

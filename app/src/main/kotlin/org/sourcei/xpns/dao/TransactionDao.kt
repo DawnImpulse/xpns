@@ -21,11 +21,11 @@ interface TransactionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(transaction: TransactionPojo)
 
-    @Query("SELECT t.*,c.* FROM transactions t INNER JOIN category c ON tcid = cid WHERE tid=:id LIMIT 1")
-    fun getItem(id: String): TransactionCPojo
+    @Query("SELECT t.*,c.* FROM transactions t INNER JOIN category c ON tcid = cid WHERE twallet=:wallet AND tid=:id LIMIT 1")
+    fun getItem(id: String, wallet: String): TransactionCPojo
 
-    @Query("SELECT t.*,c.* FROM transactions t INNER JOIN category c ON tcid = c.cid ORDER BY tdate DESC")
-    fun getItems(): DataSource.Factory<Int, TransactionCPojo>
+    @Query("SELECT t.*,c.* FROM transactions t INNER JOIN category c ON tcid = c.cid WHERE twallet=:wallet ORDER BY tdate DESC")
+    fun getItems(wallet: String): DataSource.Factory<Int, TransactionCPojo>
 
     @Delete
     fun deleteItem(transaction: TransactionPojo)
@@ -33,7 +33,7 @@ interface TransactionDao {
     @Query("DELETE FROM transactions WHERE tid=:id")
     fun deleteItem(id: String)
 
-    // get total savings
-    @Query("Select SUM(tamount) AS total FROM transactions INNER JOIN category ON tcid = cid WHERE ctype=:type")
-    fun getTotal(type:String) : TransactionTotal
+    // get total balance
+    @Query("Select SUM(tamount) AS total FROM transactions INNER JOIN category ON tcid = cid WHERE twallet=:wallet AND ctype=:type")
+    fun getTotal(type: String, wallet: String): TransactionTotal
 }

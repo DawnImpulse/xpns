@@ -9,6 +9,6 @@ package org.sourcei.xpns.utils
  * @tnote Created on 2018-08-13 by Saksham
  * @tnote Updates :
  */
-object Config{
-    var DbName = "Main"
+object Config {
+    var WALLET: String? = null
 }
