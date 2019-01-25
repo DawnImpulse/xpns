@@ -10,5 +10,6 @@ package org.sourcei.xpns.utils
  * @tnote Updates :
  */
 object Config {
-    var WALLET: String? = null
+    var DbName = "Xpns"
+    var WALLET: String = ""
 }

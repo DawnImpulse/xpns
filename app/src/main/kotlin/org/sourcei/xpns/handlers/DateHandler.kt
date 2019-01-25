@@ -44,6 +44,13 @@ object DateHandler {
         return convertUtilToSql(sdf.parse("${date}T$time"))
     }
 
+    // convert stored date to visible
+    fun convertStoredToVisible(date: String): String {
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
+        val sdfN = SimpleDateFormat("dd MMM '`'yy")
+        return sdfN.format(sdf.parse(date))
+    }
+
     // convert util tdate to sql tdate
     private fun convertUtilToSql(date: java.util.Date): Date {
         val sDate = Date(date.time);

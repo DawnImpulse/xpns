@@ -11,12 +11,9 @@ import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.fragment_transactions.*
 import org.sourcei.xpns.R
 import org.sourcei.xpns.adapter.TransactionsAdapter
-import org.sourcei.xpns.handlers.DateHandler
 import org.sourcei.xpns.models.TransactionModel
 import org.sourcei.xpns.models.TransactionModelFactory
-import org.sourcei.xpns.utils.Colors
-import org.sourcei.xpns.utils.F
-import java.util.*
+import org.sourcei.xpns.utils.Config
 
 
 /**
@@ -32,7 +29,6 @@ import java.util.*
 class TransactionsFragment : Fragment() {
     private lateinit var model: TransactionModel
     private lateinit var adapter: TransactionsAdapter
-    private lateinit var calendar: Calendar
 
     // on create view
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -46,12 +42,8 @@ class TransactionsFragment : Fragment() {
 
         model = ViewModelProviders.of(this, TransactionModelFactory(lifecycle, context!!)).get(TransactionModel::class.java)
         adapter = TransactionsAdapter(lifecycle)
-        calendar = Calendar.getInstance()
 
-        month.text = F.capWord(DateHandler.convertMMtoMMMM("${calendar.get(Calendar.MONTH) + 1}"))
-        year.text = calendar.get(Calendar.YEAR).toString()
-
-        model.getItems().observe(this, Observer {
+        model.getItems(Config.WALLET).observe(this, Observer {
             adapter.submitList(it)
         })
         transactionsRecycler.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
@@ -61,14 +53,6 @@ class TransactionsFragment : Fragment() {
     // on resume , getting balance
     override fun onResume() {
         super.onResume()
-        model.getBalance {
-            activity!!.runOnUiThread {
-                balance.text = "$ $it"
-                if (it < 0)
-                    balance.setTextColor(Colors(context!!).EXPENSE)
-                else
-                    balance.setTextColor(Colors(context!!).SAVING)
-            }
-        }
+        adapter.notifyItemChanged(0)
     }
 }

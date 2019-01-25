@@ -38,7 +38,7 @@ data class TransactionPojo(
     var tsyncState: Boolean, //if transaction is synced
     var tdate: Date, //complete tdate object
     var tnote: String?, //additional tnote or remarks
-    var twallet: String? = null //wallet id (null for main wallet)
+    var twallet: String = "" //wallet id (null for main wallet)
 )
 
 data class TransactionTotal(

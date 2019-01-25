@@ -49,7 +49,7 @@ class TransactionModel(private val lifecycle: Lifecycle, private val context: Co
     }
 
     // insert a new transaction
-    fun insert(amount: String, cid: String, date: String, time: String, wallet: String?, note: String?) {
+    fun insert(amount: String, cid: String, date: String, time: String, note: String?, wallet: String) {
         GlobalScope.launch {
             dao().insert(
                 TransactionPojo(
