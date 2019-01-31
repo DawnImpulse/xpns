@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_add_category.*
+import org.greenrobot.eventbus.EventBus
 import org.json.JSONObject
 import org.sourcei.xpns.R
 import org.sourcei.xpns.handlers.ColorHandler
@@ -19,10 +20,7 @@ import org.sourcei.xpns.pojo.CategoryPojo
 import org.sourcei.xpns.pojo.IconPojo
 import org.sourcei.xpns.sheets.ModalSheetCatName
 import org.sourcei.xpns.sheets.ModalSheetType
-import org.sourcei.xpns.utils.C
-import org.sourcei.xpns.utils.Colors
-import org.sourcei.xpns.utils.openActivityForResult
-import org.sourcei.xpns.utils.toast
+import org.sourcei.xpns.utils.*
 import java.util.*
 
 /**
@@ -81,24 +79,32 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
                                     parent!!.cchilden = arrayListOf(uuid)
                                 model.editItem(parent!!)
                                 model.insert(
-                                        addCName.text.toString().trim(),
-                                        icon!!,
-                                        type!!,
-                                        ColorHandler.intColorToString(color),
-                                        false,
-                                        true,
-                                        uuid
+                                    addCName.text.toString().trim(),
+                                    icon!!,
+                                    type!!,
+                                    ColorHandler.intColorToString(color),
+                                    false,
+                                    true,
+                                    uuid
                                 )
                             } else { // a parent category
                                 model.insert(
-                                        addCName.text.toString().trim(),
-                                        icon!!,
-                                        type!!,
-                                        ColorHandler.intColorToString(color)
+                                    addCName.text.toString().trim(),
+                                    icon!!,
+                                    type!!,
+                                    ColorHandler.intColorToString(color)
                                 )
                             }
 
                             toast("category inserted")
+                            EventBus.getDefault().post(
+                                Event(
+                                    jsonOf(
+                                        Pair(C.TYPE, C.NEW_CATEGORY),
+                                        Pair(C.CATEGORY_TYPE, type!!)
+                                    )
+                                )
+                            )
                             finish()
                         } else
                             toast("kindly select category type")
@@ -115,7 +121,7 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
                 openActivityForResult(CategoryActivity::class.java, SELECT_PARENT) {
                     putBoolean(C.SELECT, true)
                     putBoolean(C.SHOW_CHILD, false)
-                    putBoolean(C.FAB,false)
+                    putBoolean(C.FAB, false)
                 }
             }
         }

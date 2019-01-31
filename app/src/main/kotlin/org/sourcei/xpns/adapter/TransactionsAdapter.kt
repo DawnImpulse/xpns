@@ -4,8 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
-import androidx.paging.PagedListAdapter
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import org.sourcei.xpns.pojo.TransactionCPojo
 import org.sourcei.xpns.viewholders.MainViewHolder
@@ -21,18 +19,23 @@ import org.sourcei.xpns.viewholders.TransactionViewHolder
  * @tnote Updates :
  *  Saksham - 2019 01 25 - master - main view holder
  */
-class TransactionsAdapter(private val lifecycle: Lifecycle) :
-    PagedListAdapter<TransactionCPojo, RecyclerView.ViewHolder>(diffCallback) {
+class TransactionsAdapter(
+    private val lifecycle: Lifecycle,
+    private val items: List<TransactionCPojo>
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
     private val NAME = "TransactionAdapter"
     private lateinit var context: Context
     private lateinit var activity: Activity
     private val MAIN = 0
     private val TRANSACTION = 1
 
+    // get no of items
     override fun getItemCount(): Int {
-        return super.getItemCount() + 1
+        return items.size + 1
     }
 
+    // type of item
     override fun getItemViewType(position: Int): Int {
         return if (position == 0) MAIN else TRANSACTION
     }
@@ -53,30 +56,13 @@ class TransactionsAdapter(private val lifecycle: Lifecycle) :
         activity.runOnUiThread {
             if (holder is TransactionViewHolder) {
                 if (position > 1)
-                    holder.bindTo(getItem(position - 1), getItem(position - 2))
+                    holder.bindTo(items[position - 1], items[position - 2])
                 else
-                    holder.bindTo(getItem(position - 1))
+                    holder.bindTo(items[position - 1])
             }
 
             if (holder is MainViewHolder)
                 holder.bindTo()
-        }
-    }
-
-    // used for diff util
-    companion object {
-
-        private val diffCallback = object : DiffUtil.ItemCallback<TransactionCPojo>() {
-
-            override fun areItemsTheSame(oldItem: TransactionCPojo, newItem: TransactionCPojo): Boolean =
-                oldItem.obj.tid == newItem.obj.tid
-
-            /**
-             * Note that in kotlin, == checking on data classes compares all contents, but in Java,
-             * typically you'll implement Object#equals, and use it to compare object contents.
-             */
-            override fun areContentsTheSame(oldItem: TransactionCPojo, newItem: TransactionCPojo): Boolean =
-                oldItem == newItem
         }
     }
 

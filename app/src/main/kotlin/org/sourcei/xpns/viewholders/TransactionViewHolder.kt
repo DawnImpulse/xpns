@@ -44,8 +44,6 @@ class TransactionViewHolder(
         transaction?.let {
             // if last item is present
             lastItem?.let { last ->
-                L.d(NAME,it.obj.tdate.toString())
-                L.d(NAME,last.obj.tdate.toString())
                 if(it.obj.tdate.toString() == last.obj.tdate.toString())
                     date.gone()
             }

@@ -1,12 +1,11 @@
 package org.sourcei.xpns.models
 
+import android.app.Activity
 import android.content.Context
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.paging.LivePagedListBuilder
-import androidx.paging.PagedList
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.sourcei.xpns.dao.TransactionDao
@@ -20,7 +19,6 @@ import org.sourcei.xpns.utils.F
 import java.util.*
 
 /**
- * @info - creating direct functions to be cfrequency by other classes
  *
  * @author - Saksham
  * @tnote Last Branch Update - master
@@ -30,16 +28,12 @@ import java.util.*
  * Saksham - 2018 09 05 - master - transaction factory model
  * Saksham - 2018 09 12 - master - get balance, expense & saving
  */
-class TransactionModelFactory(private val lifecycle: Lifecycle, private val context: Context) :
-    ViewModelProvider.NewInstanceFactory() {
-
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return TransactionModel(lifecycle, context) as T
-    }
-
-}
-
 class TransactionModel(private val lifecycle: Lifecycle, private val context: Context) : ViewModel() {
+    private lateinit var activity: Activity
+
+    init {
+        activity = context as Activity
+    }
 
     // dao instance
     private fun dao(): TransactionDao {
@@ -69,19 +63,39 @@ class TransactionModel(private val lifecycle: Lifecycle, private val context: Co
     // fetching a single item
     fun getItem(id: String, wallet: String, callback: (TransactionCPojo?) -> Unit) {
         GlobalScope.launch {
-            callback(dao().getItem(id, wallet))
+            val item = dao().getItem(id, wallet)
+            lifecycle.addObserver(object : LifecycleObserver {
+                var once = true
+                @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                fun onStart() {
+                    if (once) {
+                        once = false
+                        activity.runOnUiThread {
+                            callback(item)
+                        }
+                    }
+                }
+            })
         }
     }
 
-    // get all items paginated
-    fun getItems(wallet: String): LiveData<PagedList<TransactionCPojo>> {
-        return LivePagedListBuilder(
-            dao().getItems(wallet),
-            PagedList.Config.Builder()
-                .setPageSize(30)
-                .setEnablePlaceholders(true)
-                .build()
-        ).build()
+    // get all items
+    fun getItems(wallet: String, callback: (List<TransactionCPojo>) -> Unit) {
+        GlobalScope.launch {
+            val items = dao().getItems(wallet)
+            lifecycle.addObserver(object : LifecycleObserver {
+                var once = true
+                @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                fun onStart() {
+                    if (once) {
+                        once = false
+                        activity.runOnUiThread{
+                            callback(items)
+                        }
+                    }
+                }
+            })
+        }
     }
 
     //update an item
@@ -105,7 +119,18 @@ class TransactionModel(private val lifecycle: Lifecycle, private val context: Co
             val saving = dao().getTotal(C.SAVING, wallet)
             val expense = dao().getTotal(C.EXPENSE, wallet)
 
-            callback(F.roundOff2Decimal(saving.total - expense.total))
+            lifecycle.addObserver(object : LifecycleObserver {
+                var once = true
+                @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                fun onStart() {
+                    if (once) {
+                        once = false
+                        activity.runOnUiThread {
+                            callback(F.roundOff2Decimal(saving.total - expense.total))
+                        }
+                    }
+                }
+            })
         }
     }
 }

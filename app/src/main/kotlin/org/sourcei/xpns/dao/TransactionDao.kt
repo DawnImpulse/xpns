@@ -1,6 +1,5 @@
 package org.sourcei.xpns.dao
 
-import androidx.paging.DataSource
 import androidx.room.*
 import org.sourcei.xpns.pojo.TransactionCPojo
 import org.sourcei.xpns.pojo.TransactionPojo
@@ -25,7 +24,7 @@ interface TransactionDao {
     fun getItem(id: String, wallet: String): TransactionCPojo
 
     @Query("SELECT t.*,c.* FROM transactions t INNER JOIN category c ON tcid = c.cid WHERE twallet=:wallet ORDER BY tdate DESC")
-    fun getItems(wallet: String): DataSource.Factory<Int, TransactionCPojo>
+    fun getItems(wallet: String): List<TransactionCPojo>
 
     @Delete
     fun deleteItem(transaction: TransactionPojo)

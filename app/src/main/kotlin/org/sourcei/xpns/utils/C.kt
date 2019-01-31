@@ -29,6 +29,9 @@ object C {
     const val SHOW_CHILD = "showChild"
     const val NOTE = "note"
     const val FAB = "fab"
+    const val NEW_TRANSACTION = "newTransaction"
+    const val NEW_CATEGORY = "newCategory"
+    const val CATEGORY_TYPE = "categoryType"
 
     const val DP48 = "48dp"
 

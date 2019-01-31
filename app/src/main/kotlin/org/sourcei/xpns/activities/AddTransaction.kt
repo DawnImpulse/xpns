@@ -12,6 +12,7 @@ import com.google.gson.Gson
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
 import kotlinx.android.synthetic.main.activity_add_transaction.*
+import org.greenrobot.eventbus.EventBus
 import org.json.JSONObject
 import org.sourcei.xpns.R
 import org.sourcei.xpns.handlers.DateHandler
@@ -108,6 +109,7 @@ class AddTransaction : AppCompatActivity(), View.OnClickListener, Callback,
                     Config.WALLET
                 )
                 toast("Done")
+                EventBus.getDefault().post(Event(jsonOf(Pair(C.TYPE, C.NEW_TRANSACTION))))
                 finish()
             }
             addTClose.id -> finish()

@@ -1,6 +1,5 @@
 package org.sourcei.xpns.dao
 
-import androidx.paging.DataSource
 import androidx.room.*
 import org.sourcei.xpns.pojo.CategoryPojo
 
@@ -24,11 +23,11 @@ interface CategoryDao {
 
     // list of all categories ordered by name , filtered by type
     @Query("SELECT * FROM category WHERE ctype=:type AND cisParent=1 ORDER BY cname")
-    fun getItems(type: String): DataSource.Factory<Int, CategoryPojo>
+    fun getItems(type: String): List<CategoryPojo>
 
     // list of all categories order by frequency, filtered by type
     @Query("SELECT * FROM category WHERE ctype=:type AND cisParent=1 ORDER BY cfrequency DESC")
-    fun getFrequentItems(type: String): DataSource.Factory<Int, CategoryPojo>
+    fun getFrequentItems(type: String): List<CategoryPojo>
 
     // delete an item
     @Delete
