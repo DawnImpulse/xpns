@@ -1,18 +1,21 @@
 package org.sourcei.xpns.viewholders
 
+import android.app.Activity
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
-import com.dawnimpulse.wallup.utils.L
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.inflator_transactions.view.*
 import org.sourcei.xpns.R
+import org.sourcei.xpns.activities.ViewTransactionActivity
 import org.sourcei.xpns.handlers.DateHandler
 import org.sourcei.xpns.handlers.ImageHandler
 import org.sourcei.xpns.pojo.TransactionCPojo
 import org.sourcei.xpns.utils.C
 import org.sourcei.xpns.utils.Colors
 import org.sourcei.xpns.utils.gone
+import org.sourcei.xpns.utils.openActivity
 
 /**
  * @info -
@@ -24,10 +27,10 @@ import org.sourcei.xpns.utils.gone
  * @tnote Updates :
  */
 class TransactionViewHolder(
-    private val parent: ViewGroup,
-    private val lifecycle: Lifecycle
+        private val parent: ViewGroup,
+        private val lifecycle: Lifecycle
 ) : androidx.recyclerview.widget.RecyclerView.ViewHolder(
-    LayoutInflater.from(parent.context).inflate(R.layout.inflator_transactions, parent, false)
+        LayoutInflater.from(parent.context).inflate(R.layout.inflator_transactions, parent, false)
 ) {
 
     private val image = itemView.transactionImage
@@ -35,6 +38,7 @@ class TransactionViewHolder(
     private val amount = itemView.transactionAmount
     private val note = itemView.transactionNote
     private val date = itemView.transactionDate
+    private val layout = itemView.transactionLayout
 
     private val NAME = "TransactionViewHolder"
     private val context = parent.context
@@ -44,7 +48,7 @@ class TransactionViewHolder(
         transaction?.let {
             // if last item is present
             lastItem?.let { last ->
-                if(it.obj.tdate.toString() == last.obj.tdate.toString())
+                if (it.obj.tdate.toString() == last.obj.tdate.toString())
                     date.gone()
             }
 
@@ -60,6 +64,12 @@ class TransactionViewHolder(
                 amount.setTextColor(Colors(context).EXPENSE)
             else
                 amount.setTextColor(Colors(context).SAVING)
+
+            layout.setOnClickListener { _ ->
+                (context as Activity).openActivity(ViewTransactionActivity::class.java) {
+                    putString(C.TRANSACTION, Gson().toJson(it))
+                }
+            }
         }
     }
 }

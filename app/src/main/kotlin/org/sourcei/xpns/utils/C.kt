@@ -32,6 +32,7 @@ object C {
     const val NEW_TRANSACTION = "newTransaction"
     const val NEW_CATEGORY = "newCategory"
     const val CATEGORY_TYPE = "categoryType"
+    const val TRANSACTION = "transaction"
 
     const val DP48 = "48dp"
 

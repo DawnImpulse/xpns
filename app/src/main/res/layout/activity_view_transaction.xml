@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+ISC License
+
+Copyright 2018-2019, Saksham (DawnImpulse)
+
+Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted,
+provided that the above copyright notice and this permission notice appear in all copies.
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+OR PERFORMANCE OF THIS SOFTWARE.
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.AddTransaction">
+
+    <!--Color-->
+    <View
+        android:id="@+id/viewTCView"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:background="@drawable/bg_round_color_view_top" />
+
+    <!--layout-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/viewTButtons"
+        android:layout_marginTop="32dp"
+        android:orientation="vertical">
+
+        <!--CategoryAdapter-->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <RelativeLayout
+                android:id="@+id/viewTCatL"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_gravity="center">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/viewTCatIcon"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_marginLeft="24dp"
+                    app:srcCompat="@drawable/vd_wallet" />
+
+                <me.grantland.widget.AutofitTextView
+                    android:id="@+id/viewTCatName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="24dp"
+                    android:layout_toRightOf="@id/viewTCatIcon"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="Category"
+                    android:textSize="32sp"
+                    android:textStyle="bold" />
+
+                <!--<TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="8dp"
+                    android:text="Select ..."
+                    android:textSize="12sp" />-->
+            </RelativeLayout>
+        </FrameLayout>
+
+        <!--Amount-->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/viewTAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="$ 0.00"
+                android:textSize="54sp" />
+        </FrameLayout>
+
+        <!--Date & Time-->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <!--Date-->
+                <LinearLayout
+                    android:id="@+id/viewTDateL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="48dp"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/viewTDateI"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/vd_calendar_grey" />
+
+                    <TextView
+                        android:id="@+id/viewTDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="4dp"
+                        android:text="13 Aug '18" />
+
+                </LinearLayout>
+
+                <!--Time-->
+                <LinearLayout
+                    android:id="@+id/viewTTimeL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="48dp"
+                    android:layout_marginRight="48dp"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/viewTTimeI"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/vd_clock_outline" />
+
+                    <TextView
+                        android:id="@+id/viewTTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="4dp"
+                        android:text="00:00" />
+
+                </LinearLayout>
+            </RelativeLayout>
+        </FrameLayout>
+
+        <!--Note-->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:id="@+id/viewTNoteL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/viewTWallet"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <me.grantland.widget.AutofitTextView
+                    android:id="@+id/viewTNote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/viewTWallet"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:gravity="center"
+                    android:letterSpacing="0.2"
+                    android:maxLines="2"
+                    android:text="NOTE" />
+
+                <View
+                    android:id="@+id/viewTNoteV"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginRight="12dp"
+                    android:background="@color/grey500" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <!--Wallet-->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:id="@+id/viewTWallet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/viewTButtons"
+                android:layout_gravity="center">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/viewTWalletIcon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/vd_wallet_grey" />
+
+                <TextView
+                    android:id="@+id/viewTWalletName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="16dp"
+                    android:letterSpacing="0.2"
+                    android:text="MAIN WALLET"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <!--Buttons-->
+    <RelativeLayout
+        android:id="@+id/viewTButtons"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone">
+
+        <!--Close-->
+        <LinearLayout
+            android:id="@+id/viewTClose"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="24dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/vd_close" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="8dp"
+                android:letterSpacing="0.2"
+                android:text="CLOSE"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <!--Done-->
+        <LinearLayout
+            android:id="@+id/viewTDoneL"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="24dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/viewTDoneI"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/vd_check_grey" />
+
+            <TextView
+                android:id="@+id/viewTDone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="8dp"
+                android:letterSpacing="0.2"
+                android:text="DONE"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!--fab-->
+    <FrameLayout
+        android:id="@+id/viewTFab"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:background="@drawable/bt_round_complete_corners_accent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/vd_edit" />
+    </FrameLayout>
+
+</RelativeLayout>

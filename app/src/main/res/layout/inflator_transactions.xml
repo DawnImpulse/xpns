@@ -10,78 +10,78 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:focusable="false"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/transactionLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginRight="16dp"
+    android:focusable="false">
 
     <!--date-->
     <TextView
-            android:id="@+id/transactionDate"
-            android:layout_marginTop="8dp"
-            android:layout_centerHorizontal="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/grey500"
-            android:textStyle="bold"
-            android:text="Date"/>
+        android:id="@+id/transactionDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:text="Date"
+        android:textColor="@color/grey500"
+        android:textStyle="bold" />
 
     <RelativeLayout
-            android:layout_below="@id/transactionDate"
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="48dp">
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/transactionDate"
+        android:layout_marginTop="16dp">
 
         <!--tamount-->
         <TextView
-                android:text="000"
-                android:id="@+id/transactionAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
+            android:id="@+id/transactionAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <!--image-->
         <ImageView
-                android:id="@+id/transactionImage"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                tools:background="@tools:sample/avatars"/>
+            android:id="@+id/transactionImage"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            tools:background="@tools:sample/avatars" />
 
         <!--cname-->
         <me.grantland.widget.AutofitTextView
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:text="Category"
-                android:id="@+id/transactionName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="96dp"
-                android:layout_toLeftOf="@id/transactionImage"/>
+            android:id="@+id/transactionName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="96dp"
+            android:layout_toLeftOf="@id/transactionImage"
+            android:text="Category"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <!--tnote-->
         <me.grantland.widget.AutofitTextView
-                android:text="Note"
-                android:id="@+id/transactionNote"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:textSize="12sp"/>
+            android:id="@+id/transactionNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="Note"
+            android:textSize="12sp" />
 
         <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="96dp"
-                android:alpha="0.5"
-                android:background="@color/grey400"/>
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="96dp"
+            android:alpha="0.5"
+            android:background="@color/grey400" />
     </RelativeLayout>
 </RelativeLayout>
