@@ -29,7 +29,7 @@ import java.io.File
  * @note Updates :
  */
 // int color to hex string
-fun Int.toHexa(): String {
+fun Int.toColor(): String {
     return String.format("#%06X", 0xFFFFFF and this)
 }
 

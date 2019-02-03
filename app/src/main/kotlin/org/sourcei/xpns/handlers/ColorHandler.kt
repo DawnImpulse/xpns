@@ -18,6 +18,7 @@ import android.graphics.Color
 import androidx.core.content.ContextCompat
 import androidx.palette.graphics.Palette
 import org.sourcei.xpns.R
+import org.sourcei.xpns.utils.Colors
 
 
 /**
@@ -35,71 +36,72 @@ object ColorHandler {
      *
      * @param mPalette - The input palette
      * @param mContext - Context
-     * @return - The required non Dark ccolor
+     * @return - The required non Dark color
      */
-    fun getNonDarkColor(mPalette: androidx.palette.graphics.Palette, mContext: Context): Int {
-        //the ccolor variable we need to return
+    fun getNonDarkColor(mPalette: Palette, mContext: Context): Int {
+        //the color variable we need to return
         var color: Int = mPalette.getVibrantColor(ContextCompat.getColor(mContext, R.color.black))
-        //variable to store whether ccolor is darker or not
+        //variable to store whether color is darker or not
         var colorNonDark: Boolean
 
-        //get the contrast ccolor of Vibrant Color
-        colorNonDark = isColorNonDark(color)
-        //If contrast ccolor is not white i.e black then return it
+        //get the contrast color of Vibrant Color
+        colorNonDark = isColorNonDark(color,mContext)
+        //If contrast color is not white i.e black then return it
         if (colorNonDark)
             return color
 
-        //get the contrast ccolor of Dominant Color
+        //get the contrast color of Dominant Color
         color = mPalette.getDominantColor(ContextCompat.getColor(mContext, R.color.black))
-        colorNonDark = isColorNonDark(color)
-        //If contrast ccolor is not white i.e black then return it
+        colorNonDark = isColorNonDark(color, mContext)
+        //If contrast color is not white i.e black then return it
         if (colorNonDark)
             return color
 
-        //get the contrast ccolor of Light Vibrant Color
+        //get the contrast color of Light Vibrant Color
         color = mPalette.getLightVibrantColor(ContextCompat.getColor(mContext, R.color.black))
-        colorNonDark = isColorNonDark(color)
-        //If contrast ccolor is not white i.e black then return it
+        colorNonDark = isColorNonDark(color, mContext)
+        //If contrast color is not white i.e black then return it
         if (colorNonDark)
             return color
 
-        //get the contrast ccolor of Light Vibrant Color
+        //get the contrast color of Light Vibrant Color
         color = mPalette.getMutedColor(ContextCompat.getColor(mContext, R.color.black))
-        colorNonDark = isColorNonDark(color)
-        //If contrast ccolor is not white i.e black then return it
+        colorNonDark = isColorNonDark(color, mContext)
+        //If contrast color is not white i.e black then return it
         if (colorNonDark)
             return color
 
-        //get the contrast ccolor of Light Vibrant Color
+        //get the contrast color of Light Vibrant Color
         color = mPalette.getLightMutedColor(ContextCompat.getColor(mContext, R.color.black))
-        colorNonDark = isColorNonDark(color)
-        //If contrast ccolor is not white i.e black then return it
+        colorNonDark = isColorNonDark(color, mContext)
+        //If contrast color is not white i.e black then return it
         return if (colorNonDark) color else ContextCompat.getColor(mContext, R.color.colorAccent)
 
     }
 
     /**
-     * Check whether ccolor is Not Dark
+     * Check whether color is Not Dark
      *
      * @param color - Input Color
      * @return - true / false
      */
-    private fun isColorNonDark(color: Int): Boolean {
-        //getting red ccolor intensity
+    private fun isColorNonDark(color: Int, context: Context): Boolean {
+        /*//getting red color intensity
         val red = Color.red(color)
-        //getting blue ccolor intensity
+        //getting blue color intensity
         val blue = Color.blue(color)
-        //getting green ccolor intensity
+        //getting green color intensity
         val green = Color.green(color)
+        // Check whether the color lies in scale favour to contrast WHITE or BLACK
+        return red * 0.299 + green * 0.587 + blue * 0.114 > 80 && red * 0.299 + green * 0.587 + blue * 0.114 < 220*/
 
-        // Check whether the ccolor lies in scale favour to contrast WHITE or BLACK
-        return red * 0.299 + green * 0.587 + blue * 0.114 > 80 && red * 0.299 + green * 0.587 + blue * 0.114 < 220
+
+        return getContrastColor(color) == Colors(context).BLACK
     }
 
-    /**
-     * changing int ccolor to string
-     */
-    fun intColorToString(color: Int): String {
-        return String.format("#%06X", 0xFFFFFF and color)
+    // ge contrasting white or black for a given color
+    fun getContrastColor(color: Int): Int {
+        val y = ((299 * Color.red(color) + 587 * Color.green(color) + 114 * Color.blue(color)) / 1000).toDouble()
+        return if (y >= 128) Color.BLACK else Color.WHITE
     }
 }

@@ -82,7 +82,7 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
                                     addCName.text.toString().trim(),
                                     icon!!,
                                     type!!,
-                                    ColorHandler.intColorToString(color),
+                                    color.toColor(),
                                     false,
                                     true,
                                     uuid
@@ -92,7 +92,7 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
                                     addCName.text.toString().trim(),
                                     icon!!,
                                     type!!,
-                                    ColorHandler.intColorToString(color)
+                                    color.toColor()
                                 )
                             }
 

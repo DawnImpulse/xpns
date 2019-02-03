@@ -51,9 +51,26 @@ object DateHandler {
         return sdfN.format(sdf.parse(date))
     }
 
+    // get viewable date from Date object
+    fun viewableFromObject(date: Date): String {
+        val sdfN = SimpleDateFormat("dd MMM '`'yy")
+        return sdfN.format(convertSqlToUtil(date))
+    }
+
+    // get viewable time from Date object
+    fun viewableTimeFromObject(date: Date): String {
+        val sdfN = SimpleDateFormat("hh:mm")
+        return sdfN.format(convertSqlToUtil(date))
+    }
+
+
     // convert util tdate to sql tdate
     private fun convertUtilToSql(date: java.util.Date): Date {
-        val sDate = Date(date.time);
-        return sDate;
+        return Date(date.time)
+    }
+
+    // convert sql date to util date
+    private fun convertSqlToUtil(date: Date): java.util.Date {
+        return java.util.Date(date.time)
     }
 }
