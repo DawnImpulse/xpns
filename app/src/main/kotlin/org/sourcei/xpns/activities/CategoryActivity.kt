@@ -58,7 +58,7 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
         categoryFragment = CategoryFragment()
 
         val bundle = bundleOf(
-            Pair(C.SELECT, true),
+            Pair(C.SELECT, select),
             Pair(C.TYPE, C.EXPENSE),
             Pair(C.SHOW_CHILD, showChild)
         )

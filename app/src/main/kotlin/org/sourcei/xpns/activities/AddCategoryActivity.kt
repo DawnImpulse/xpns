@@ -73,16 +73,17 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
                         if (type != null) {
                             if (parent != null) { // a child category , also update parent one
                                 val uuid = UUID.randomUUID().toString()
-                                if (parent!!.cchilden != null)
-                                    parent!!.cchilden!!.add(uuid)
+                                if (parent!!.cchildren != null)
+                                    parent!!.cchildren!!.add(uuid)
                                 else
-                                    parent!!.cchilden = arrayListOf(uuid)
+                                    parent!!.cchildren = arrayListOf(uuid)
                                 model.editItem(parent!!)
                                 model.insert(
                                     addCName.text.toString().trim(),
                                     icon!!,
                                     type!!,
                                     color.toColor(),
+                                    parent!!.cid,
                                     false,
                                     true,
                                     uuid

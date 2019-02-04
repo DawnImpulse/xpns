@@ -9,7 +9,7 @@ import org.sourcei.xpns.R
 import org.sourcei.xpns.activities.CategoryActivity
 import org.sourcei.xpns.interfaces.Callback
 import org.sourcei.xpns.utils.C
-import org.sourcei.xpns.utils.openActivityForResult
+import org.sourcei.xpns.utils.openActivity
 
 /**
  * @info -
@@ -38,7 +38,7 @@ class ModalSheetNav : RoundedBottomSheet(), View.OnClickListener {
     // on click
     override fun onClick(v: View) {
         when (v.id) {
-            sheetNavCategory.id -> activity!!.openActivityForResult(CategoryActivity::class.java, C.CATEGORY_SELECT_CODE) {
+            sheetNavCategory.id -> activity!!.openActivity(CategoryActivity::class.java) {
                 putBoolean(C.SELECT, false)
                 putBoolean(C.SHOW_CHILD, true)
                 putBoolean(C.FAB, true)

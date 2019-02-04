@@ -12,9 +12,9 @@ import android.provider.MediaStore
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
+import com.google.gson.Gson
 import org.json.JSONObject
 import java.io.File
 
@@ -103,7 +103,7 @@ fun <T> Activity.openActivityForResult(it: Class<T>, code: Int) {
 
 // set status bar color
 fun Activity.setStatusBarColor(color: Int) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
         val window = window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
@@ -174,4 +174,9 @@ fun <T> arrayListOf(item: T): ArrayList<T> {
     val list = ArrayList<T>()
     list.add(item)
     return list
+}
+
+// to json
+fun toJson(input: Any): String {
+    return Gson().toJson(input)
 }

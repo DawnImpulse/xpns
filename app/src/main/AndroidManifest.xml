@@ -44,8 +44,14 @@
             android:name=".activities.AddCategoryActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <!--View Transaction-->
         <activity
             android:name=".activities.ViewTransactionActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <!--View Category-->
+        <activity
+            android:name=".activities.ViewCategoryActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

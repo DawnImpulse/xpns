@@ -5,8 +5,6 @@ import android.content.Context
 import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.RecyclerView
-import com.dawnimpulse.wallup.utils.L
-import com.google.gson.Gson
 import org.sourcei.xpns.models.CategoryModel
 import org.sourcei.xpns.viewholders.ChildCategoryViewHolder
 
@@ -42,9 +40,7 @@ class ChildCategoryAdapter(private val lifecycle: Lifecycle,
 
     // bind view
     override fun onBindViewHolder(holder: ChildCategoryViewHolder, position: Int) {
-        L.d(NAME, ids[position])
         model.getItem(ids[position]) {
-            L.d(NAME, Gson().toJson(it))
             activity.runOnUiThread {
                 holder.bindTo(it)
             }

@@ -12,9 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.inflator_child_category.view.*
 import org.sourcei.xpns.R
+import org.sourcei.xpns.activities.ViewCategoryActivity
 import org.sourcei.xpns.handlers.ImageHandler
 import org.sourcei.xpns.pojo.CategoryPojo
 import org.sourcei.xpns.utils.C
+import org.sourcei.xpns.utils.openActivity
+import org.sourcei.xpns.utils.toJson
 
 /**
  * @info -
@@ -34,7 +37,9 @@ class ChildCategoryViewHolder(parent: ViewGroup,
     private val name = itemView.childCategoryName
     private val color = itemView.childCategoryColor
     private val layout = itemView.childCategoryL
+
     private val context = parent.context
+    private val activity = context as Activity
 
     // binding data to layout
     fun bindTo(category: CategoryPojo?) {
@@ -50,7 +55,10 @@ class ChildCategoryViewHolder(parent: ViewGroup,
                     intent.putExtra(C.CATEGORY, Gson().toJson(category))
                     (context as AppCompatActivity).setResult(Activity.RESULT_OK, intent)
                     context.finish()
-                }
+                }else
+                    activity.openActivity(ViewCategoryActivity::class.java){
+                        putString(C.CATEGORY, toJson(category))
+                    }
             }
         }
     }

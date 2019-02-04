@@ -1,6 +1,5 @@
 package org.sourcei.xpns.adapter
 
-import android.app.Activity
 import android.content.Context
 import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
@@ -40,9 +39,7 @@ class CategoryAdapter(
 
     // bind view
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        (context as Activity).runOnUiThread {
-            holder.bindTo(items[position], showChild)
-        }
+        holder.bindTo(items[position], showChild)
     }
 
 }
