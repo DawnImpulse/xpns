@@ -12,20 +12,53 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <RelativeLayout
+    <!--Nav-->
+    <LinearLayout
         android:id="@+id/categoryNav"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_alignParentBottom="true"
-        android:elevation="8dp" />
+        android:layout_alignParentBottom="true">
 
+        <FrameLayout
+            android:id="@+id/categoryExpense"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/categoryExpenseT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="EXPENSE"
+                android:textSize="18sp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/categorySaving"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/categorySavingT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="SAVING"
+                android:textSize="18sp" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <!--Fab-->
     <FrameLayout
         android:id="@+id/categoryFab"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="16dp"
+        android:layout_above="@id/categoryNav"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/bt_round_complete_corners_accent">
 
         <androidx.appcompat.widget.AppCompatImageView

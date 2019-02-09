@@ -58,7 +58,6 @@ class CategoryViewHolder(
             colorL.setColor(Color.parseColor(category.ccolor))
             name.text = category.cname
 
-            L.d(NAME, "$select")
             if (showChild && category.cisParent && category.cchildren != null) {
                 recycler.show()
                 recycler.layoutManager = LinearLayoutManager(context)

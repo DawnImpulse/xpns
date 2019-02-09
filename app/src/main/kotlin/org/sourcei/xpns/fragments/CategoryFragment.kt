@@ -1,18 +1,24 @@
 package org.sourcei.xpns.fragments
 
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.dawnimpulse.wallup.utils.L
 import kotlinx.android.synthetic.main.fragment_category.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.sourcei.xpns.R
 import org.sourcei.xpns.adapter.CategoryAdapter
 import org.sourcei.xpns.models.CategoryModel
+import org.sourcei.xpns.pojo.CategoryPojo
 import org.sourcei.xpns.utils.C
 import org.sourcei.xpns.utils.Event
 
@@ -33,6 +39,7 @@ class CategoryFragment : androidx.fragment.app.Fragment() {
     private lateinit var model: CategoryModel
     private lateinit var adapter: CategoryAdapter
     private lateinit var type: String
+    private lateinit var categories: MutableList<CategoryPojo>
 
     // on create
     override fun onCreateView(
@@ -53,7 +60,7 @@ class CategoryFragment : androidx.fragment.app.Fragment() {
         model = CategoryModel(lifecycle, context!!)
         model.getItems(type) {
             adapter = CategoryAdapter(lifecycle, select, it, showChild)
-            categoryRecycler.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
+            categoryRecycler.layoutManager = LinearLayoutManager(context)
             categoryRecycler.adapter = adapter
         }
     }
@@ -79,10 +86,16 @@ class CategoryFragment : androidx.fragment.app.Fragment() {
                 C.NEW_CATEGORY -> {
                     L.d(NAME, "$type :: ${event.obj.getString(C.CATEGORY_TYPE)}")
                     if (type == event.obj.getString(C.CATEGORY_TYPE)) {
-                        model.getItems(type) {
-                            adapter = CategoryAdapter(lifecycle, select, it, showChild)
-                            categoryRecycler.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
-                            categoryRecycler.adapter = adapter
+                        GlobalScope.launch {
+                            delay(1000)
+                            (context!! as Activity).runOnUiThread {
+                                model.getItems(type) {
+                                    L.d(NAME, it)
+                                    adapter = CategoryAdapter(lifecycle, select, it, showChild)
+                                    categoryRecycler.layoutManager = LinearLayoutManager(context)
+                                    categoryRecycler.adapter = adapter
+                                }
+                            }
                         }
                     }
                 }

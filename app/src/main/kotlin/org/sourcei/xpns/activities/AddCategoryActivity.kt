@@ -181,5 +181,6 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
         //done.setCcolor(ccolor)
         addCCView.background.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         addCName.setTextColor(color)
+        setStatusBarColor(color)
     }
 }
