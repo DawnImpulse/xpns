@@ -52,9 +52,9 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
         model = CategoryModel(lifecycle, this)
         addCImage.setOnClickListener(this)
         addCName.setOnClickListener(this)
-        addCDone.setOnClickListener(this)
         addCType.setOnClickListener(this)
         addCParentL.setOnClickListener(this)
+        addCClose.setOnClickListener(this)
     }
 
     // on click
@@ -125,6 +125,7 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
                     putBoolean(C.FAB, false)
                 }
             }
+            addCClose.id -> finish()
         }
     }
 
@@ -137,14 +138,19 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
                 icon = Gson().fromJson(data!!.getStringExtra(C.ICON), IconPojo::class.java)
                 ImageHandler.getImageAsBitmap(lifecycle, this, icon!!.iurls!!.url64) {
                     addCImage.setImageBitmap(it)
-                    color = ColorHandler.getNonDarkColor(androidx.palette.graphics.Palette.from(it).generate(), this)
+                    color = ColorHandler.getNonDarkColor(
+                        androidx.palette.graphics.Palette.from(it).generate(),
+                        this
+                    )
                     setColor()
                 }
+                enableDone()
             }
         }
         if (requestCode == SELECT_PARENT) {
             if (resultCode == Activity.RESULT_OK) {
-                parent = Gson().fromJson(data!!.getStringExtra(C.CATEGORY), CategoryPojo::class.java)
+                parent =
+                    Gson().fromJson(data!!.getStringExtra(C.CATEGORY), CategoryPojo::class.java)
                 addCParentT.text = parent!!.cname
                 ImageHandler.setImageInView(lifecycle, addCParentI, parent!!.cicon.iurls!!.url64)
             }
@@ -170,6 +176,7 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
                     addCType.setTextColor(Colors(this).SAVING)
             }
         }
+        enableDone()
     }
 
     // set ccolor
@@ -182,5 +189,25 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
         addCCView.background.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         addCName.setTextColor(color)
         setStatusBarColor(color)
+    }
+
+    // enable done button
+    private fun enableDone() {
+        fun disable() {
+            addCDone.alpha = 0.3.toFloat()
+            addCDone.setOnClickListener(null)
+        }
+
+        if (icon != null)
+            if (addCName.text.toString() != "NAME")
+                if (type != null) {
+                    addCDone.alpha = 0.toFloat()
+                    addCDone.setOnClickListener(this)
+                } else
+                    disable()
+            else
+                disable()
+        else
+            disable()
     }
 }

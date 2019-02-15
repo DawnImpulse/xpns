@@ -2,16 +2,15 @@ package org.sourcei.xpns.activities
 
 import android.app.Activity
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.dawnimpulse.wallup.utils.L
-import com.google.gson.Gson
+import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.activity_icons.*
 import org.sourcei.xpns.R
 import org.sourcei.xpns.adapter.IconsAdapter
 import org.sourcei.xpns.models.IconsModel
-import org.sourcei.xpns.pojo.IconPojo
-import org.sourcei.xpns.utils.toast
+import org.sourcei.xpns.utils.Arrays
+import org.sourcei.xpns.utils.gone
+import org.sourcei.xpns.utils.show
 
 class IconsActivity : AppCompatActivity() {
     private val NAME = "IconsActivity"
@@ -21,26 +20,11 @@ class IconsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_icons)
 
-        model = IconsModel(lifecycle)
-    }
+        iconsProgress.gone()
+        iconsRecycler.show()
 
-    // resumed
-    override fun onResume() {
-        super.onResume()
-
-        model.getLatestIcons { error, details ->
-            if (error != null) {
-                toast("there is an error")
-                L.d(NAME, error.toString())
-            } else {
-                L.d(NAME, Gson().toJson(details))
-                iconsProgress.visibility = View.GONE
-                iconsRecycler.visibility = View.VISIBLE
-                var adapter = IconsAdapter(lifecycle, details as List<IconPojo>)
-                iconsRecycler.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
-                iconsRecycler.adapter = adapter
-            }
-        }
+        iconsRecycler.layoutManager = GridLayoutManager(this,4)
+        iconsRecycler.adapter = IconsAdapter(lifecycle, Arrays.icons)
     }
 
     // if back pressed

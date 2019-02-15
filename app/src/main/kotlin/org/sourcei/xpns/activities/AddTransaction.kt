@@ -32,8 +32,8 @@ class AddTransaction : AppCompatActivity(), View.OnClickListener, Callback,
     private lateinit var model: TransactionModel
     private lateinit var amountSheet: ModalSheetTAmount
     private lateinit var noteSheet: ModalSheetNote
-    private lateinit var category: CategoryPojo
     private lateinit var calendar: Calendar
+    private var category: CategoryPojo? = null
 
     // on create
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,14 +51,18 @@ class AddTransaction : AppCompatActivity(), View.OnClickListener, Callback,
             calendar.get(Calendar.DAY_OF_MONTH)
         )
         addTTime.text =
-                "${F.addZero(calendar.get(Calendar.HOUR_OF_DAY).toString())}:${F.addZero(calendar.get(Calendar.MINUTE).toString())}"
+            "${F.addZero(calendar.get(Calendar.HOUR_OF_DAY).toString())}:${F.addZero(
+                calendar.get(
+                    Calendar.MINUTE
+                ).toString()
+            )}"
 
         addTCatL.setOnClickListener(this)
         addTAmount.setOnClickListener(this)
-        addTDoneL.setOnClickListener(this)
         addTNoteL.setOnClickListener(this)
         addTDateL.setOnClickListener(this)
         addTTimeL.setOnClickListener(this)
+        addTClose.setOnClickListener(this)
     }
 
     // on click
@@ -69,7 +73,7 @@ class AddTransaction : AppCompatActivity(), View.OnClickListener, Callback,
                     amountSheet.arguments = bundleOf(
                         Pair(
                             C.AMOUNT,
-                            addTAmount.text.toString().replace("$", "").trim().toDouble()
+                            addTAmount.text.toString().trim().toDouble()
                         )
                     )
                 amountSheet.show(supportFragmentManager, amountSheet.tag)
@@ -101,8 +105,8 @@ class AddTransaction : AppCompatActivity(), View.OnClickListener, Callback,
             }
             addTDoneL.id -> {
                 model.insert(
-                    addTAmount.text.toString().replace("$", "").trim(),
-                    category.cid,
+                    addTAmount.text.toString().trim(),
+                    category!!.cid,
                     DateHandler.convertAddTLayout(addTDate.text.toString()),
                     addTTime.text.toString(),
                     if (addTNote.text.toString() == "NOTE") null else addTNote.text.toString(),
@@ -122,9 +126,10 @@ class AddTransaction : AppCompatActivity(), View.OnClickListener, Callback,
         when (any.get(C.TYPE)) {
             C.AMOUNT -> {
                 if (any.getDouble(C.AMOUNT) == 0.0)
-                    addTAmount.text = "$ 0.00"
+                    addTAmount.text = "0.00"
                 else
-                    addTAmount.text = "$ ${any.getDouble(C.AMOUNT)}"
+                    addTAmount.text = "${any.getDouble(C.AMOUNT)}"
+                enableDone()
             }
             C.NOTE -> {
                 val text = any.getString(C.NOTE)
@@ -142,10 +147,12 @@ class AddTransaction : AppCompatActivity(), View.OnClickListener, Callback,
 
         if (requestCode == C.CATEGORY_SELECT_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-                category = Gson().fromJson(data!!.getStringExtra(C.CATEGORY), CategoryPojo::class.java)
-                addTCatName.text = category.cname
-                setColor(Color.parseColor(category.ccolor))
-                ImageHandler.setImageInView(lifecycle, addTCatIcon, category.cicon.iurls!!.url64)
+                category =
+                    Gson().fromJson(data!!.getStringExtra(C.CATEGORY), CategoryPojo::class.java)
+                addTCatName.text = category!!.cname
+                setColor(Color.parseColor(category!!.ccolor))
+                ImageHandler.setImageInView(lifecycle, addTCatIcon, category!!.cicon.iurls!!.url64)
+                enableDone()
             }
         }
     }
@@ -171,5 +178,24 @@ class AddTransaction : AppCompatActivity(), View.OnClickListener, Callback,
 
         addTDoneI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         addTCView.background.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+        setStatusBarColor(color)
+    }
+
+    // enable done
+    private fun enableDone() {
+        fun disable() {
+            addTDoneL.alpha = 0.3.toFloat()
+            addTDoneL.setOnClickListener(null)
+        }
+
+        if (category != null) {
+            if (addTAmount.text.toString() != "0.00") {
+                addTDoneL.alpha = 1.toFloat()
+                addTDoneL.setOnClickListener(this)
+            } else
+                disable()
+        } else
+            disable()
+
     }
 }

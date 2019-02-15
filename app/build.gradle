@@ -46,7 +46,7 @@ android {
 dependencies {
     def ktx_version = '1.0.1'
     def x_version = '1.0.0'
-    def x_d_version = '2.0.0-rc01'
+    def x_d_version = '2.0.0'
 
     // ----- ANDROID -----
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -56,7 +56,7 @@ dependencies {
 
     implementation "androidx.appcompat:appcompat:1.0.2"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1'
-    implementation "com.google.android.material:material:1.0.0-rc01"
+    implementation "com.google.android.material:material:1.0.0"
 
     implementation "androidx.core:core-ktx:$ktx_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$x_d_version"
@@ -64,8 +64,8 @@ dependencies {
     implementation "androidx.paging:paging-runtime:$x_d_version"
 
     // ----- Firebase -----
-    implementation "com.google.firebase:firebase-core:16.0.6"
-    implementation "com.google.firebase:firebase-database:16.0.5"
+    implementation "com.google.firebase:firebase-core:16.0.7"
+    implementation "com.google.firebase:firebase-database:16.0.6"
 
     // ----- 3RD PARTY -----
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
