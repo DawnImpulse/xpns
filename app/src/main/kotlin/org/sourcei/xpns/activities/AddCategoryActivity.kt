@@ -201,7 +201,7 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
         if (icon != null)
             if (addCName.text.toString() != "NAME")
                 if (type != null) {
-                    addCDone.alpha = 0.toFloat()
+                    addCDone.alpha = 1.toFloat()
                     addCDone.setOnClickListener(this)
                 } else
                     disable()

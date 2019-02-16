@@ -1,8 +1,8 @@
 package org.sourcei.xpns.handlers
 
 import android.annotation.SuppressLint
-import java.sql.Date
 import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * @info -
@@ -41,36 +41,36 @@ object DateHandler {
     // convert tdate & time strings to java.util.Date object
     fun fullToDate(date: String, time: String): Date {
         val sdf = SimpleDateFormat("yyyy-MM-dd'T'hh:mm")
-        return convertUtilToSql(sdf.parse("${date}T$time"))
+        return sdf.parse("${date}T$time")
     }
 
     // convert stored date to visible
-    fun convertStoredToVisible(date: String): String {
+    fun convertStoredToVisible(date: Date): String {
         val sdf = SimpleDateFormat("yyyy-MM-dd")
         val sdfN = SimpleDateFormat("dd MMM '`'yy")
-        return sdfN.format(sdf.parse(date))
+        return sdfN.format(date)
     }
 
     // get viewable date from Date object
     fun viewableFromObject(date: Date): String {
         val sdfN = SimpleDateFormat("dd MMM '`'yy")
-        return sdfN.format(convertSqlToUtil(date))
+        return sdfN.format(date)
     }
 
     // get viewable time from Date object
     fun viewableTimeFromObject(date: Date): String {
         val sdfN = SimpleDateFormat("hh:mm")
-        return sdfN.format(convertSqlToUtil(date))
+        return sdfN.format(date)
     }
 
 
-    // convert util tdate to sql tdate
-    private fun convertUtilToSql(date: java.util.Date): Date {
+    /*// convert util tdate to sql tdate
+    fun convertUtilToSql(date: java.util.Date): Date {
         return Date(date.time)
     }
 
     // convert sql date to util date
     private fun convertSqlToUtil(date: Date): java.util.Date {
         return java.util.Date(date.time)
-    }
+    }*/
 }

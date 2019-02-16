@@ -14,6 +14,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
+import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import org.json.JSONObject
 import java.io.File
@@ -111,6 +112,16 @@ fun Activity.setStatusBarColor(color: Int) {
     }
 }
 
+// fun run On UI Thread
+fun Fragment.runOnUiThread(action: (() -> Unit)) {
+    (this.context as Activity).runOnUiThread(action)
+}
+
+// toast for fragment
+fun Fragment.toast(message: String, length: Int = Toast.LENGTH_SHORT) {
+    this.context!!.toast(message, length)
+}
+
 // toast
 fun Context.toast(message: String, length: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, message, length).show()
@@ -160,6 +171,11 @@ fun Context.displayRatio(): Pair<Int, Int> {
 //start web
 fun Context.startWeb(url: String) {
     startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
+}
+
+// run on Ui thread
+fun Context.runOnUiThread(action: (() -> Unit)) {
+    (this as Activity).runOnUiThread(action)
 }
 
 // json put params

@@ -27,10 +27,10 @@ import org.sourcei.xpns.utils.openActivity
  * @tnote Updates :
  */
 class TransactionViewHolder(
-        private val parent: ViewGroup,
-        private val lifecycle: Lifecycle
+    private val parent: ViewGroup,
+    private val lifecycle: Lifecycle
 ) : androidx.recyclerview.widget.RecyclerView.ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.inflator_transactions, parent, false)
+    LayoutInflater.from(parent.context).inflate(R.layout.inflator_transactions, parent, false)
 ) {
 
     private val image = itemView.transactionImage
@@ -48,23 +48,36 @@ class TransactionViewHolder(
         transaction?.let {
             // if last item is present
             lastItem?.let { last ->
-                if (it.obj.tdate.toString() == last.obj.tdate.toString())
+
+                val current = DateHandler.convertStoredToVisible(transaction.obj.tdate)
+                val prev = DateHandler.convertStoredToVisible(last.obj.tdate)
+
+                // checking if last item (formatted) match current view date
+                if (current == prev)
                     date.gone()
             }
 
+            // setting icon in view
             ImageHandler.setImageInView(lifecycle, image, transaction.cat.cicon.iurls!!.url64)
+
+            // setting amount, cat name & date
             amount.text = transaction.obj.tamount.toString()
             name.text = transaction.cat.cname
-            date.text = DateHandler.convertStoredToVisible(transaction.obj.tdate.toString())
+            date.text = DateHandler.convertStoredToVisible(transaction.obj.tdate)
             name.setTextColor(Color.parseColor(transaction.cat.ccolor))
+
+            // if note is not empty
             transaction.obj.tnote?.let {
                 note.text = it
             }
+
+            // checking type of transaction for color
             if (transaction.cat.ctype == C.EXPENSE)
                 amount.setTextColor(Colors(context).EXPENSE)
             else
                 amount.setTextColor(Colors(context).SAVING)
 
+            // on click of view
             layout.setOnClickListener { _ ->
                 (context as Activity).openActivity(ViewTransactionActivity::class.java) {
                     putString(C.TRANSACTION, Gson().toJson(it))

@@ -189,6 +189,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="24dp"
+            android:alpha="0.3"
             android:paddingLeft="8dp"
             android:paddingRight="8dp">
 
