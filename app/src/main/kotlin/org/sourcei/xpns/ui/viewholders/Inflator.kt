@@ -12,9 +12,12 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package org.sourcei.xpns.utils.others
+package org.sourcei.xpns.ui.viewholders
 
-import kotlin.properties.Delegates
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import org.sourcei.xpns.R
 
 /**
  * @info -
@@ -25,15 +28,13 @@ import kotlin.properties.Delegates
  * @note Created on 2019-04-12 by Saksham
  * @note Updates :
  */
-class Change<T>(val value1: T) {
-    private lateinit var change: (T) -> Unit
+object Inflator {
 
-    var value: T by Delegates.observable(value1) { prop, old, new ->
-        if (::change.isInitialized)
-            change(new)
+    fun Overview1(parent: ViewGroup): View {
+        return LayoutInflater.from(parent.context).inflate(R.layout.inflator_overview_1, parent, false)
     }
 
-    fun onChange(change: (T) -> Unit) {
-        this.change = change
+    fun Transaction1(parent: ViewGroup): View {
+        return LayoutInflater.from(parent.context).inflate(R.layout.inflator_transactions, parent, false)
     }
 }

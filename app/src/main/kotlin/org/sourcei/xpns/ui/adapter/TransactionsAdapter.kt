@@ -1,13 +1,13 @@
 package org.sourcei.xpns.ui.adapter
 
-import android.app.Activity
-import android.content.Context
 import android.view.ViewGroup
-import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.RecyclerView
+import org.sourcei.xpns.ui.activities.ModularActivity
 import org.sourcei.xpns.ui.objects.ViewTransactionObject
-import org.sourcei.xpns.ui.viewholders.MainViewHolder
-import org.sourcei.xpns.ui.viewholders.TransactionViewHolder
+import org.sourcei.xpns.ui.viewholders.OverviewViewHolder1
+import org.sourcei.xpns.ui.viewholders.TransactionViewHolder1
+import org.sourcei.xpns.utils.others.Observe
+import org.sourcei.xpns.utils.reusables.T
 
 /**
  * @info -
@@ -20,49 +20,50 @@ import org.sourcei.xpns.ui.viewholders.TransactionViewHolder
  *  Saksham - 2019 01 25 - master - main view holder
  */
 class TransactionsAdapter(
-    private val lifecycle: Lifecycle,
-    private val items: List<ViewTransactionObject>
+
+    private val transactions: List<Observe<ViewTransactionObject>>, // list of transactions
+    private val viewTypeTransaction: Int, //type of view for transaction
+    private val viewTypeOverview: Int //type of view for overview (-1 for no view)
+
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val NAME = "TransactionAdapter"
-    private lateinit var context: Context
-    private lateinit var activity: Activity
-    private val MAIN = 0
-    private val TRANSACTION = 1
+    // variables
+    private lateinit var activity: ModularActivity
 
     // get no of items
     override fun getItemCount(): Int {
-        return items.size + 1
+        // return size + 1 if overview needs to be shown
+        return transactions.size + if (viewTypeOverview == T.OVERVIEW_0) 0 else 1
     }
 
     // type of item
     override fun getItemViewType(position: Int): Int {
-        return if (position == 0) MAIN else TRANSACTION
+        // if overview if present
+        return if (viewTypeOverview == T.OVERVIEW_0) {
+            return if (position == 0) viewTypeOverview else viewTypeTransaction
+        } else
+            viewTypeTransaction
     }
 
     // on create view
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        context = parent.context
-        activity = context as Activity
-
-        return if (viewType == MAIN)
-            MainViewHolder(parent, lifecycle)
-        else
-            TransactionViewHolder(parent, lifecycle)
+        return when (viewType) {
+            T.OVERVIEW_1 -> OverviewViewHolder1(parent)
+            else -> TransactionViewHolder1(parent)
+        }
     }
 
     // bind view
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        activity.runOnUiThread {
-            if (holder is TransactionViewHolder) {
-                if (position > 1)
-                    holder.bindTo(items[position - 1], items[position - 2])
-                else
-                    holder.bindTo(items[position - 1])
-            }
 
-            if (holder is MainViewHolder)
-                holder.bindTo()
+        if (holder is OverviewViewHolder1)
+            holder.bindData()
+
+        if (holder is TransactionViewHolder1) {
+            if (position > 0)
+                holder.bindData(transactions[position], transactions[position - 1])
+            else
+                holder.bindData(transactions[position], null)
         }
     }
 

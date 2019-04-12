@@ -154,7 +154,7 @@ class AddCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback 
                 parent =
                     Gson().fromJson(data!!.getStringExtra(C.CATEGORY), CategoryObject::class.java)
                 addCParentT.text = parent!!.cname
-                ImageHandler.setImageInView(lifecycle, addCParentI, parent!!.cicon.iurls!!.url64)
+                ImageHandler.inView(lifecycle, addCParentI, parent!!.cicon.iurls!!.url64)
             }
         }
     }

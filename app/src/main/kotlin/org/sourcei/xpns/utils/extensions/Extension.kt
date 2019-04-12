@@ -27,6 +27,7 @@ import java.io.File
  * @note Created on 2019-01-17 by Saksham
  * @note Updates :
  */
+
 // int color to hex string
 fun Int.toColor(): String {
     return String.format("#%06X", 0xFFFFFF and this)
@@ -57,9 +58,19 @@ fun String.toFileString(): String {
         this
 }
 
-//covert to file type
+// convert to file type
 fun String.toFile(): File {
     return File(this)
+}
+
+//  capitalize word
+fun String.toCapital(): String {
+    val result = StringBuilder(length)
+    val words = split("\\ ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+    for (i in words.indices) {
+        result.append(Character.toUpperCase(words[i][0])).append(words[i].substring(1)).append(" ")
+    }
+    return result.toString()
 }
 
 //convert to content uri

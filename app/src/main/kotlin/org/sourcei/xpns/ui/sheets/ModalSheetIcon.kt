@@ -42,7 +42,7 @@ class ModalSheetIcon : RoundedBottomSheet(), View.OnClickListener {
     override fun onResume() {
         super.onResume()
 
-        ImageHandler.setImageInView(lifecycle, sheetIconI, icon.iurls!!.url64)
+        ImageHandler.inView(lifecycle, sheetIconI, icon.iurls!!.url64)
     }
 
     // on click

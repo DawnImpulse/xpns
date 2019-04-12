@@ -160,7 +160,7 @@ class ViewTransactionActivity : AppCompatActivity(), View.OnClickListener, Callb
                 category = Gson().fromJson(data!!.getStringExtra(C.CATEGORY), CategoryObject::class.java)
                 viewTCatName.text = category.cname
                 setColor(Color.parseColor(category.ccolor))
-                ImageHandler.setImageInView(lifecycle, viewTCatIcon, category.cicon.iurls!!.url64)
+                ImageHandler.inView(lifecycle, viewTCatIcon, category.cicon.iurls!!.url64)
             }
         }
     }
@@ -211,7 +211,7 @@ class ViewTransactionActivity : AppCompatActivity(), View.OnClickListener, Callb
         viewTNote.text = viewTransaction.obj.tnote
         viewTDate.text = DateHandler.viewableFromObject(viewTransaction.obj.tdate)
         viewTTime.text = DateHandler.viewableTimeFromObject(viewTransaction.obj.tdate)
-        ImageHandler.setIconInView(lifecycle, viewTCatIcon, viewTransaction.cat.cicon.iurls!!.url64)
+        ImageHandler.iconInView(lifecycle, viewTCatIcon, viewTransaction.cat.cicon.iurls!!.url64)
     }
 
     // set color

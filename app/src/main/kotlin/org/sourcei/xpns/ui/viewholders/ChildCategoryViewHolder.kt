@@ -46,7 +46,7 @@ class ChildCategoryViewHolder(parent: ViewGroup,
         category?.let {
             val colorL = color.background.current as GradientDrawable
 
-            ImageHandler.setImageInView(lifecycle, image, category.cicon.iurls!!.url64)
+            ImageHandler.inView(lifecycle, image, category.cicon.iurls!!.url64)
             colorL.setColor(Color.parseColor(category.ccolor))
             name.text = category.cname
             layout.setOnClickListener {

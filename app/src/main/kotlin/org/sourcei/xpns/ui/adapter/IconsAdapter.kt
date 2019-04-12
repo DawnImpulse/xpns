@@ -47,7 +47,7 @@ class IconsAdapter(private val lifecycle: Lifecycle, private val icons: List<Ico
 
     // bind view
     override fun onBindViewHolder(holder: IconsViewHolder, position: Int) {
-        ImageHandler.setIconInView(lifecycle, holder.icon, icons[position].iurls!!.url64)
+        ImageHandler.iconInView(lifecycle, holder.icon, icons[position].iurls!!.url64)
         holder.icon.setOnClickListener {
             val intent = Intent()
             intent.putExtra(C.ICON, Gson().toJson(icons[position]))

@@ -63,6 +63,16 @@ object DateHandler {
         return sdfN.format(date)
     }
 
+    // get current month (1-12)
+    fun getCurrentMonthInt(): Int {
+        return Calendar.getInstance().get(Calendar.MONTH) + 1
+    }
+
+    // get current year
+    fun getCurrentYear(): Int {
+        return Calendar.getInstance().get(Calendar.YEAR)
+    }
+
 
     /*// convert util tdate to sql tdate
     fun convertUtilToSql(date: java.util.Date): Date {

@@ -163,7 +163,7 @@ class AddTransaction : AppCompatActivity(), View.OnClickListener, Callback,
                     Gson().fromJson(data!!.getStringExtra(C.CATEGORY), CategoryObject::class.java)
                 addTCatName.text = category!!.cname
                 setColor(Color.parseColor(category!!.ccolor))
-                ImageHandler.setImageInView(lifecycle, addTCatIcon, category!!.cicon.iurls!!.url64)
+                ImageHandler.inView(lifecycle, addTCatIcon, category!!.cicon.iurls!!.url64)
                 enableDone()
             }
         }

@@ -169,7 +169,7 @@ class ViewCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback
                 parent =
                     Gson().fromJson(data!!.getStringExtra(C.CATEGORY), CategoryObject::class.java)
                 viewCParentT.text = parent!!.cname
-                ImageHandler.setImageInView(lifecycle, viewCParentI, parent!!.cicon.iurls!!.url64)
+                ImageHandler.inView(lifecycle, viewCParentI, parent!!.cicon.iurls!!.url64)
             }
         }
     }
@@ -202,14 +202,14 @@ class ViewCategoryActivity : AppCompatActivity(), View.OnClickListener, Callback
 
         viewCName.text = category.cname
         viewCType.text = category.ctype.toUpperCase()
-        ImageHandler.setIconInView(lifecycle, viewCImage, category.cicon.iurls!!.url64)
+        ImageHandler.iconInView(lifecycle, viewCImage, category.cicon.iurls!!.url64)
 
         if (category.cisChild)
             model.getItem(category.cParent!!) {
                 parent = it
                 oParent = it
                 viewCParentT.text = it!!.cname
-                ImageHandler.setIconInView(lifecycle, viewCParentI, category.cicon.iurls!!.url64)
+                ImageHandler.iconInView(lifecycle, viewCParentI, category.cicon.iurls!!.url64)
             }
 
         color = category.ccolor.toColorInt()

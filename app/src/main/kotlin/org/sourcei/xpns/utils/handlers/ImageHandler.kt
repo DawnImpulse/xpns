@@ -35,7 +35,7 @@ object ImageHandler {
      * @param view
      * @param url
      */
-    fun setImageInView(lifecycle: Lifecycle, view: ImageView, url: String) {
+    fun inView(lifecycle: Lifecycle, view: ImageView, url: String) {
         if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
             Glide.with(view.context)
                 .load(url)
@@ -54,28 +54,12 @@ object ImageHandler {
     }
 
     // set icon in view with placeholder
-    fun setIconInView(lifecycle: Lifecycle, view: ImageView, url: String) {
-        if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
-            Glide.with(view.context)
-                .load(url)
-                .placeholder(ContextCompat.getDrawable(view.context, R.drawable.vd_icon_placeholder))
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(view)
-        } else {
-            var once = true
-            lifecycle.addObserver(object : LifecycleObserver {
-                @OnLifecycleEvent(Lifecycle.Event.ON_START)
-                fun onStart() {
-                    if (once)
-                        Glide.with(view.context)
-                            .load(url)
-                            .placeholder(ContextCompat.getDrawable(view.context, R.drawable.vd_icon_placeholder))
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .into(view)
-                    once = false
-                }
-            })
-        }
+    fun iconInView(lifecycle: Lifecycle, view: ImageView, url: String) {
+        Glide.with(view.context)
+            .load(url)
+            .placeholder(ContextCompat.getDrawable(view.context, R.drawable.vd_icon_placeholder))
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .into(view)
     }
 
     /**
