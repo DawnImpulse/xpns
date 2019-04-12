@@ -4,7 +4,7 @@
     package="org.sourcei.xpns">
 
     <application
-        android:name=".utils.App"
+        android:name=".Application"
         android:allowBackup="true"
         android:fullBackupContent="false"
         android:icon="@drawable/vd_wallet"
@@ -15,7 +15,7 @@
 
         <!-- Main Activity -->
         <activity
-            android:name=".activities.MainActivity"
+            android:name="org.sourcei.xpns.ui.activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,32 +26,32 @@
 
         <!-- Add Transaction -->
         <activity
-            android:name=".activities.AddTransaction"
+            android:name="org.sourcei.xpns.ui.activities.AddTransaction"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- Icons List -->
         <activity
-            android:name=".activities.IconsActivity"
+            android:name="org.sourcei.xpns.ui.activities.IconsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- Category list -->
         <activity
-            android:name=".activities.CategoryActivity"
+            android:name="org.sourcei.xpns.ui.activities.CategoryActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- Add category -->
         <activity
-            android:name=".activities.AddCategoryActivity"
+            android:name="org.sourcei.xpns.ui.activities.AddCategoryActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!--View Transaction-->
         <activity
-            android:name=".activities.ViewTransactionActivity"
+            android:name="org.sourcei.xpns.ui.activities.ViewTransactionActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!--View Category-->
         <activity
-            android:name=".activities.ViewCategoryActivity"
+            android:name="org.sourcei.xpns.ui.activities.ViewCategoryActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

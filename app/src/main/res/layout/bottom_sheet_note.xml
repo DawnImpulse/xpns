@@ -16,7 +16,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-    <org.sourcei.xpns.utils.MyEditText
+    <org.sourcei.xpns.utils.views.MyEditText
             android:id="@+id/sheetNoteText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
