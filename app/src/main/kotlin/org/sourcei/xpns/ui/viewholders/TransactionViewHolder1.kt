@@ -45,6 +45,11 @@ class TransactionViewHolder1(
 
         // if last item is present
         // check to see if we need to show transaction under same date
+
+
+        // TODO we can separate date & non date layouts and check on getItemType the following to set
+        // TODO appropriate view
+
         lastItem?.let {
             val last = it.value
 

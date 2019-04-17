@@ -14,9 +14,13 @@
  **/
 package org.sourcei.xpns.utils.events
 
+import org.sourcei.xpns.database.realtime.objects.IconPojo
+import org.sourcei.xpns.database.room.objects.CategoryObject
 import org.sourcei.xpns.database.room.objects.TransactionPojo
+import org.sourcei.xpns.ui.objects.ViewTransactionObject
 import org.sourcei.xpns.utils.C
 import org.sourcei.xpns.utils.extensions.jsonOf
+import org.sourcei.xpns.utils.others.Observe
 
 /**
  * @info - send various cross application events
@@ -29,15 +33,127 @@ import org.sourcei.xpns.utils.extensions.jsonOf
  */
 object Post {
 
+    //---------------------------------
+    //--------- TRANSACTION -----------
+
     // new transaction added
     fun newTransaction(pojo: TransactionPojo) {
         Event.send(
             jsonOf(
                 Pair(C.TYPE, C.NEW_TRANSACTION),
-                Pair(C.TRANSACTION, pojo)
+                Pair(C.TRANSACTION, Observe(pojo))
             )
         )
     }
 
-    // new
+    // get single transaction
+    fun singleTransaction(pojo: ViewTransactionObject) {
+        Event.send(
+            jsonOf(
+                Pair(C.TYPE, C.SINGLE_TRANSACTION),
+                Pair(C.TRANSACTION, Observe(pojo))
+            )
+        )
+    }
+
+    // get multiple transactions
+    fun multipleTransactions(list: List<ViewTransactionObject>) {
+        Event.send(
+            jsonOf(
+                Pair(C.TYPE, C.MULTIPLE_TRANSACTION),
+                Pair(C.TRANSACTIONS, list.map { Observe(it) })
+            )
+        )
+    }
+
+    // edit transaction
+    fun editTransaction(pojo: TransactionPojo) {
+        Event.send(
+            jsonOf(
+                Pair(C.TYPE, C.EDIT_TRANSACTION),
+                Pair(C.TRANSACTION, Observe(pojo))
+            )
+        )
+    }
+
+    // edit transaction
+    fun deleteTransaction(tid: String) {
+        Event.send(
+            jsonOf(
+                Pair(C.TYPE, C.DELETE_TRANSACTION),
+                Pair(C.TRANSACTION, tid)
+            )
+        )
+    }
+
+    //---------------------------------
+    //----------- ICONS ---------------
+
+    // get all icons
+    fun allIcons(error: Any?, icons: List<IconPojo>?) {
+        Event.send(
+            jsonOf(
+                Pair(C.TYPE, C.ICONS),
+                if (error != null)
+                    Pair(C.ERROR, error)
+                else
+                    Pair(C.ICONS, icons!!.map { Observe(it) })
+
+            )
+        )
+    }
+
+
+    //---------------------------------
+    //---------- CATEGORY -------------
+
+    // new category
+    fun newCategory(pojo: CategoryObject) {
+        Event.send(
+            jsonOf(
+                Pair(C.TYPE, C.NEW_CATEGORY),
+                Pair(C.CATEGORY, Observe(pojo))
+            )
+        )
+    }
+
+    // get single category
+    fun singleCategory(pojo: CategoryObject) {
+        Event.send(
+            jsonOf(
+                Pair(C.TYPE, C.SINGLE_CATEGORY),
+                Pair(C.CATEGORY, Observe(pojo))
+            )
+        )
+    }
+
+    // get multiple category
+    fun multipleCategories(list: List<CategoryObject>) {
+        Event.send(
+            jsonOf(
+                Pair(C.TYPE, C.MULTIPLE_CATEGORY),
+                Pair(C.CATEGORIES, list.map { Observe(it) })
+            )
+        )
+    }
+
+    // edit category
+    fun editCategory(pojo: CategoryObject) {
+        Event.send(
+            jsonOf(
+                Pair(C.TYPE, C.EDIT_CATEGORY),
+                Pair(C.CATEGORY, Observe(pojo))
+            )
+        )
+    }
+
+    // delete category
+    fun deleteCategory(cid: String) {
+        Event.send(
+            jsonOf(
+                Pair(C.TYPE, C.DELETE_CATEGORY),
+                Pair(C.CATEGORY, cid)
+            )
+        )
+    }
 }

@@ -33,6 +33,16 @@ object C {
     const val NEW_CATEGORY = "newCategory"
     const val CATEGORY_TYPE = "categoryType"
     const val TRANSACTION = "transaction"
+    const val DELETE_TRANSACTION = "deleteTransaction"
+    const val EDIT_TRANSACTION = "editTransaction"
+    const val MULTIPLE_TRANSACTION = "multipleTransaction"
+    const val SINGLE_TRANSACTION = "singleTransaction"
+    const val ERROR = "error"
+    const val DELETE_CATEGORY = "deleteCategory"
+    const val EDIT_CATEGORY = "editCategory"
+    const val CATEGORIES = "categories"
+    const val MULTIPLE_CATEGORY = "multipleCategory"
+    const val SINGLE_CATEGORY = "singleCategory"
 
     const val DP48 = "48dp"
 

@@ -39,6 +39,8 @@ data class TransactionPojo(
     var tdate: Date, //complete tdate object
     var tnote: String?, //additional tnote or remarks
     var twallet: String = "" //wallet id (null for main wallet)
+
+    // can also add option to save balance at the item of insertion
 )
 
 data class TransactionTotal(

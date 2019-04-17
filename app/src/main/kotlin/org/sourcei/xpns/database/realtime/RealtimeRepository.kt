@@ -19,20 +19,20 @@ object RealtimeRepository {
     /**
      * get latest icons
      */
-    fun getLatestIcons(callback: (Any?, Any?) -> Unit) {
+    fun getLatestIcons(callback: (Any?, List<IconPojo>?) -> Unit) {
         val ref = FirebaseDatabase.getInstance().reference
-                .child(C.ICONS)
-                .child(C.LATEST)
-                .orderByKey()
+            .child(C.ICONS)
+            .child(C.LATEST)
+            .orderByKey()
 
         RealtimeSource.getDataOnce(ref) { e, r ->
-            if(e!=null)
-                callback(e,null)
-            else{
-                var data = ArrayList<IconPojo>()
-                for(snapshot in (r as DataSnapshot).children)
+            if (e != null)
+                callback(e, null)
+            else {
+                val data = ArrayList<IconPojo>()
+                for (snapshot in (r as DataSnapshot).children)
                     data.add(snapshot.getValue(IconPojo::class.java)!!)
-                callback(null,data)
+                callback(null, data)
             }
         }
 

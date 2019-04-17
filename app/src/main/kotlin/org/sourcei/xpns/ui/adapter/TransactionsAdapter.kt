@@ -2,7 +2,6 @@ package org.sourcei.xpns.ui.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.sourcei.xpns.ui.activities.ModularActivity
 import org.sourcei.xpns.ui.objects.ViewTransactionObject
 import org.sourcei.xpns.ui.viewholders.OverviewViewHolder1
 import org.sourcei.xpns.ui.viewholders.TransactionViewHolder1
@@ -27,8 +26,6 @@ class TransactionsAdapter(
 
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    // variables
-    private lateinit var activity: ModularActivity
 
     // get no of items
     override fun getItemCount(): Int {

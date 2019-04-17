@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.activity_icons.*
 import org.sourcei.xpns.R
 import org.sourcei.xpns.ui.adapter.IconsAdapter
-import org.sourcei.xpns.database.room.models.IconsModel
+import org.sourcei.xpns.database.realtime.models.IconsModel
 import org.sourcei.xpns.utils.others.Arrays
 import org.sourcei.xpns.utils.extensions.gone
 import org.sourcei.xpns.utils.extensions.show

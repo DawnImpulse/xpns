@@ -31,6 +31,8 @@ import java.util.*
  */
 open class ModularActivity : AppCompatActivity() {
 
+    val context = this.applicationContext
+
     // overriding method to attach event listener
     public override fun onStart() {
         super.onStart()

@@ -20,7 +20,7 @@ import org.sourcei.xpns.database.realtime.objects.IconPojo
 )
 data class CategoryObject(
     @PrimaryKey(autoGenerate = true)
-    var caid: Int, //auto increment tcid
+    var caid: Int, //auto increment caid
     var cid: String, // uuid
     var cname: String, //cname of the category
     var cisParent: Boolean, //is given category is a parent

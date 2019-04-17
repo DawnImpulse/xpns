@@ -1,21 +1,16 @@
 package org.sourcei.xpns.database.room.models
 
-import android.content.Context
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.sourcei.xpns.database.room.dao.TransactionDao
-import org.sourcei.xpns.ui.objects.ViewTransactionObject
-import org.sourcei.xpns.database.room.objects.TransactionPojo
 import org.sourcei.xpns.database.room.RoomSource
+import org.sourcei.xpns.database.room.dao.TransactionDao
+import org.sourcei.xpns.database.room.objects.TransactionPojo
+import org.sourcei.xpns.ui.activities.ModularActivity
 import org.sourcei.xpns.utils.C
-import org.sourcei.xpns.utils.others.Config
 import org.sourcei.xpns.utils.F
 import org.sourcei.xpns.utils.events.Post
-import org.sourcei.xpns.utils.extensions.runOnUiThread
-import java.util.*
+import org.sourcei.xpns.utils.others.Config
+import org.sourcei.xpns.utils.others.Lifecycle
 
 /**
  *
@@ -27,27 +22,26 @@ import java.util.*
  * Saksham - 2018 09 05 - master - transaction factory model
  * Saksham - 2018 09 12 - master - get balance, expense & saving
  */
-class TransactionModel(private val lifecycle: Lifecycle, private val context: Context) {
+class TransactionModel(private val activity: ModularActivity) {
 
     // dao instance
     private fun dao(): TransactionDao {
         return RoomSource
-            .getInstance(context, Config.DbName)
+            .getInstance(activity.context, Config.DbName)
             .transactionsDao()
     }
 
     // insert a new transaction
     fun insert(pojo: TransactionPojo) {
+
         GlobalScope.launch {
 
-            val value = pojo.apply {
-                tid = UUID.randomUUID().toString()
-            }
+            // insert item
+            dao().insert(pojo)
 
-            dao().insert(value)
-
-            context.runOnUiThread {
-                Post.newTransaction(value)
+            // send event on UI thread (on start)
+            Lifecycle.onStart(activity) {
+                Post.newTransaction(pojo)
             }
 
             // date convert -> DateHandler.fullToDate(date, time)
@@ -57,65 +51,71 @@ class TransactionModel(private val lifecycle: Lifecycle, private val context: Co
     // fetching a single item
     fun getItem(id: String, wallet: String) {
         GlobalScope.launch {
-            val item = dao().getItem(id, wallet)
-            context.runOnUiThread {
 
+            // fetch item
+            val item = dao().getItem(id, wallet)
+
+            // send event on UI thread (on start0
+            Lifecycle.onStart(activity) {
+                Post.singleTransaction(item)
             }
         }
     }
 
     // get all items
-    fun getItems(wallet: String, callback: (List<ViewTransactionObject>) -> Unit) {
+    fun getItems(wallet: String) {
         GlobalScope.launch {
+
+            // fetch items
             val items = dao().getItems(wallet)
-            lifecycle.addObserver(object : LifecycleObserver {
-                var once = true
-                @OnLifecycleEvent(Lifecycle.Event.ON_START)
-                fun onStart() {
-                    if (once) {
-                        once = false
-                        activity.runOnUiThread {
-                            callback(items)
-                        }
-                    }
-                }
-            })
+
+            // send event on UI thread (on start0
+            Lifecycle.onStart(activity) {
+                Post.multipleTransactions(items)
+            }
         }
     }
 
     //update an item
-    fun editItem(transactionPojo: TransactionPojo) {
-        GlobalScope.launch { dao().insert(transactionPojo) }
+    fun editItem(pojo: TransactionPojo) {
+        GlobalScope.launch {
+
+            // edit item
+            dao().insert(pojo)
+
+            // send on UI thread (on start)
+            Lifecycle.onStart(activity) {
+                Post.editTransaction(pojo)
+            }
+        }
     }
 
     //delete an item
-    fun deleteItem(transactionPojo: TransactionPojo) {
-        GlobalScope.launch { dao().deleteItem(transactionPojo) }
-    }
+    fun deleteItem(tid: String) {
+        GlobalScope.launch {
 
-    //delete an item
-    fun deleteItem(id: String) {
-        GlobalScope.launch { dao().deleteItem(id) }
+            // delete by tid
+            dao().deleteItem(tid)
+
+            // send event on UI (on start)
+            Lifecycle.onStart(activity) {
+                Post.deleteTransaction(tid)
+            }
+        }
     }
 
     // get balance
-    fun getBalance(wallet: String, callback: (Double) -> Unit) {
+    fun getBalance(wallet: String) {
         GlobalScope.launch {
+
+            // getting total saving & expense amount
             val saving = dao().getTotal(C.SAVING, wallet)
             val expense = dao().getTotal(C.EXPENSE, wallet)
 
-            lifecycle.addObserver(object : LifecycleObserver {
-                var once = true
-                @OnLifecycleEvent(Lifecycle.Event.ON_START)
-                fun onStart() {
-                    if (once) {
-                        once = false
-                        activity.runOnUiThread {
-                            callback(F.roundOff2Decimal(saving.total - expense.total))
-                        }
-                    }
-                }
-            })
+            // update balance on UI thread (on start)
+            Lifecycle.onStart(activity) {
+                Config.balance.value = F.roundOff2Decimal(saving.total - expense.total)
+            }
         }
     }
 }
